@@ -23,7 +23,8 @@ class Controller_Account extends Controller_Template_Base
       $remember = isset($post['remember']);
         
       // if the form is valid and the username and password matches
-      if ($post->check() && Auth::instance()->login($post['username'], $post['password'], $remember))
+      // if ($post->check() && Auth::instance()->login($post['username'], $post['password'], $remember))
+      if (Auth::instance()->login($post['username'], $post['password'], $remember))
       {
         if(Auth::instance()->logged_in()) {
           // sucessfully loged
@@ -38,6 +39,7 @@ class Controller_Account extends Controller_Template_Base
     }
 
     // display
+
     $this->template->title = 'Ingresar';
     $this->template->content = View::factory('account/login') // application/views/login.php
          ->bind('post', $post)
@@ -70,17 +72,17 @@ class Controller_Account extends Controller_Template_Base
               ->rule('email', 'email')
               ->rule('email', 'email_domain')
               ->rule('username', 'not_empty')
-              ->rule('username', Kohana::$config->load('ko32example.account.create.username.format'))
-              ->rule('username', 'min_length', array(':value', Kohana::$config->load('ko32example.account.create.username.min_length')))
-              ->rule('username', 'max_length', array(':value', Kohana::$config->load('ko32example.account.create.username.max_length')))
+              ->rule('username', Kohana::$config->load('fedeh.account.create.username.format'))
+              ->rule('username', 'min_length', array(':value', Kohana::$config->load('fedeh.account.create.username.min_length')))
+              ->rule('username', 'max_length', array(':value', Kohana::$config->load('fedeh.account.create.username.max_length')))
               ->rule('password', 'not_empty')
-              ->rule('password', 'min_length', array(':value', Kohana::$config->load('ko32example.account.create.password.min_length')))
+              ->rule('password', 'min_length', array(':value', Kohana::$config->load('fedeh.account.create.password.min_length')))
               ->rule('password', array($this, 'pwdneusr'), array(':validation', ':field', 'username'));
                       
       if ($post->check())
       {
         // save
-        $model = ORM::factory('user');
+        $model = ORM::factory('User');
         $model->values(array(
                       'email'     => $post['email'],
                       'username'  => HTML::entities(strip_tags($post['username'])),
@@ -90,8 +92,8 @@ class Controller_Account extends Controller_Template_Base
         {
           $model->save();
                   
-          $model->add('roles', ORM::factory('role')->where('name', '=', 'login')->find());
-          $model->add('roles', ORM::factory('role')->where('name', '=', 'participant')->find());
+          // $model->add('roles', ORM::factory('Role')->where('name', '=', 'login')->find());
+          // $model->add('roles', ORM::factory('Role')->where('name', '=', 'participant')->find());
           // success login
           if (Auth::instance()->login($post['username'], $post['password']))
           {
@@ -251,7 +253,7 @@ class Controller_Account extends Controller_Template_Base
             $post = Validation::factory($_POST)
             ->rule('username', 'not_empty')
             ->rule('password', 'not_empty')
-            ->rule('password', 'min_length', array(':value', Kohana::$config->load('ko32example.account.create.password.min_length')))
+            ->rule('password', 'min_length', array(':value', Kohana::$config->load('fedeh.account.create.password.min_length')))
             ->rule('password', array($this, 'pwdneusr'), array(':validation', ':field', 'username'));
             
             // if the form is valid and the username and password matches

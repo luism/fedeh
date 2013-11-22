@@ -35,6 +35,15 @@
         </div>
       </div>
 
+      <!-- Text input-->
+      <div class="form-group">
+        <label class="col-md-3 control-label" for="email">Correo Electrónico</label>  
+        <div class="col-md-5">
+          <?php echo Form::input('email', $post['email'], array('class' => 'form-control input-md', 'placeholder' => 'E-Mail', 'autofocus', 'required' => '')) ?>
+        <span class="help-block"></span>  
+        </div>
+      </div>
+
       <!-- Password input-->
       <div class="form-group">
         <label class="col-md-3 control-label" for="password">Contraseña</label>
