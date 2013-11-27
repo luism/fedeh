@@ -9,7 +9,7 @@ class Controller_Account extends Controller_Template_Base
 
     // user already logged in, redirect to dashboard
     if (Auth::instance()->logged_in()) {
-      $this->request->redirect('dashboard');
+      $this->redirect('dashboard/index');
     }
         
     // received the POST
@@ -23,12 +23,11 @@ class Controller_Account extends Controller_Template_Base
       $remember = isset($post['remember']);
         
       // if the form is valid and the username and password matches
-      // if ($post->check() && Auth::instance()->login($post['username'], $post['password'], $remember))
-      if (Auth::instance()->login($post['username'], $post['password'], $remember))
+      if ($post->check() && Auth::instance()->login($post['username'], $post['password'], $remember))
       {
-        if(Auth::instance()->logged_in()) {
+        if(Auth_ORM::instance()->logged_in()) {
           // sucessfully loged
-          $this->request->redirect('dashboard');
+          $this->redirect('dashboard');
         }
       } else {
         // wrong username or password (but form is valid)
@@ -92,14 +91,14 @@ class Controller_Account extends Controller_Template_Base
         {
           $model->save();
                   
-          // $model->add('roles', ORM::factory('Role')->where('name', '=', 'login')->find());
-          // $model->add('roles', ORM::factory('Role')->where('name', '=', 'participant')->find());
+          $model->add('roles', ORM::factory('Role')->where('name', '=', 'login')->find());
+          $model->add('roles', ORM::factory('Role')->where('name', '=', 'participant')->find());
           // success login
           if (Auth::instance()->login($post['username'], $post['password']))
           {
             if(Auth::instance()->logged_in('participant')) {
               // sucessfully loged
-              $this->request->redirect('dashboard');
+              $this->redirect('dashboard');
             }
           }
           else
