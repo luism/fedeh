@@ -10,10 +10,9 @@
     <title>Fundación FEDEH</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
-    <link href="/assets/css/navbar-fixed-top.css" rel="stylesheet">
+    <!-- Agregado para menues de mas de un nivel -->
+    <?php foreach ($styles as $file => $type) echo HTML::style($file, array('media' => $type)), PHP_EOL ?>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -39,6 +38,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <?php echo View::factory('profiler/stats') ?>
+    <?php foreach ($scripts as $file) echo HTML::script($file), PHP_EOL ?>
+    <!-- <?php echo View::factory('profiler/stats') ?> -->
   </body>
 </html>

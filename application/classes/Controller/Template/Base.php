@@ -36,6 +36,7 @@ class Controller_Template_Base extends Controller_Template
       // Load $sidebar into the template as a view
       $this->template->menu = View::factory('shared/menu');
       $this->template->footer = View::factory('shared/footer');
+      $this->template->error_messages = View::factory('shared/errors');
 }
   }
    
@@ -50,16 +51,14 @@ class Controller_Template_Base extends Controller_Template
     if ($this->auto_render)
     {
       $styles = array(
-        'assets/css/html5reset-1.6.1.css' => 'screen',
-        'assets/css/generic.css' => 'screen',
-        'http://fonts.googleapis.com/css?family=Andika' => 'screen',
+        URL::base('http').'/assets/css/bootstrap.css' => 'all',
+        URL::base('http').'/assets/css/navbar-fixed-top.css' => 'all',
+        URL::base('http').'/assets/css/third-level-menu.css' => 'all',
       );
 
       $scripts = array(
-        'http://code.jquery.com/jquery.min.js',
-        //'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js',
-        'assets/js/jquery.alphanumeric.min.js',
-        'assets/js/jquery.password.sm.min.js',
+        '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
+        URL::base('http').'/assets/js/bootstrap.min.js',
       );
   
       $this->template->styles = array_merge( $this->template->styles, $styles );
