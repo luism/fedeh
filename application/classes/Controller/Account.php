@@ -3,6 +3,23 @@ class Controller_Account extends Controller_Template_Base
 {
 
   // public $template = 'template/login';
+
+  public function before()
+  {
+      parent::before();
+  }
+
+  public function action_index()
+  {
+    // Creamos una instancia del modelo User
+    $users = ORM::factory('User');
+    // Traemos todos los usuarios
+    $collection = $users->find_all();
+    // Instanciamos la plantilla
+    $this->template->content = View::factory('account/index')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+  }
     
   public function action_login()
   {
@@ -46,26 +63,15 @@ class Controller_Account extends Controller_Template_Base
          ->bind('loginerrors', $loginerrors);
   }
 
-  public function before()
-  {
-      parent::before();
-  }
   
-  // nothing here
-  // public function action_index()
-  // {
-  //   $this->request->redirect('');
-  // }
-    
   // create account
   public function action_create()
   {
 
-    // $this->template = 'template/base';
-    // form post handling
+    // Verificamos que se envie un POST y que no esté vacío
     if (isset($_POST) && Valid::not_empty($_POST)) {
           
-      // validate
+      // Agregamos las validaciones.
       $post = Validation::factory($_POST)
               ->rule('email', 'not_empty')
               ->rule('email', 'email')
@@ -77,34 +83,29 @@ class Controller_Account extends Controller_Template_Base
               ->rule('password', 'not_empty')
               ->rule('password', 'min_length', array(':value', Kohana::$config->load('fedeh.account.create.password.min_length')))
               ->rule('password', array($this, 'pwdneusr'), array(':validation', ':field', 'username'));
-                      
+       
+      // Si pasa las validaciones               
       if ($post->check())
       {
-        // save
+        // Creamos un objeto con los datos.
         $model = ORM::factory('User');
         $model->values(array(
                       'email'     => $post['email'],
                       'username'  => HTML::entities(strip_tags($post['username'])),
                       'password'  => $post['password'],
         ));
+
+        // estructura para el control de Errores
         try
         {
+          // Salvamos
           $model->save();
-                  
+          
+          // Se deben agregar estos roles por defecto.                  
           $model->add('roles', ORM::factory('Role')->where('name', '=', 'login')->find());
           $model->add('roles', ORM::factory('Role')->where('name', '=', 'participant')->find());
-          // success login
-          if (Auth::instance()->login($post['username'], $post['password']))
-          {
-            if(Auth::instance()->logged_in('participant')) {
-              // sucessfully loged
-              $this->redirect('dashboard');
-            }
-          }
-          else
-          {
-            //TODO error
-          }
+
+          $this->redirect('account/index');
         }
         catch (ORM_Validation_Exception $e)
         {
@@ -117,17 +118,14 @@ class Controller_Account extends Controller_Template_Base
       }
     }
           
-    // TODO i18n
-    $this->template->title = 'Create an account';
+    $this->template->title = 'Crear Usuario';
       
-    // display
+    // Mostramos el template.
     $this->template->content = View::factory('account/create')
          ->bind('post', $post)
          ->bind('errors', $errors);
   }
-    
-    
-    
+
   // login - help
   public function action_help()
   {
@@ -135,7 +133,8 @@ class Controller_Account extends Controller_Template_Base
     $this->template->title = 'Help';
     $this->template->content = View::factory('account/help');
   }
-    
+
+
   // login - reset step 1
   public function action_reset()
   {
@@ -224,60 +223,60 @@ class Controller_Account extends Controller_Template_Base
     // login - reset step 2
     public function action_password()
     {
-        // user already logged in, redirect to dashboard
-        if (Auth::instance()->logged_in('participant')) {
-            $this->request->redirect('dashboard');
-        }
+      // user already logged in, redirect to dashboard
+      if (Auth::instance()->logged_in('participant')) {
+        $this->request->redirect('dashboard');
+      }
 
-        // try to match
-        if (isset($_GET['token']) && isset($_GET['email'])) {
-            if ((strlen($_GET['token']) == 32) && Valid::email($_GET['email'])) {
-                // match $_GET with user
-                $user = ORM::factory('user')->where('email', '=', $_GET['email'])->where('reset_token', '=', $_GET['token'])->find();
-                if($user->loaded()) {
-                    $found = 1;
-                } else {
-                    $found = 0;
-                }
-            } else {
-                $this->request->redirect();
+      // try to match
+      if (isset($_GET['token']) && isset($_GET['email'])) {
+        if ((strlen($_GET['token']) == 32) && Valid::email($_GET['email'])) {
+          // match $_GET with user
+          $user = ORM::factory('user')->where('email', '=', $_GET['email'])->where('reset_token', '=', $_GET['token'])->find();
+          if($user->loaded()) {
+            $found = 1;
+          } else {
+            $found = 0;
+          }
+        } else {
+          $this->request->redirect();
+        }
+      } else {
+        $this->request->redirect();
+      }
+
+      // handle post
+      if (isset($_POST) && Valid::not_empty($_POST)) {
+        // validate the login form
+        $post = Validation::factory($_POST)
+        ->rule('username', 'not_empty')
+        ->rule('password', 'not_empty')
+        ->rule('password', 'min_length', array(':value', Kohana::$config->load('fedeh.account.create.password.min_length')))
+        ->rule('password', array($this, 'pwdneusr'), array(':validation', ':field', 'username'));
+          
+        // if the form is valid and the username and password matches
+        if ($post->check()) {
+            // modify the password
+            $user->reset_token = NULL;
+            $user->password = $post['password'];
+            $user->save();
+            // log the user 
+            if(Auth::instance()->login($post['username'], $post['password'])) {
+                Session::instance()->set('success_pwd', 1);
+                $this->request->redirect('dashboard');
             }
         } else {
-            $this->request->redirect();
+            $errors = $post->errors('user');
         }
-        
-        // handle post
-        if (isset($_POST) && Valid::not_empty($_POST)) {
-            // validate the login form
-            $post = Validation::factory($_POST)
-            ->rule('username', 'not_empty')
-            ->rule('password', 'not_empty')
-            ->rule('password', 'min_length', array(':value', Kohana::$config->load('fedeh.account.create.password.min_length')))
-            ->rule('password', array($this, 'pwdneusr'), array(':validation', ':field', 'username'));
-            
-            // if the form is valid and the username and password matches
-            if ($post->check()) {
-                // modify the password
-                $user->reset_token = NULL;
-                $user->password = $post['password'];
-                $user->save();
-                // log the user 
-                if(Auth::instance()->login($post['username'], $post['password'])) {
-                    Session::instance()->set('success_pwd', 1);
-                    $this->request->redirect('dashboard');
-                }
-            } else {
-                $errors = $post->errors('user');
-            }
-        }
+      }
         
         // display
         $this->template->title = 'Reset password step 2';
         $this->template->content = View::factory('account/password')
-            ->bind('post', $post)
-            ->bind('errors', $errors)
-            ->bind('found', $found)
-            ->bind('user', $user);
+        ->bind('post', $post)
+        ->bind('errors', $errors)
+        ->bind('found', $found)
+        ->bind('user', $user);
     }
     
     
@@ -285,50 +284,50 @@ class Controller_Account extends Controller_Template_Base
     // call by ajax
     public function action_checkusername()
     {
-        if ($this->request->is_ajax()) {
-            $this->auto_render = FALSE;
+      if ($this->request->is_ajax()) {
+        $this->auto_render = FALSE;
 
-            if(!ORM::factory('user')->unique_key_exists($_POST['username'])) {
-                echo json_encode(array('available' => 1));
-            } else {
-                echo json_encode(array('available' => 0));
-            }
+        if(!ORM::factory('user')->unique_key_exists($_POST['username'])) {
+          echo json_encode(array('available' => 1));
+        } else {
+          echo json_encode(array('available' => 0));
         }
+      }
     }
     
     
     // validation rule: password != username
     static function pwdneusr($validation, $password, $username)
     {
-        if ($validation[$password] === $validation[$username])
-        {
-            $validation->error($password, 'pwdneusr');
-        }
+      if ($validation[$password] === $validation[$username])
+      {
+        $validation->error($password, 'pwdneusr');
+      }
     }
     
     
     //validation rule: password exist
     static function pwdexist($validation, $email)
     {
-        if(!ORM::factory('user')->unique_key_exists($validation[$email])) {
-            $validation->error($email, 'emailexistnot');
-        }
+      if(!ORM::factory('user')->unique_key_exists($validation[$email])) {
+        $validation->error($email, 'emailexistnot');
+      }
     }
     
     
     // generate token
     static function generate_token($length = 8)
     {
-        // start with a blank password
-        $password = "";
-        // define possible characters (does not include l, number relatively likely)
-        $possible = "123456789abcdefghjkmnpqrstuvwxyz123456789";
-        // add random characters to $password until $length is reached
-        for ($i = 0; $i < $length; $i++) {
-            // pick a random character from the possible ones
-            $char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
-            $password .= $char;
-        }
-        return $password;
+      // start with a blank password
+      $password = "";
+      // define possible characters (does not include l, number relatively likely)
+      $possible = "123456789abcdefghjkmnpqrstuvwxyz123456789";
+      // add random characters to $password until $length is reached
+      for ($i = 0; $i < $length; $i++) {
+        // pick a random character from the possible ones
+        $char = substr($possible, mt_rand(0, strlen($possible)-1), 1);
+        $password .= $char;
+      }
+      return $password;
     }
 }

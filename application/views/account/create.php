@@ -1,5 +1,5 @@
-<div class="row">
-  <?php if ($errors) { ?>
+<?php if ($errors) { ?>
+  <div class="row">
     <!-- Mensajes de error -->
     <div class="alert-danger alert alert-dismissable">
       <strong>Hubo un error</strong>
@@ -13,8 +13,8 @@
       </ul>
       </p>
     </div>
-  <?php } ?>    
-</div>
+  </div>
+<?php } ?>    
 
 <!-- Comienza fila -->
 <div class="row">
