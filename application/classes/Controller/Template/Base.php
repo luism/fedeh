@@ -57,7 +57,7 @@ class Controller_Template_Base extends Controller_Template
       );
 
       $scripts = array(
-        '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
+        'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
         URL::base('http').'/assets/js/bootstrap.min.js',
       );
   

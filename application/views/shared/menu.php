@@ -22,7 +22,7 @@
             <li class="dropdown-submenu">
               <a tabindex="-1" href="#">Socios</a>
               <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="#">Nuevo</a></li>
+                <li><a tabindex="-1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Nuevo</a></li>
                 <li><a href="#">Consulta</a></li>
                 <li><a href="#">Listado</a></li>
                 <li class="divider"></li>

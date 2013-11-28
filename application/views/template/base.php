@@ -36,8 +36,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
     <?php foreach ($scripts as $file) echo HTML::script($file), PHP_EOL ?>
     <!-- <?php echo View::factory('profiler/stats') ?> -->
   </body>
