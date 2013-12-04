@@ -21,8 +21,8 @@
         <td><?php echo $usuario->username ?></td>
         <td><?php echo $usuario->email ?></td>
         <td>
-          <a href="#">Editar</a>
-          <a href="#">Borrar</a>
+          <a href="#" class="btn"><i class="icon-edit"></i> <strong>Editar</strong></a>
+          <a href="#" class="btn"><i class="icon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

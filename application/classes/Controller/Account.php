@@ -44,7 +44,7 @@ class Controller_Account extends Controller_Template_Base
       {
         if(Auth_ORM::instance()->logged_in()) {
           // sucessfully loged
-          $this->redirect('dashboard');
+          $this->redirect('dashboard/index');
         }
       } else {
         // wrong username or password (but form is valid)
@@ -75,7 +75,7 @@ class Controller_Account extends Controller_Template_Base
       $post = Validation::factory($_POST)
               ->rule('email', 'not_empty')
               ->rule('email', 'email')
-              ->rule('email', 'email_domain')
+              // ->rule('email', 'email_domain') // Chequea que el dominio sea válido.
               ->rule('username', 'not_empty')
               ->rule('username', Kohana::$config->load('fedeh.account.create.username.format'))
               ->rule('username', 'min_length', array(':value', Kohana::$config->load('fedeh.account.create.username.min_length')))

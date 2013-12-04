@@ -25,6 +25,12 @@
 
     <?php echo $menu; ?>
 
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Library</a></li>
+      <li class="active">Data</li>
+    </ol>
+
     <div class="container">
 
       <?php echo $content; ?>
@@ -37,6 +43,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <?php foreach ($scripts as $file) echo HTML::script($file), PHP_EOL ?>
-    <!-- <?php echo View::factory('profiler/stats') ?> -->
+    <?php echo View::factory('profiler/stats') ?>
   </body>
 </html>

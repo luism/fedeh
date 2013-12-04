@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Template_Base extends Controller_Template
+class Controller_Template_Base extends Controller_Template_Resources
 {
 
   public $template = 'template/base';
@@ -15,17 +15,19 @@ class Controller_Template_Base extends Controller_Template
   {
     parent::before();
 
+    // Chequeamos si está logueado excepto para el controlador Account y el método login.
+    if (!Auth::instance()->logged_in('participant') & $this->request->controller() != 'Account')
+    {
+      $this->redirect('account/login');
+    }
+
     if ($this->auto_render)
     {
       // keep the last url if it's not home/language
       if(Request::current()->action() != 'language') {
         Session::instance()->set('controller', Request::current()->uri());
       }
-      
-      if (Auth::instance()->logged_in('participant'))
-      {
-        $this->template->loged = TRUE;
-      }
+      $this->template->loged = TRUE;
       
       // Initialize empty values
       $this->template->title   = '';
