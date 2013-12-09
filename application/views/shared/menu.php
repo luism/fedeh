@@ -2,12 +2,8 @@
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Fundación FEDEH</a>
+      <a class="navbar-brand" href="#" style="display: none;">Fundación FEDEH</a>
+      <div class="logo" style="background: url('http://www.fundacionfedeh.org.ar/images/logo.png');height: 50px;width: 50px;background-size: auto 36px;background-repeat: no-repeat;background-position: left center;"></div>
     </div>
     
     <!-- Menu desplegables -->
@@ -149,6 +145,12 @@
 
         <li><a href="#">Ayuda</a></li>
       </ul>
+
+      <!-- Salir del sistema -->
+      <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span>Salir</a></li>
+      </ul>
+
     </div><!--/.nav-collapse -->
   </div>
 </div>
