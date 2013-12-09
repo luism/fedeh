@@ -138,8 +138,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="/account/index">Listado</a></li>
-            <li><a href="/account/create">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>account/index">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>account/create">Nuevo</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Roles</li>
             <li><a href="/roles/index">Listado</a></li>
