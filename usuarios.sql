@@ -13,4 +13,4 @@ INSERT INTO `users` (`username`, `email`, `password`) VALUES
 # ser creado es el admin. En caso de que no sea así debe ser el user_id
 # correspondiente al admin.
 INSERT INTO `fedeh`.`roles_users` (`user_id`,`role_id`)
-VALUES (1,1), (1,3);
+VALUES (4,1), (4,3);
