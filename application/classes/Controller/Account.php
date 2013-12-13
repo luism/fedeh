@@ -2,7 +2,7 @@
 class Controller_Account extends Controller_Template_Base
 {
 
-  public $template = 'template/login';
+  //public $template = 'template/login';
 
   public function before()
   {
@@ -55,7 +55,7 @@ class Controller_Account extends Controller_Template_Base
     }
 
     // display
-
+    $this->template = View::factory('template/login');
     $this->template->title = 'Ingresar';
     $this->template->content = View::factory('account/login') // application/views/login.php
          ->bind('post', $post)
