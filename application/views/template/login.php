@@ -10,10 +10,8 @@
     <title>Fundación FEDEH - <? echo $title; ?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
-    <link href="assets/css/signin.css" rel="stylesheet">
+    <?php foreach ($styles as $file => $type) echo HTML::style($file, array('media' => $type)), PHP_EOL ?>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -24,13 +22,10 @@
 
   <body>
 
-
   <?php echo $content; ?>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-
-    <?php echo View::factory('profiler/stats') ?>
   </body>
 </html>

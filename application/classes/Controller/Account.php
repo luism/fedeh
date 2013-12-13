@@ -2,7 +2,7 @@
 class Controller_Account extends Controller_Template_Base
 {
 
-  // public $template = 'template/login';
+  public $template = 'template/login';
 
   public function before()
   {

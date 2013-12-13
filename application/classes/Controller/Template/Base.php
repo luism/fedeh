@@ -52,11 +52,20 @@ class Controller_Template_Base extends Controller_Template_Resources
   {
     if ($this->auto_render)
     {
-      $styles = array(
-        URL::base('http').'/assets/css/bootstrap.css' => 'all',
-        URL::base('http').'/assets/css/navbar-fixed-top.css' => 'all',
-        URL::base('http').'/assets/css/third-level-menu.css' => 'all',
-      );
+      if($this->request->controller() == "Account" && $this->request->action() == 'login')
+      {
+        $styles = array(
+          URL::base('http').'/assets/css/bootstrap.css' => 'all',
+          URL::base('http').'/assets/css/signin.css' => 'all',
+        );
+      } else
+      {
+        $styles = array(
+          URL::base('http').'/assets/css/bootstrap.css' => 'all',
+          URL::base('http').'/assets/css/navbar-fixed-top.css' => 'all',
+          URL::base('http').'/assets/css/third-level-menu.css' => 'all',
+        );
+      }
 
       $scripts = array(
         'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
