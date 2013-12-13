@@ -18,14 +18,14 @@
             <li class="dropdown-submenu">
               <a tabindex="-1" href="#">Socios</a>
               <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Nuevo</a></li>
+                <li><a tabindex="-1" href="<? echo URL::base('http') ?>socios/new"><i class="glyphicon glyphicon-plus-sign"></i> Nuevo</a></li>
                 <li><a href="#">Consulta</a></li>
-                <li><a href="#">Listado</a></li>
+                <li><a href="<? echo URL::base('http') ?>socios/index">Listado</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Fichas</li>
-                <li><a href="#">Descuentos por planilla</a></li>
-                <li><a href="#">Ver fichas disponibles</a></li>
-                <li><a href="#">Ver los movimientos de ficha</a></li>
+                <li><a href="<? echo URL::base('http') ?>">Descuentos por planilla</a></li>
+                <li><a href="<? echo URL::base('http') ?>">Ver fichas disponibles</a></li>
+                <li><a href="<? echo URL::base('http') ?>">Ver los movimientos de ficha</a></li>
               </ul>
             </li>
 
@@ -34,9 +34,9 @@
             <li class="dropdown-submenu">
               <a tabindex="-1" href="#">Judiciales</a>
               <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="#">Nuevo</a></li>
-                <li><a href="#">Consultar</a></li>
-                <li><a href="#">Listado</a></li>
+                <li><a tabindex="-1" href="<? echo URL::base('http') ?>judiciales/index">Nuevo</a></li>
+                <li><a href="<? echo URL::base('http') ?>judiciales">Consultar</a></li>
+                <li><a href="<? echo URL::base('http') ?>">Listado</a></li>
               </ul>
             </li>
 
@@ -45,11 +45,11 @@
             <li class="dropdown-submenu">
               <a tabindex="-1" href="#">Claboradores</a>
               <ul class="dropdown-menu">
-                <li><a tabindex="-1" href="#">Nuevo</a></li>
-                <li><a href="#">Consulta</a></li>
-                <li><a href="#">Listado</a></li>
-                <li><a href="#">Asignar ficha a Colab.</a></li>
-                <li><a href="#">Resumen por Colab.</a></li>
+                <li><a tabindex="-1" href="<? echo URL::base('http') ?>colaboradores/new">Nuevo</a></li>
+                <li><a href="<? echo URL::base('http') ?>colaboradores/consultar">Consulta</a></li>
+                <li><a href="<? echo URL::base('http') ?>colaboradores/index">Listado</a></li>
+                <li><a href="<? echo URL::base('http') ?>colaboradores/asignar">Asignar ficha a Colab.</a></li>
+                <li><a href="<? echo URL::base('http') ?>colaboradores/resumen">Resumen por Colab.</a></li>
               </ul>
             </li>
 
@@ -77,9 +77,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Capacitaciones <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Nuevo</a></li>
-            <li><a href="#">Listado</a></li>
-            <li><a href="#">Inscripción de Asist. a las Capac.</a></li>
+            <li><a href="<? echo URL::base('http') ?>capacitaciones/new">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>capacitaciones/index">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>capacitaciones/inscripcion">Inscripción de Asist. a las Capac.</a></li>
           </ul>
         </li>
         
@@ -87,9 +87,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Eventos <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Nuevo</a></li>
-            <li><a href="#">Ver balance de Evento</a></li>
-            <li><a href="#">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>eventos">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>eventos">Ver balance de Evento</a></li>
+            <li><a href="<? echo URL::base('http') ?>eventos">Listado</a></li>
           </ul>
         </li>
 
@@ -97,8 +97,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notas <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Nuevo</a></li>
-            <li><a href="#">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>notas">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>notas">Listado</a></li>
           </ul>
         </li>
 
@@ -106,8 +106,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cuentas/Cuotas <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Nuevo</a></li>
-            <li><a href="#">Ver balance</a></li>
+            <li><a href="<? echo URL::base('http') ?>cuentas">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>cuentas">Ver balance</a></li>
           </ul>
         </li>
 
@@ -117,18 +117,18 @@
           <ul class="dropdown-menu">
             <li class="divider"></li>
             <li class="dropdown-header">Contactos</li>
-            <li><a href="#">Nuevo</a></li>
-            <li><a href="#">Consulta</a></li>
-            <li><a href="#">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>contactos/nuevo">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>contactos/consulta">Consulta</a></li>
+            <li><a href="<? echo URL::base('http') ?>contactos/listar">Listado</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Empresas</li>
-            <li><a href="#">Nuevo</a></li>
-            <li><a href="#">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>empresas/nuevo">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>empresas/listar">Listado</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Pacientes</li>
-            <li><a href="#">Nuevo</a></li>
-            <li><a href="#">Consulta</a></li>
-            <li><a href="#">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>pacientes/nuevo">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>pacientes/consultar">Consulta</a></li>
+            <li><a href="<? echo URL::base('http') ?>pacientes/listar">Listado</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -138,8 +138,8 @@
             <li><a href="<? echo URL::base('http') ?>account/create">Nuevo</a></li>
             <li class="divider"></li>
             <li class="dropdown-header">Roles</li>
-            <li><a href="/roles/index">Listado</a></li>
-            <li><a href="/roles/create">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>roles/index">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>roles/create">Nuevo</a></li>
           </ul>
         </li>
 
@@ -148,7 +148,7 @@
 
       <!-- Salir del sistema -->
       <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span>Salir</a></li>
+            <li><a href="<? echo URL::base('http') ?>salir"><span class="glyphicon glyphicon-user"></span>Salir</a></li>
       </ul>
 
     </div><!--/.nav-collapse -->
