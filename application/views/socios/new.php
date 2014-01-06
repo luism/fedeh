@@ -1,8 +1,7 @@
 <div class="row">
   <h2 class="">Socio</h2>
 </div>
-<form action="" role="form">
-  <?php echo Form::open(NULL, array('role' => 'form', 'class' => 'form')); ?>
+<?php echo Form::open(, array('role' => 'form', 'class' => 'form')); ?>
   <!-- Comienza fila -->
   <div class="row">
 

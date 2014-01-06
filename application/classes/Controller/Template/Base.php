@@ -27,6 +27,11 @@ class Controller_Template_Base extends Controller_Template_Resources
       if(Request::current()->action() != 'language') {
         Session::instance()->set('controller', Request::current()->uri());
       }
+
+      if($this->is_account_login())
+      {
+        $this->template = View::factory('template/login');        
+      }
       $this->template->loged = TRUE;
       
       // Initialize empty values
@@ -52,7 +57,7 @@ class Controller_Template_Base extends Controller_Template_Resources
   {
     if ($this->auto_render)
     {
-      if($this->request->controller() == "Account" && $this->request->action() == 'login')
+      if($this->is_account_login())
       {
         $styles = array(
           URL::base('http').'/assets/css/bootstrap.css' => 'all',
@@ -76,5 +81,14 @@ class Controller_Template_Base extends Controller_Template_Resources
       $this->template->scripts = array_merge( $this->template->scripts, $scripts );
     }
     parent::after();
+  }
+
+  public function is_account_login()
+  {
+    if($this->request->controller() == "Account" && $this->request->action() == 'login')
+    {
+      return TRUE;
+    }
+    return FALSE;
   }
 }

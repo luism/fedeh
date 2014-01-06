@@ -55,7 +55,7 @@ class Controller_Account extends Controller_Template_Base
     }
 
     // display
-    $this->template = View::factory('template/login');
+    
     $this->template->title = 'Ingresar';
     $this->template->content = View::factory('account/login') // application/views/login.php
          ->bind('post', $post)
@@ -63,6 +63,11 @@ class Controller_Account extends Controller_Template_Base
          ->bind('loginerrors', $loginerrors);
   }
 
+  public function action_logout()
+  {
+    Auth::instance()->logout();
+    $this->redirect('account/login');
+  }
   
   // create account
   public function action_create()

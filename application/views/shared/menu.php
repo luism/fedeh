@@ -148,7 +148,7 @@
 
       <!-- Salir del sistema -->
       <ul class="nav navbar-nav navbar-right">
-            <li><a href="<? echo URL::base('http') ?>salir"><span class="glyphicon glyphicon-user"></span>Salir</a></li>
+            <li><a href="<? echo URL::base('http') ?>account/logout"><span class="glyphicon glyphicon-user"></span>Salir</a></li>
       </ul>
 
     </div><!--/.nav-collapse -->

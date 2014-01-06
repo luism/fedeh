@@ -1,3 +1,6 @@
+<div class="row">
+  <h2 class="">Capacitaciones</h2>
+</div>
 <form action="" role="form">
         <!-- Comienza fila -->
         <div class="row">
