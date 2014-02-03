@@ -7,6 +7,7 @@ class Controller_Socios extends Controller_Template_Base
   {
 
     // Listamos
+    // Agrego un comentario
 
     $socios = ORM::factory('Socio');
     $collection = $roles->find_all();
