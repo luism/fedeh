@@ -20,16 +20,13 @@ class Model_Nota extends ORM {
                 array('max_length', array(':value', 45)),
             ),
             'expte_generado' => array(
-                array(''),
                 array('max_length', array(':value', 45)),
                 
             ),
             'entidad_expte' => array(
-                array(''),
                 array('max_length', array(':value', 45)),
             ),
             'fecha_expte' => array(
-                array(''),
                 array('date'),
             ),
         );
