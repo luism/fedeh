@@ -9,33 +9,28 @@ class Model_Nota extends ORM {
             // Aca van los atributos que coniciden con los de la tabla EXACTO y siempre en minusculas
             'motivo' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('max_length', array(':value', 45)),
             ),
             'fecha_nota' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('date'),
             ),
             'dirigida_a' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('max_length', array(':value', 45)),
             ),
             'expte_generado' => array(
-                array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 127)),
-                array('email'),
+                array(''),
+                array('max_length', array(':value', 45)),
+                
             ),
             'entidad_expte' => array(
-                array('not_empty')
+                array(''),
+                array('max_length', array(':value', 45)),
             ),
             'fecha_expte' => array(
-                array('not_empty')
+                array(''),
+                array('date'),
             ),
         );
     }
