@@ -29,6 +29,7 @@ class Model_Evento extends ORM {
             ),
             'ingresos' => array(
                 array('not_empty')
+                //ver como validar float
             ),
             'gastos_decoracion' => array(
                 array('not_empty')

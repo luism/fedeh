@@ -9,36 +9,31 @@ class Model_Persona extends ORM {
             // Aca van los atributos que coniciden con los de la tabla EXACTO y siempre en minusculas
             'nombre' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('max_length', array(':value', 45)),
             ),
             'apellido' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('max_length', array(':value', 45)),
             ),
             'domicilio_personal' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('max_length', array(':value', 45)),
             ),
             'email' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 127)),
-                array('email'),
+                array('max_length', array(':value', 45)),
+                //array('email'),
             ),
             'telefono' => array(
                 array('not_empty')
+                array('max_length', array(':value', 45)),
             ),
             'donante' => array(
-                array('not_empty')
+                //ver como validar
+                // array('digit'),
             ),
             'grupo_sanguineo' => array(
-                array('not_empty')
+                array('max_length', array(':value', 45)),
             ),
         );
     }
