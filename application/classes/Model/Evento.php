@@ -9,30 +9,23 @@ class Model_Evento extends ORM {
             // Aca van los atributos que coniciden con los de la tabla EXACTO y siempre en minusculas
             'nombre' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('max_length', array(':value', 45)),
             ),
-            'fecha' => array(
+            'fecha_' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                array('date'),
             ),
             'hora' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 32)),
-                // array('regex', array(':value', '/^[-\pL\pN_.]++$/uD')),
+                //array('date_time_set()'),
             ),
             'lugar' => array(
                 array('not_empty'),
-                // array('min_length', array(':value', 4)),
-                // array('max_length', array(':value', 127)),
-                array('email'),
+                array('max_length', array(':value', 45)),
             ),
             'descripcion' => array(
-                array('not_empty')
+                array('not_empty'),
+                array('max_length', array(':value', 45)),
             ),
             'ingresos' => array(
                 array('not_empty')
