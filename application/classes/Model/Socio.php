@@ -1,7 +1,8 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 class Model_Socio extends Model_Persona {
-  public function rules(){
+  public function rules()
+  {
     $rules = parent::rules();
 
     // Atributos espeicificos de socio
@@ -14,8 +15,7 @@ class Model_Socio extends Model_Persona {
         array('not_empty'),
         array('max_length', array(':value', 45)),
       ),
-      'domicilio' => array(
-        array('not_empty'),
+      'domicilio_laboral' => array(
         array('max_length', array(':value', 45)),
       ),
       'fecha_nacimiento' => array(
@@ -31,6 +31,7 @@ class Model_Socio extends Model_Persona {
         // array('digit'),
       ),
     );
-    return array_merge($rules, $socios_rules);
+    $rules = array_merge($rules, $socios_rules);
+    return $rules;
   }
 }

@@ -25,7 +25,7 @@ class Model_Persona extends ORM {
                 //array('email'),
             ),
             'telefono' => array(
-                array('not_empty')
+                array('not_empty'),
                 array('max_length', array(':value', 45)),
             ),
             'donante' => array(
