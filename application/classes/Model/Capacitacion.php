@@ -27,7 +27,7 @@ class Model_Capacitacion extends ORM {
                 //array('date_time_set()'),
             ),
             'lugar' => array(
-                array('not_empty')
+                array('not_empty'),
                 array('max_length', array(':value', 100)),
             ),
         );
