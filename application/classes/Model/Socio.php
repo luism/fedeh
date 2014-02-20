@@ -1,12 +1,11 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class Model_Socio extends Model_Persona {
+class Model_Socio extends ORM {
+  protected $_belongs_to = array('persona' => array('foreign_key' => 'personas_id'));
   public function rules()
   {
-    $rules = parent::rules();
-
     // Atributos espeicificos de socio
-    $socios_rules = array(
+    return array(
       'tipo_documento' => array(
         array('not_empty'),
         array('max_length', array(':value', 45)),
@@ -31,7 +30,5 @@ class Model_Socio extends Model_Persona {
         // array('digit'),
       ),
     );
-    $rules = array_merge($rules, $socios_rules);
-    return $rules;
   }
 }

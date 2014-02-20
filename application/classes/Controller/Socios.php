@@ -13,7 +13,7 @@ class Controller_Socios extends Controller_Template_Base
   {
 
     // Listamos
-    $socios = ORM::factory('Socio');
+    $socios = ORM::factory('Persona');
     $collection = $socios->find_all();
     $this->template->content = View::factory('socios/index')
     // Pasamos la variable collection con todos los registros traidos
@@ -41,15 +41,20 @@ class Controller_Socios extends Controller_Template_Base
               ->rule('fecha_nacimiento','not_empty')
               ->rule('tipo_aporte','not_empty');
       if ($post->check()) {
-        // Instanciamos un socio
-        $socio = ORM::factory('Socio');
-        // Agregamos los datos al modelo instanciado
-        $socio->values(array(
+        // Instanciamos una persona
+        $persona = ORM::factory('Persona');
+        $persona->values(array(
             'nombre' => $post['nombre'],
             'apellido' => $post['apellido'],
             'domicilio_personal'=>$post['domicilio_personal'],
             'email'=>$post['email'],
             'telefono'=>$post['telefono'],
+          )
+        );
+        // Instanciamos un socio
+        $socio = ORM::factory('Socio');
+        // Agregamos los datos al modelo instanciado
+        $socio->values(array(
             'tipo_documento' => $post['tipo_documento'],
             'nro_documento' => $post['nro_documento'],
             'domicilio_laboral' => $post['domicilio_laboral'],
@@ -58,22 +63,23 @@ class Controller_Socios extends Controller_Template_Base
             'descuento_planilla' => $post['descuento_planilla'],
           )
         );
-        echo "<pre>";
-        print_r($socio);
-        echo "</pre>";
-        try{
-          $socio->save();
-          // ver a donde redireccionamos
-          $this->redirect('socios/index');
-        }
-        catch (ORM_Validation_Exception $e){
-          echo "post check no pasa";
-          $errors = $e->errors('socio');
+        try {
+          $persona->save();
+          try{
+            $socio->values(array('personas_id' => $persona->id));
+            $socio->save();
+            // ver a donde redireccionamos
+            $this->redirect('socios/index');
+          }
+          catch (ORM_Validation_Exception $e){
+            $errors = $e->errors('socio');
+          }          
+        } catch (ORM_Validation_Exception $e) {
+          $errors = $e->errors('persona');          
         }
       }
       else
       {
-        echo "post check no pasa";
         $errors = $post->errors('socio');
       }
     }
