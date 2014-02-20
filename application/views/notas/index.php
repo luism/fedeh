@@ -19,7 +19,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($collection as $notas) { ?>
+      <?php foreach ($collection as $nota) { ?>
       <tr>
         <td><?php echo $nota->id ?></td>
         <td><?php echo $nota->motivo ?></td>

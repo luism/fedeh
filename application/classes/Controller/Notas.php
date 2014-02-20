@@ -23,16 +23,7 @@ class Controller_Notas extends Controller_Template_Base
 
   public function action_new()
   {
-    // Mostramos formulario para nueva nota
-    $this->template->content = View::factory('notas/new');
-
-  }
-
-  public function action_create()
-  {
-    // Creamos y guardamos la nota
-
-    // Primero verificar que mando datos:
+  
     if (isset($_POST) && Valid::not_empty($_POST)) {
 
       // Factory es un patron de diseño, tener en cuenta.
@@ -42,7 +33,7 @@ class Controller_Notas extends Controller_Template_Base
               ->rule('dirigida_a','not_empty');
 
       if ($post->check()) {
-        // Instanciamos un socio
+        // Instanciamos una nota
         $nota = ORM::factory('Nota');
         // Agregamos los datos al modelo instanciado
         $nota->values(array(
@@ -62,16 +53,18 @@ class Controller_Notas extends Controller_Template_Base
           $this->redirect('notas/index');
         }
         catch (ORM_Validation_Exception $e){
-          $errors = $post->errors('nota');
+          $errors = $e->errors('nota');
         }
       }
     }
 
     // redireccionar al fomrulario si da error
-    $session->set('nota',$nota);
-    $session->set('errors',$errors);
-    $this->redirect('notas/new');
-
+    //$session->set('nota',$nota);
+    //$session->set('errors',$errors);
+    //$this->redirect('notas/new');
+    $this->template->content = View::factory('notas/new')
+         ->bind('post', $post)
+         ->bind('errors', $errors);
   }
 
   public function update()
