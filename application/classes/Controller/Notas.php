@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Socios extends Controller_Template_Base
+class Controller_Notas extends Controller_Template_Base
 {
 
   
@@ -62,7 +62,7 @@ class Controller_Socios extends Controller_Template_Base
           $this->redirect('notas/index');
         }
         catch (ORM_Validation_Exception $e){
-          $errors = $post->errors('Nota');
+          $errors = $post->errors('nota');
         }
       }
     }

@@ -45,12 +45,12 @@
               <input type="text" placeholder="dd/mm/aaaa" id="fecha_expediente" class="form-control">
             </div>
           </div>
-          <div class="col-md-2">
+          <!--<div class="col-md-2">
             <div class="form-group">
               <label for="hora_expediente">Hora</label>
               <input type="text" placeholder="hh:mm" id="hora_expediente" class="form-control">
             </div>
-          </div>
+          </div>-->
         </div><!-- Fin de fila -->
 
       </form><!-- Fin de Formulario -->
