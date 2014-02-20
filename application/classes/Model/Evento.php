@@ -28,32 +28,31 @@ class Model_Evento extends ORM {
                 array('max_length', array(':value', 45)),
             ),
             'ingresos' => array(
-                array('not_empty')
-                //ver como validar float
+                //array('not_empty')
             ),
             'gastos_decoracion' => array(
-                array('not_empty')
+                //array('not_empty')
             ),
             'gastos_imprenta' => array(
-                array('not_empty')
+                //array('not_empty')
             ),
             'gastos_movilidad' => array(
-                array('not_empty')
+                //array('not_empty')
             ),
             'gastos_permisos' => array(
-                array('not_empty')
+                //array('not_empty')
             ),
             'gastos_servicios' => array(
-                array('not_empty')
+                //array('not_empty')
             ),
             'gastos_tecnica' => array(
-                array('not_empty')
+                //array('not_empty')
             ),
             'gastos_varios' => array(
-                array('not_empty')
+                //array('not_empty')
             ),
-            'gastos_total' => array(
-                array('not_empty')
+            'gasto_total' => array(
+                //array('not_empty')
             ),
         );
     }

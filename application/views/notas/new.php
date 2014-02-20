@@ -27,9 +27,7 @@
     <!-- Form Name -->
     <legend>Nuevo</legend>
 
-        <!-- Comienza fila -->
-      <!--  <div class="row">-->
-          <div class="col-md-4">
+         <div class="col-md-4">
             <div class="form-group">
               <label for="motivo">Motivo</label>
               <?php echo Form::input('motivo', $post['motivo'], array('class' => 'form-control', 'placeholder' => 'Motivo', 'autofocus', 'required' => '')) ?>
