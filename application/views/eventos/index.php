@@ -27,8 +27,8 @@
         <td><?php echo $evento->fecha_ ?></td>
         <td><?php echo $evento->hora ?></td>
         <td><?php echo $evento->lugar ?></td>
-        <td><?php echo $evento->Descripcion ?></td>
-        <td><?php echo $evento->Ingresos ?></td>
+        <td><?php echo $evento->descripcion ?></td>
+        <td><?php echo $evento->ingresos ?></td>
         <!--<td><?php //echo $evento->gasto_total ?></td>-->
         <td>
           <a href="#" class="btn"><i class="icon-edit"></i> <strong>Editar</strong></a>
