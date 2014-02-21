@@ -15,7 +15,7 @@
         <th>Lugar</th>
         <th>Descripcion</th>
         <th>Ingresos</th>
-        <th>Gastos total</th>
+        <!--<th>Gastos total</th>-->
         <th></th>
       </tr>
     </thead>
@@ -29,7 +29,7 @@
         <td><?php echo $evento->lugar ?></td>
         <td><?php echo $evento->Descripcion ?></td>
         <td><?php echo $evento->Ingresos ?></td>
-        <!--<td><?php echo $evento->gasto_total ?></td>-->
+        <!--<td><?php //echo $evento->gasto_total ?></td>-->
         <td>
           <a href="#" class="btn"><i class="icon-edit"></i> <strong>Editar</strong></a>
           <a href="#" class="btn"><i class="icon-trash"></i> <strong>Borrar</strong></a>

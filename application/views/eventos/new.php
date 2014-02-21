@@ -121,6 +121,7 @@
               <?php echo Form::input('ingresos', $post['ingresos'], array('class' => 'form-control', 'placeholder' => 'Ingresos del evento', 'autofocus')) ?>
             </div>
           </div>
+         </div> 
 <!-- Button (Double) -->
         <div class="col-md-12">
           <div class="form-group">
@@ -131,6 +132,6 @@
           </div>
         </div>
     </div><!-- Fin de fila -->
-
+    <br>
      </fieldset>
 <?php echo Form::close(); ?><!-- Fin de Formulario -->

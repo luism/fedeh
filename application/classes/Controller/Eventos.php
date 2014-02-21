@@ -32,7 +32,7 @@ class Controller_Eventos extends Controller_Template_Base
               ->rule('fecha_','not_empty')
               ->rule('hora','not_empty')
               ->rule('lugar','not_empty')
-              ->rule('descripcion','not_empty')
+              ->rule('descripcion','not_empty');
               //->rule('gasto_total','gasto_total=gastos_decoracion+gastos_imprenta+gastos_movilidad+gastos_permisos+gastos_servicios+gastos_tecnica+gastos_varios');
 
       if ($post->check()) {
