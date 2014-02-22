@@ -1,11 +1,11 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 class Model_Judicial extends Model_Persona {
-  public function rules(){
-    $rules = parent::rules();
-
-    // Atributos espeicificos de socio
-    $judiciales_rules = array(
+  protected $_belongs_to = array('persona' => array('foreign_key' => 'personas_id'));
+  public function rules()
+  {
+    // Atributos espeicificos de judicial
+    return = array(
       'numero_oficio' => array(
         array('not_empty'),
         //como valido int
@@ -25,7 +25,9 @@ class Model_Judicial extends Model_Persona {
       'cantidad_cuotas' => array(
         array('not_empty'),
       ),
+      'monto_cuotas' => array(
+        array('not_empty'),
+      ),
     );
-    return array_merge($rules, $judiciales_rules);
   }
 }
