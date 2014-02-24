@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Judiciales extends Controller_Template_Base
+class Controller_Pacientes extends Controller_Template_Base
 {
 
   public function before(){
@@ -13,21 +13,21 @@ class Controller_Judiciales extends Controller_Template_Base
   {
 
     // Listamos
-    $judiciales = ORM::factory('Persona');
-    $collection = $judiciales->find_all();
-    $this->template->content = View::factory('judiciales/index')
+    $pacientes = ORM::factory('Persona');
+    $collection = $pacientes->find_all();
+    $this->template->content = View::factory('pacientes/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Judiciales</li>
+      <li class=\"active\">Pacientes</li>
     </ol>";
   }
 
   public function action_new()
   {
-    // Creamos y guardamos el socio, pero primero verificar que mando datos:
+    // Creamos y guardamos el paciente, pero primero verificar que mando datos:
     if (isset($_POST) && Valid::not_empty($_POST)) {
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
@@ -36,8 +36,8 @@ class Controller_Judiciales extends Controller_Template_Base
               ->rule('domicilio_personal','not_empty')
               ->rule('email','not_empty')
               ->rule('telefono','not_empty')
-              
-        if ($post->check()) {
+              ->rule('estado','not_empty');
+      if ($post->check()) {
         // Instanciamos una persona
         $persona = ORM::factory('Persona');
         $persona->values(array(
@@ -46,32 +46,26 @@ class Controller_Judiciales extends Controller_Template_Base
             'domicilio_personal'=>$post['domicilio_personal'],
             'email'=>$post['email'],
             'telefono'=>$post['telefono'],
-            'donante'=>$post['donante'],
-            'grupo_sanguineo'=>$post['grupo_sanguineo'],
-            )
-        );
-        // Instanciamos un socio
-        $judicial = ORM::factory('Judicial');
-        // Agregamos los datos al modelo instanciado
-        $judicial->values(array(
-            'numero_oficio' => $post['numero_oficio'],
-            'fecha_oficio' => $post['fecha_oficio'],
-            'causa' => $post['causa'],
-            'juzgado' => $post['juzgado'],
-            'cantidad_cuotas' => $post['cantidad_cuotas'],
-            'monto_cuotas' => $post['monto_cuotas'],
+            'grupo_sanguineo'=>['grupo_sanguineo'],
           )
+        );
+        // Instanciamos un paciente
+        $paciente = ORM::factory('Paciente');
+        // Agregamos los datos al modelo instanciado
+        $paciente->values(array(
+            'estado' => $post['estado'],
+            )
         );
         try {
           $persona->save();
           try{
-            $judicial->values(array('personas_id' => $persona->id));
-            $judicial->save();
+            $paciente->values(array('personas_id' => $persona->id));
+            $paciente->save();
             // ver a donde redireccionamos
-            $this->redirect('judiciales/index');
+            $this->redirect('pacientes/index');
           }
           catch (ORM_Validation_Exception $e){
-            $errors = $e->errors('judicial');
+            $errors = $e->errors('paciente');
           }          
         } catch (ORM_Validation_Exception $e) {
           $errors = $e->errors('persona');          
@@ -79,14 +73,16 @@ class Controller_Judiciales extends Controller_Template_Base
       }
       else
       {
-        $errors = $post->errors('judicial');
+        $errors = $post->errors('paciente');
       }
     }
 
-    // Mostramos formulario para nuevo rol
-    $this->template->content = View::factory('judiciales/new')
+    // Listado de estados de pacientes
+    $estado = array('activo' => 'Activo','no_activo' => 'No activo','en_tratamiento' => 'En tratamiento',);
+    // entratamien formulario para nuevo rol
+    $this->template->content = View::factory('pacientes/new')
          ->bind('post', $post)
-         //->bind('tipos_aportes', $tipos_aportes)
+         ->bind('estado', $estado)
          ->bind('errors', $errors);
   }
 
