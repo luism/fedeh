@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($collection as $socio) { ?>
+      <?php foreach ($collection as $paciente) { ?>
       <tr>
         <td><?php echo $paciente->id ?></td>
         <td><?php echo $paciente->nombre ?></td>

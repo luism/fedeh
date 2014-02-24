@@ -80,7 +80,7 @@
           <div class="col-md-2">
              <div class="form-group">
               <label for="grupo_sanguineo">Grupo Sanguíneo</label>
-              <?php echo Form::input('grupo_sanguineo', $post['grupo_sanguineo'], array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus', 'required' => '')) ?>
+              <?php echo Form::input('grupo_sanguineo', $post['grupo_sanguineo'], array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus')) ?>
              </div>
           </div>
         </div><!-- Fin de fila -->  

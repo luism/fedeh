@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Judiciales extends Controller_Template_Base
+class Controller_Contactos extends Controller_Template_Base
 {
 
   public function before(){
@@ -13,21 +13,21 @@ class Controller_Judiciales extends Controller_Template_Base
   {
 
     // Listamos
-    $judiciales = ORM::factory('Persona');
-    $collection = $judiciales->find_all();
-    $this->template->content = View::factory('judiciales/index')
+    $contactos = ORM::factory('Persona');
+    $collection = $contactos->find_all();
+    $this->template->content = View::factory('contactos/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Judiciales</li>
+      <li class=\"active\">Contactos</li>
     </ol>";
   }
 
   public function action_new()
   {
-    // Creamos y guardamos el socio, pero primero verificar que mando datos:
+    // Creamos y guardamos el paciente, pero primero verificar que mando datos:
     if (isset($_POST) && Valid::not_empty($_POST)) {
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
@@ -35,9 +35,9 @@ class Controller_Judiciales extends Controller_Template_Base
               ->rule('apellido','not_empty')
               ->rule('domicilio_personal','not_empty')
               ->rule('email','not_empty')
-              ->rule('telefono','not_empty');
-              
-        if ($post->check()) {
+              ->rule('telefono','not_empty')
+              ->rule('profesion','not_empty');
+      if ($post->check()) {
         // Instanciamos una persona
         $persona = ORM::factory('Persona');
         $persona->values(array(
@@ -47,31 +47,27 @@ class Controller_Judiciales extends Controller_Template_Base
             'email'=>$post['email'],
             'telefono'=>$post['telefono'],
             'donante'=>$post['donante'],
-            'grupo_sanguineo'=>$post['grupo_sanguineo'],
-            )
-        );
-        // Instanciamos un socio
-        $judicial = ORM::factory('Judicial');
-        // Agregamos los datos al modelo instanciado
-        $judicial->values(array(
-            'numero_oficio' => $post['numero_oficio'],
-            'fecha_oficio' => $post['fecha_oficio'],
-            'causa' => $post['causa'],
-            'juzgado' => $post['juzgado'],
-            'cantidad_cuotas' => $post['cantidad_cuotas'],
-            'monto_cuotas' => $post['monto_cuotas'],
+            'grupo_sanguineo'=>['grupo_sanguineo'],
           )
+        );
+        // Instanciamos un paciente
+        $contacto = ORM::factory('Contacto');
+        // Agregamos los datos al modelo instanciado
+        $contacto->values(array(
+            'domicilio_laboral' => $post['domicilio_laboral'],
+            'profesion' => $post['profesion'],
+            )
         );
         try {
           $persona->save();
           try{
-            $judicial->values(array('personas_id' => $persona->id));
-            $judicial->save();
+            $contacto->values(array('personas_id' => $persona->id));
+            $contacto->save();
             // ver a donde redireccionamos
-            $this->redirect('judiciales/index');
+            $this->redirect('contactos/index');
           }
           catch (ORM_Validation_Exception $e){
-            $errors = $e->errors('judicial');
+            $errors = $e->errors('contacto');
           }          
         } catch (ORM_Validation_Exception $e) {
           $errors = $e->errors('persona');          
@@ -79,14 +75,13 @@ class Controller_Judiciales extends Controller_Template_Base
       }
       else
       {
-        $errors = $post->errors('judicial');
+        $errors = $post->errors('contacto');
       }
     }
 
-    // Mostramos formulario para nuevo rol
-    $this->template->content = View::factory('judiciales/new')
+    // entratamien formulario para nuevo contacto
+    $this->template->content = View::factory('contactos/new')
          ->bind('post', $post)
-         //->bind('tipos_aportes', $tipos_aportes)
          ->bind('errors', $errors);
   }
 
