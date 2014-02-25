@@ -1,11 +1,11 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 class Model_Colaborador extends Model_Persona {
-  public function rules(){
-    $rules = parent::rules();
-
+  protected $_belongs_to = array('persona' => array('foreign_key' => 'personas_id'));
+  public function rules()
+  {
     // Atributos espeicificos de socio
-    $colaboradores_rules = array(
+    return array(
       'fecha_nacimiento' => array(
         array('not_empty'),
         array('date'),
@@ -19,6 +19,5 @@ class Model_Colaborador extends Model_Persona {
         array('max_length', array(':value', 45)),
       ),
     );
-    return array_merge($rules, $colaboradores_rules);
   }
 }
