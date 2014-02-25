@@ -6,6 +6,8 @@ class Model_Persona extends ORM {
     //protected $_has_one = array('judicial' => array('foreign_key' => 'personas_id'));
     //protected $_has_one = array('paciente' => array('foreign_key' => 'pacientes_id'));
     //protected $_has_one = array('contacto' => array('foreign_key' => 'contactos_id'));
+    //protected $_has_one = array('colaborador' => array('foreign_key' => 'contactos_id'));
+    //protected $_has_one = array('empresa' => array('foreign_key' => 'contactos_id'));
     public function rules()
     {
         return array(
