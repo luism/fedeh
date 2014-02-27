@@ -43,7 +43,7 @@
             <!-- SUBMENU: Colaboradores -->
             <li class="divider"></li>
             <li class="dropdown-submenu">
-              <a tabindex="-1" href="#">Claboradores</a>
+              <a tabindex="-1" href="#">Colaboradores</a>
               <ul class="dropdown-menu">
                 <li><a tabindex="-1" href="<? echo URL::base('http') ?>colaboradores/new">Nuevo</a></li>
                 <li><a href="<? echo URL::base('http') ?>colaboradores/consultar">Consulta</a></li>
