@@ -45,7 +45,6 @@ class Controller_Capacitaciones extends Controller_Template_Base
             'cupos' => $post['cupos'],
             'fecha_capacitacion' => $post['fecha_capacitacion'],
             'hora' => $post['hora'],
-            'ingresos' => $post['ingresos'],
             'lugar' => $post['lugar'],
                       
           )

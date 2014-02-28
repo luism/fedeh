@@ -2,6 +2,12 @@
 
 // EL nombre del modelo debe conicidir con la tabla pero en singular 
 class Model_Capacitacion extends ORM {
+
+    # Sobreescribimos el nombre de la tabla para que no de error al mapear, ya que mapea en ingles
+    # incorrecto       |  correcto
+    # =================|===============
+    # capaciontacions  | capacitaciones
+    protected $_table_name = 'capacitaciones';
  
     public function rules()
     {
