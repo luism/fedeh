@@ -16,7 +16,7 @@
 
             <!-- SUBMENU: Socios -->
             <li class="dropdown-submenu">
-              <a tabindex="-1" href="#">Socios</a>
+              <a tabindex="-1" href="<? echo URL::base('http') ?>socios/index">Socios</a>
               <ul class="dropdown-menu">
                 <li><a tabindex="-1" href="<? echo URL::base('http') ?>socios/new"><i class="glyphicon glyphicon-plus-sign"></i> Nuevo</a></li>
                 <li><a href="#">Consulta</a></li>
@@ -97,8 +97,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notas <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<? echo URL::base('http') ?>notas">Nuevo</a></li>
-            <li><a href="<? echo URL::base('http') ?>notas">Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>notas/new">Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>notas/index">Listado</a></li>
           </ul>
         </li>
 
