@@ -31,7 +31,6 @@
             <div class="form-group">
               <label for="motivo">Motivo</label>
               <?php echo Form::input('motivo', $post['motivo'], array('class' => 'form-control', 'placeholder' => 'Motivo', 'autofocus', 'required' => '')) ?>
-              <!--<input type="text" placeholder="Motivo" id="motivo" class="form-control">-->
             </div>
           </div>
           <div class="col-md-4">
@@ -45,7 +44,6 @@
             <div class="form-group">
               <label for="fecha_nota">Fecha de la nota</label>
               <?php echo Form::input('fecha_nota', $post['fecha_nota'], array('class' => 'form-control', 'placeholder' => 'Fecha de la nota', 'autofocus', 'required' => '')) ?>
-              <!--<input type="text" placeholder="dd/mm/aaaa" id="fecha_nota" class="form-control">-->
             </div>
           </div>
          </div><!-- Fin de fila -->
@@ -56,14 +54,12 @@
             <div class="form-group">
               <label for="expte_generado">N° de expediente generado</label>
               <?php echo Form::input('expte_generado', $post['expte_generado'], array('class' => 'form-control', 'placeholder' => 'N° de expdiente generado', 'autofocus')) ?>
-              <!--<input type="text" placeholder="Expte. generado" id="expediente_generado" class="form-control">-->
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label for="entidad_expte">Entidad donde se generó el expediente</label>
               <?php echo Form::input('entidad_expte', $post['entidad_expte'], array('class' => 'form-control', 'placeholder' => 'Entidad del expediente', 'autofocus')) ?>
-              <!--<input type="text" placeholder="Entidad expediente" id="entidad_expediente" class="form-control">-->
             </div>
           </div>
         </div><!-- Fin de fila -->
@@ -74,9 +70,9 @@
             <div class="form-group">
               <label for="fecha_expte">Fecha de Expediente</label>
               <?php echo Form::input('fecha_expte', $post['fecha_expte'], array('class' => 'form-control', 'placeholder' => 'Fecha de expediente', 'autofocus')) ?>
-             <!-- <input type="text" placeholder="dd/mm/aaaa" id="fecha_expediente" class="form-control">-->
             </div>
           </div>
+        </div>  
           <!--<div class="col-md-2">
             <div class="form-group">
               <label for="hora_expediente">Hora</label>
@@ -93,6 +89,6 @@
           </div>
         </div>
       </div><!-- Fin de fila -->
-
+      <br>
       </fieldset>
 <?php echo Form::close(); ?><!-- Fin de Formulario -->
