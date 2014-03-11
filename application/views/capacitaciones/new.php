@@ -78,6 +78,6 @@
           </div>
         </div>
     </div><!-- Fin de fila -->
-
+    <br>
     </fieldset>
 <?php echo Form::close(); ?><!-- Fin de Formulario -->

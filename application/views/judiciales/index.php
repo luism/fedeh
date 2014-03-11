@@ -31,8 +31,8 @@
         <td><?php echo $judicial->cantidad_cuotas ?></td>
         <td><?php echo $judicial->monto_cuotas ?></td>
         <td>
-          <a href="#" class="btn"><i class="icon-edit"></i> <strong>Editar</strong></a>
-          <a href="#" class="btn"><i class="icon-trash"></i> <strong>Borrar</strong></a>
+          <a href="#" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+          <a href="#" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>
