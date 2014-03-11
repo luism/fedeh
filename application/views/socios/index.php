@@ -18,11 +18,11 @@
       <?php foreach ($collection as $socio) { ?>
       <tr>
         <td><?php echo $socio->id ?></td>
-        <td><?php echo $socio->nombre ?></td>
-        <td><?php echo $socio->socio->tipo_documento ?></td>
+        <td><?php echo $socio->persona->nombre ?></td>
+        <td><?php echo $socio->persona->apellido ?></td>
         <td>
           <a href="#" class="btn"><i class="icon-edit"></i> <strong>Editar</strong></a>
-          <a href="#" class="btn"><i class="icon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<? echo URL::base('http') . 'socios/delete/'. $socio->id ?>" class="btn"><i class="icon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

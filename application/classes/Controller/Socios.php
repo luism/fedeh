@@ -13,7 +13,7 @@ class Controller_Socios extends Controller_Template_Base
   {
 
     // Listamos
-    $socios = ORM::factory('Persona');
+    $socios = ORM::factory('Socio');
     $collection = $socios->find_all();
     $this->template->content = View::factory('socios/index')
     // Pasamos la variable collection con todos los registros traidos
@@ -98,8 +98,15 @@ class Controller_Socios extends Controller_Template_Base
     // Actualizamos el rol
   }
 
-  public function delete()
+  public function action_delete()
   {
-    // Borramos el rol
+    // Borramos el socio
+    $id = $this->request->param('id');
+    $user = ORM::factory('Socio',$id);
+    $persona = $user->persona;
+    # TODO agregar control de error al borrar
+    $user->delete();
+    $persona->delete();
+    $this->redirect('socios/index');
   }
 }
