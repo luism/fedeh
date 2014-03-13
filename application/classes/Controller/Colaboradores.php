@@ -95,6 +95,13 @@ class Controller_Colaboradores extends Controller_Template_Base
 
   public function delete()
   {
-    // Borramos el rol
+    // Borramos el colaborador
+    $id = $this->request->param('id');
+    $user = ORM::factory('Colaborador',$id);
+    $persona = $user->persona;
+    # TODO agregar control de error al borrar
+    $user->delete();
+    $persona->delete();
+    $this->redirect('colaboradores/index');
   }
 }

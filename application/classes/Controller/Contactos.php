@@ -92,6 +92,12 @@ class Controller_Contactos extends Controller_Template_Base
 
   public function delete()
   {
-    // Borramos el rol
-  }
+    // Borramos el contacto
+    $id = $this->request->param('id');
+    $user = ORM::factory('Contacto',$id);
+    $persona = $user->persona;
+    # TODO agregar control de error al borrar
+    $user->delete();
+    $persona->delete();
+    $this->redirect('contactos/index');
 }

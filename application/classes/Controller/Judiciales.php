@@ -97,6 +97,13 @@ class Controller_Judiciales extends Controller_Template_Base
 
   public function delete()
   {
-    // Borramos el rol
+    // Borramos el socio judicial
+    $id = $this->request->param('id');
+    $user = ORM::factory('Judicial',$id);
+    $persona = $user->persona;
+    # TODO agregar control de error al borrar
+    $user->delete();
+    $persona->delete();
+    $this->redirect('judiciales/index');
   }
 }

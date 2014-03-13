@@ -93,6 +93,13 @@ class Controller_Pacientes extends Controller_Template_Base
 
   public function delete()
   {
-    // Borramos el rol
+    // Borramos el paciente
+    $id = $this->request->param('id');
+    $user = ORM::factory('Paciente',$id);
+    $persona = $user->persona;
+    # TODO agregar control de error al borrar
+    $user->delete();
+    $persona->delete();
+    $this->redirect('pacientes/index');
   }
 }
