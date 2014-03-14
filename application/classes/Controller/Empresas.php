@@ -95,6 +95,13 @@ class Controller_Empresas extends Controller_Template_Base
 
   public function delete()
   {
-    // Borramos el rol
+    // Borramos la empresa
+    $id = $this->request->param('id');
+    $user = ORM::factory('Empresa',$id);
+    $persona = $user->persona;
+    # TODO agregar control de error al borrar
+    $user->delete();
+    $persona->delete();
+    $this->redirect('empresas/index');
   }
 }

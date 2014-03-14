@@ -28,7 +28,7 @@
         <td><?php echo $contacto->contacto->profesion ?></td>
         <td>
           <a href="#" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="#" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<? echo URL::base('http') . 'contactos/delete/'. $contacto->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>
