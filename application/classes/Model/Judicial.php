@@ -5,7 +5,7 @@ class Model_Judicial extends Model_Persona {
   public function rules()
   {
     // Atributos espeicificos de judicial
-    return = array(
+    return array(
       'numero_oficio' => array(
         array('not_empty'),
         //como valido int

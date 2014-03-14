@@ -11,7 +11,7 @@ class Model_Evento extends ORM {
                 array('not_empty'),
                 array('max_length', array(':value', 45)),
             ),
-            'fecha_' => array(
+            'fecha' => array(
                 array('not_empty'),
                 array('date'),
             ),

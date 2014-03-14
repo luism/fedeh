@@ -30,7 +30,7 @@ date_default_timezone_set('America/Argentina/Tucuman');
  * @link http://kohanaframework.org/guide/using.configuration
  * @link http://www.php.net/manual/function.setlocale
  */
-setlocale(LC_ALL, 'en_US.utf-8');
+setlocale(LC_ALL, 'es_ES');
 
 /**
  * Enable the Kohana auto-loader.
@@ -68,7 +68,7 @@ mb_substitute_character('none');
 /**
  * Set the default language
  */
-I18n::lang('en-us');
+I18n::lang('es-es');
 
 if (isset($_SERVER['SERVER_PROTOCOL']))
 {

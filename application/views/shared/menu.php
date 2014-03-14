@@ -87,9 +87,9 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Eventos <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="<? echo URL::base('http') ?>eventos"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo</a></li>
-            <li><a href="<? echo URL::base('http') ?>eventos"><i class="glyphicon glyphicon-eye-open"></i>Ver balance de Evento</a></li>
-            <li><a href="<? echo URL::base('http') ?>eventos"><i class="glyphicon glyphicon-list"></i>Listado</a></li>
+            <li><a href="<? echo URL::base('http') ?>eventos/new"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo</a></li>
+            <li><a href="<? echo URL::base('http') ?>eventos/balance"><i class="glyphicon glyphicon-eye-open"></i>Ver balance de Evento</a></li>
+            <li><a href="<? echo URL::base('http') ?>eventos/index"><i class="glyphicon glyphicon-list"></i>Listado</a></li>
           </ul>
         </li>
 

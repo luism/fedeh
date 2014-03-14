@@ -29,7 +29,7 @@ class Controller_Eventos extends Controller_Template_Base
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
-              ->rule('fecha_','not_empty')
+              ->rule('fecha','not_empty')
               ->rule('hora','not_empty')
               ->rule('lugar','not_empty')
               ->rule('descripcion','not_empty');
@@ -41,7 +41,7 @@ class Controller_Eventos extends Controller_Template_Base
         // Agregamos los datos al modelo instanciado
         $evento->values(array(
             'nombre' => $post['nombre'],
-            'fecha_' => $post['fecha_'],
+            'fecha' => $post['fecha'],
             'hora' => $post['hora'],
             'lugar' => $post['lugar'],
             'descripcion' => $post['descripcion'],
@@ -53,7 +53,7 @@ class Controller_Eventos extends Controller_Template_Base
             'gastos_servicios' => $post['gastos_servicios'],
             'gastos_tecnica' => $post['gastos_tecnica'],
             'gastos_varios' => $post['gastos_varios'],
-            'gasto_total' => $post['gasto_total'],
+            // 'gasto_total' => $post['gasto_total'],
             
           )
         );
@@ -84,8 +84,23 @@ class Controller_Eventos extends Controller_Template_Base
     // Actualizamos el rol
   }
 
-  public function delete()
+  public function action_delete()
   {
-    // Borramos el rol
+    // Borramos el Evento
+    $id = $this->request->param('id');
+    $evento = ORM::factory('Evento',$id);
+    $evento->delete();
+    $this->redirect('eventos/index');
+  }
+
+  public function action_balance()
+  {
+    $this->template->content = View::factory('eventos/balance')
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Eventos</li>
+    </ol>";
   }
 }

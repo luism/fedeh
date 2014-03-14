@@ -54,8 +54,8 @@
 
         <div class="col-md-2">
             <div class="form-group">
-              <label for="fecha_">Fecha del evento</label>
-              <?php echo Form::input('fecha_', $post['fecha_'], array('class' => 'form-control', 'placeholder' => 'Fecha del evento', 'autofocus', 'required' => '')) ?>
+              <label for="fecha">Fecha del evento</label>
+              <?php echo Form::input('fecha', $post['fecha'], array('class' => 'form-control', 'placeholder' => 'Fecha del evento', 'autofocus', 'required' => '')) ?>
             </div>
           </div>
           <div class="col-md-2">
