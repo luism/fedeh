@@ -78,6 +78,10 @@ class Controller_Capacitaciones extends Controller_Template_Base
 
   public function delete()
   {
-    // Borramos el rol
+    // Borramos la capacitacion
+    $id = $this->request->param('id');
+    $capacitacion = ORM::factory('Capacitacion',$id);
+    $capacitacion->delete();
+    $this->redirect('capacitaciones/index');
   }
 }

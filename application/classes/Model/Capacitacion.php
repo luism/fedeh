@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 // EL nombre del modelo debe conicidir con la tabla pero en singular 
-class Model_Capacitacion extends ORM {
+class Model_Capacitacion extends Model_ORM_Template {
 
     # Sobreescribimos el nombre de la tabla para que no de error al mapear, ya que mapea en ingles
     # incorrecto       |  correcto

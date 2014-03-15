@@ -18,7 +18,7 @@ class Model_Evento extends Model_ORM_Template
         ),
       'hora' => array(
         array('not_empty'),
-        array('date'),
+        //array('date'),
         ),
       'lugar' => array(
         array('not_empty'),
