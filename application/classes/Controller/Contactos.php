@@ -100,4 +100,5 @@ class Controller_Contactos extends Controller_Template_Base
     $user->delete();
     $persona->delete();
     $this->redirect('contactos/index');
+  }
 }
