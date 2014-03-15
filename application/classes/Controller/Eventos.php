@@ -3,12 +3,9 @@
 class Controller_Eventos extends Controller_Template_Base
 {
 
-  
   public function action_index()
   {
-
     // Listamos
-   
     $eventos = ORM::factory('Evento');
     $collection = $eventos->find_all();
     $this->template->content = View::factory('eventos/index')
@@ -34,7 +31,6 @@ class Controller_Eventos extends Controller_Template_Base
               ->rule('lugar','not_empty')
               ->rule('descripcion','not_empty');
               //->rule('gasto_total','gasto_total=gastos_decoracion+gastos_imprenta+gastos_movilidad+gastos_permisos+gastos_servicios+gastos_tecnica+gastos_varios');
-
       if ($post->check()) {
         // Instanciamos un evento
         $evento = ORM::factory('Evento');
@@ -57,8 +53,6 @@ class Controller_Eventos extends Controller_Template_Base
             
           )
         );
-
-
         try{
           $evento->save();
           // ver a donde redireccionamos
