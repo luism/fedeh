@@ -39,6 +39,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <?php foreach ($scripts as $file) echo HTML::script($file), PHP_EOL ?>
-    <!-- <?php echo View::factory('profiler/stats') ?> -->
+    <?php echo View::factory('profiler/stats') ?>
   </body>
 </html>

@@ -1,7 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Eventos extends Controller_Template_Base
-{
+class Controller_Eventos extends Controller_Template_Base {
 
   public function action_index()
   {
@@ -21,8 +20,15 @@ class Controller_Eventos extends Controller_Template_Base
   public function action_new()
   {
   
-    if (isset($_POST) && Valid::not_empty($_POST)) {
-
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {
+      // Fix manual para fechas:
+      echo "1";
+      if($_POST['fecha'])
+      {
+        echo "2";
+        $_POST['fecha'] = Helper_Date::format($_POST['fecha'], Helper_Date::DATE_EN);
+      }
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -31,11 +37,13 @@ class Controller_Eventos extends Controller_Template_Base
               ->rule('lugar','not_empty')
               ->rule('descripcion','not_empty');
               //->rule('gasto_total','gasto_total=gastos_decoracion+gastos_imprenta+gastos_movilidad+gastos_permisos+gastos_servicios+gastos_tecnica+gastos_varios');
-      if ($post->check()) {
+      if ($post->check())
+      {
         // Instanciamos un evento
         $evento = ORM::factory('Evento');
         // Agregamos los datos al modelo instanciado
-        $evento->values(array(
+        $evento->values(
+          array(
             'nombre' => $post['nombre'],
             'fecha' => $post['fecha'],
             'hora' => $post['hora'],
@@ -49,16 +57,16 @@ class Controller_Eventos extends Controller_Template_Base
             'gastos_servicios' => $post['gastos_servicios'],
             'gastos_tecnica' => $post['gastos_tecnica'],
             'gastos_varios' => $post['gastos_varios'],
-            // 'gasto_total' => $post['gasto_total'],
-            
+            // 'gasto_total' => $post['gasto_total'],            
           )
         );
-        try{
+        try
+        {
           $evento->save();
-          // ver a donde redireccionamos
           $this->redirect('eventos/index');
         }
-        catch (ORM_Validation_Exception $e){
+        catch (ORM_Validation_Exception $e)
+        {
           $errors = $e->errors('evento');
         }
       }
@@ -73,10 +81,7 @@ class Controller_Eventos extends Controller_Template_Base
          ->bind('errors', $errors);
   }
 
-  public function update()
-  {
-    // Actualizamos el rol
-  }
+  public function update() {}
 
   public function action_delete()
   {
