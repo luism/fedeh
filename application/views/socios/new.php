@@ -49,7 +49,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="">Donante</label>
-        <?php echo Form::checkbox('donante', 'donante', $post['donante']) ?>
+        <?php echo Form::checkbox('donante', 'donante', isset($post['donante']) ? TRUE : FALSE) ?>
       </div>
     </div>
   </div><!-- Fin de fila -->
@@ -101,7 +101,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="fecha_nacimiento">Fecha Nacimiento</label>
-        <?php echo Form::input('fecha_nacimiento', $post['fecha_nacimiento'], array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('fecha_nacimiento', Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
   </div><!-- Fin de fila -->
@@ -123,7 +123,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="">Des. por planilla</label>
-        <?php echo Form::checkbox('descuento_planilla', 'Descuento Planilla', $post['descuento_planilla']) ?>
+        <?php echo Form::checkbox('descuento_planilla', 'Descuento Planilla', isset($post['descuento_planilla']) ? TRUE : FALSE) ?>
       </div>
     </div>
     <div class="col-md-2">

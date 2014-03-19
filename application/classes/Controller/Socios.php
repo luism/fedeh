@@ -31,10 +31,8 @@ class Controller_Socios extends Controller_Template_Base
     if (isset($_POST) && Valid::not_empty($_POST))
     {
       // Fix manual para fechas:
-      echo "1";
       if($_POST['fecha_nacimiento'])
       {
-        echo "2";
         $_POST['fecha_nacimiento'] = Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_EN);
       }
       // Factory es un patron de diseño, tener en cuenta.
@@ -51,46 +49,30 @@ class Controller_Socios extends Controller_Template_Base
       if ($post->check()) {
         // Instanciamos una persona
         $persona = ORM::factory('Persona');
-        $persona->values(array(
-            'nombre' => $post['nombre'],
-            'apellido' => $post['apellido'],
-            'domicilio_personal'=>$post['domicilio_personal'],
-            'email'=>$post['email'],
-            'telefono'=>$post['telefono'],
-          )
-        );
+        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono'));
         // Instanciamos un socio
         $socio = ORM::factory('Socio');
         // Agregamos los datos al modelo instanciado
-        $socio->values(array(
-            'tipo_documento' => $post['tipo_documento'],
-            'nro_documento' => $post['nro_documento'],
-            'domicilio_laboral' => $post['domicilio_laboral'],
-            'fecha_nacimiento' => $post['fecha_nacimiento'],
-            'tipo_aporte' => $post['tipo_aporte'],
-            'descuento_planilla' => $post['descuento_planilla'],
-          )
-        );
-        echo $_POST['descuento_planilla'];
-        // try
-        // {
-        //   $persona->save();
-        //   try
-        //   {
-        //     $socio->values(array('persona_id' => $persona->id));
-        //     $socio->save();
-        //     // ver a donde redireccionamos
-        //     $this->redirect('socios/index');
-        //   }
-        //   catch (ORM_Validation_Exception $e)
-        //   {
-        //     $errors = $e->errors('socio');
-        //   }          
-        // } 
-        // catch (ORM_Validation_Exception $e)
-        // {
-        //   $errors = $e->errors('persona');          
-        // }
+        $socio->values($_POST,array('tipo_documento','nro_documento','domicilio_laboral','fecha_nacimiento','tipo_aporte','descuento_planilla'));
+        try
+        {
+          $persona->save();
+          try
+          {
+            $socio->values(array('persona_id' => $persona->id));
+            $socio->save();
+            // ver a donde redireccionamos
+            $this->redirect('socios/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('socio');
+          }          
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
+          $errors = $e->errors('persona');          
+        }
       }
       else
       {
