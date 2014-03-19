@@ -76,9 +76,8 @@ class Controller_Notas extends Controller_Template_Base
   {
     // Borramos la nota
     $id = $this->request->param('id');
-    $user = ORM::factory('Nota',$id);
-    # TODO agregar control de error al borrar
-    $user->delete();
+    $nota = ORM::factory('Nota',$id);
+    $nota->delete();
     $this->redirect('notas/index');
   }
 }

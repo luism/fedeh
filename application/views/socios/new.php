@@ -49,7 +49,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="">Donante</label>
-        <?php echo Form::checkbox('donante', 'Donante', $post['donante']) ?>
+        <?php echo Form::checkbox('donante', 'donante', $post['donante']) ?>
       </div>
     </div>
   </div><!-- Fin de fila -->

@@ -31,12 +31,12 @@ class Controller_Socios extends Controller_Template_Base
     if (isset($_POST) && Valid::not_empty($_POST))
     {
       // Fix manual para fechas:
-      // echo "1";
-      // if($_POST['fecha_nacimiento'])
-      // {
-      //   echo "2";
-      //   $_POST['fecha_nacimiento'] = Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_EN);
-      // }
+      echo "1";
+      if($_POST['fecha_nacimiento'])
+      {
+        echo "2";
+        $_POST['fecha_nacimiento'] = Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_EN);
+      }
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -71,20 +71,26 @@ class Controller_Socios extends Controller_Template_Base
             'descuento_planilla' => $post['descuento_planilla'],
           )
         );
-        try {
-          $persona->save();
-          try{
-            $socio->values(array('persona_id' => $persona->id));
-            $socio->save();
-            // ver a donde redireccionamos
-            $this->redirect('socios/index');
-          }
-          catch (ORM_Validation_Exception $e){
-            $errors = $e->errors('socio');
-          }          
-        } catch (ORM_Validation_Exception $e) {
-          $errors = $e->errors('persona');          
-        }
+        echo $_POST['descuento_planilla'];
+        // try
+        // {
+        //   $persona->save();
+        //   try
+        //   {
+        //     $socio->values(array('persona_id' => $persona->id));
+        //     $socio->save();
+        //     // ver a donde redireccionamos
+        //     $this->redirect('socios/index');
+        //   }
+        //   catch (ORM_Validation_Exception $e)
+        //   {
+        //     $errors = $e->errors('socio');
+        //   }          
+        // } 
+        // catch (ORM_Validation_Exception $e)
+        // {
+        //   $errors = $e->errors('persona');          
+        // }
       }
       else
       {
