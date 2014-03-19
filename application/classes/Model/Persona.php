@@ -2,12 +2,14 @@
 
 // EL nombre del modelo debe conicidir con la tabla pero en singular 
 class Model_Persona extends Model_ORM_Template {
-    protected $_has_one = array('socio' => array('foreign_key' => 'persona_id'),'judicial' => array('foreign_key' => 'personas_id'));
-    //protected $_has_one = array('judicial' => array('foreign_key' => 'personas_id'));
-    //protected $_has_one = array('paciente' => array('foreign_key' => 'pacientes_id'));
-    //protected $_has_one = array('contacto' => array('foreign_key' => 'contactos_id'));
-    //protected $_has_one = array('colaborador' => array('foreign_key' => 'contactos_id'));
-    //protected $_has_one = array('empresa' => array('foreign_key' => 'contactos_id'));
+    protected $_has_one = array(
+        'socio' => array('foreign_key' => 'persona_id'),
+        'judicial' => array('foreign_key' => 'persona_id'),
+        'paciente' => array('foreign_key' => 'persona_id'),
+        'contacto' => array('foreign_key' => 'persona_id'),
+        'colaborador' => array('foreign_key' => 'persona_id'),
+        'empresa' => array('foreign_key' => 'persona_id'),
+    );
     public function rules()
     {
         return array(

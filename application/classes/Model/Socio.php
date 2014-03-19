@@ -2,6 +2,9 @@
 
 class Model_Socio extends Model_ORM_Template {
   protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
+  protected $_has_one = array(
+      'ficha' => array('foreign_key' => 'socio_id'),
+  );
   public function rules()
   {
     // Atributos espeicificos de socio
@@ -29,6 +32,7 @@ class Model_Socio extends Model_ORM_Template {
         // Ver como validamos...
         // array('digit'),
       ),
+      'numero_ficha' => array(),
     );
   }
 }

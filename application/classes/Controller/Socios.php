@@ -2,11 +2,15 @@
 
 class Controller_Socios extends Controller_Template_Base
 {
-
   public function before(){
     parent::before();
     // Podria verificar el ROl del usuario y mostrar una panta que 
     // que informe que no está autorizado a ver este recurso
+    // Fix manual para fechas:
+      if(isset($_POST['fecha_nacimiento']))
+      {
+        $_POST['fecha_nacimiento'] = Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_EN);
+      }
   }
 
   public function action_index()
@@ -28,13 +32,11 @@ class Controller_Socios extends Controller_Template_Base
   public function action_new()
   {
     // Creamos y guardamos el socio, pero primero verificar que mando datos:
+    $persona = ORM::factory('Persona');
+    $socio = ORM::factory('Socio');
+    $ficha = ORM::factory('Ficha');
     if (isset($_POST) && Valid::not_empty($_POST))
-    {
-      // Fix manual para fechas:
-      if($_POST['fecha_nacimiento'])
-      {
-        $_POST['fecha_nacimiento'] = Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_EN);
-      }
+    {      
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -48,10 +50,8 @@ class Controller_Socios extends Controller_Template_Base
               ->rule('tipo_aporte','not_empty');
       if ($post->check()) {
         // Instanciamos una persona
-        $persona = ORM::factory('Persona');
-        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono'));
+        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante'));
         // Instanciamos un socio
-        $socio = ORM::factory('Socio');
         // Agregamos los datos al modelo instanciado
         $socio->values($_POST,array('tipo_documento','nro_documento','domicilio_laboral','fecha_nacimiento','tipo_aporte','descuento_planilla'));
         try
@@ -82,26 +82,37 @@ class Controller_Socios extends Controller_Template_Base
 
     // Listado de tipos de aporte
     $tipos_aportes = array('mensual' => 'Mensual','trimestral' => 'Trimestral','semestral' => 'Semestral','anual' => 'Anual',);
-    // Mostramos formulario para nuevo rol
-    $this->template->content = View::factory('socios/new')
-         ->bind('post', $post)
+    // Mostramos formulario para nuevo socio
+    $this->template->content = View::factory('socios/form')
+         ->bind('persona', $persona)
+         ->bind('socio', $socio)
+         ->bind('ficha', $ficha)
+         ->bind('monto', $post['monto'])
          ->bind('tipos_aportes', $tipos_aportes)
          ->bind('errors', $errors);
   }
 
-  public function update()
+  public function action_edit()
   {
-    // Actualizamos el rol
+    $socio = ORM::factory('Socio',$this->request->param('id'));
+
+    $this->template->content = View::factory('socios/form')
+         ->bind('persona', $socio->persona)
+         ->bind('socio', $socio)
+         ->bind('ficha', $socio->ficha)
+         ->bind('monto', $post['monto'])
+         ->bind('tipos_aportes', $tipos_aportes)
+         ->bind('errors', $errors);
   }
 
   public function action_delete()
   {
     // Borramos el socio
     $id = $this->request->param('id');
-    $user = ORM::factory('Socio',$id);
-    $persona = $user->persona;
+    $socio = ORM::factory('Socio',$id);
+    $persona = $socio->persona;
     # TODO agregar control de error al borrar
-    $user->delete();
+    $socio->delete();
     $persona->delete();
     $this->redirect('socios/index');
   }

@@ -29,27 +29,27 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="nombre">Nombre</label>
-        <?php echo Form::input('nombre', $post['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('nombre', $persona->nombre, array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
 
     <div class="col-md-4">
       <div class="form-group">
         <label for="apellidos">Apellidos</label>
-        <?php echo Form::input('apellido', $post['apellido'], array('class' => 'form-control', 'placeholder' => 'Apellido', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('apellido', $persona->apellido, array('class' => 'form-control', 'placeholder' => 'Apellido', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="numero_ficha">Numero de Ficha</label>
-        <?php echo Form::input('numero_ficha', $post['numero_ficha'], array('class' => 'form-control', 'placeholder' => 'Número de Ficha', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('numero_ficha', $ficha->numero_ficha, array('class' => 'form-control', 'placeholder' => 'Número de Ficha', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
 
     <div class="col-md-2">
       <div class="form-group">
         <label for="">Donante</label>
-        <?php echo Form::checkbox('donante', 'donante', isset($post['donante']) ? TRUE : FALSE) ?>
+        <?php echo Form::checkbox('donante', 'donante', isset($socio->donante) ? TRUE : FALSE) ?>
       </div>
     </div>
   </div><!-- Fin de fila -->
@@ -59,13 +59,13 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="domicilio_personal">Domicilio Personal</label>
-        <?php echo Form::input('domicilio_personal', $post['domicilio_personal'], array('class' => 'form-control', 'placeholder' => 'Domicilio Personal', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('domicilio_personal', $persona->domicilio_personal, array('class' => 'form-control', 'placeholder' => 'Domicilio Personal', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
         <label for="domicilio_laboral">Domicilio Laboral</label>
-        <?php echo Form::input('domicilio_laboral', $post['domicilio_laboral'], array('class' => 'form-control', 'placeholder' => 'Domicilio Laboral', 'autofocus')) ?>
+        <?php echo Form::input('domicilio_laboral', $socio->domicilio_laboral, array('class' => 'form-control', 'placeholder' => 'Domicilio Laboral', 'autofocus')) ?>
       </div>
     </div>
   </div><!-- Fin de fila -->
@@ -76,32 +76,32 @@
       <div class="form-group">
         <div class="form-group">
           <label for="telefono">Telefono</label>
-          <?php echo Form::input('telefono', $post['telefono'], array('class' => 'form-control', 'placeholder' => 'Teléfono', 'autofocus', 'required' => '')) ?>
+          <?php echo Form::input('telefono', $persona->telefono, array('class' => 'form-control', 'placeholder' => 'Teléfono', 'autofocus', 'required' => '')) ?>
         </div>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-group">
         <label for="email">E-Mail</label>
-        <?php echo Form::input('email', $post['email'], array('class' => 'form-control', 'placeholder' => 'E-Mail', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('email', $persona->email, array('class' => 'form-control', 'placeholder' => 'E-Mail', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="tipo_documento">Tipo Documento</label>
-        <?php echo Form::input('tipo_documento', $post['tipo_documento'], array('class' => 'form-control', 'placeholder' => 'Tipo Documento', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('tipo_documento', $socio->tipo_documento, array('class' => 'form-control', 'placeholder' => 'Tipo Documento', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="nro_documento">Documento</label>
-        <?php echo Form::input('nro_documento', $post['nro_documento'], array('class' => 'form-control', 'placeholder' => 'Documento', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('nro_documento', $socio->nro_documento, array('class' => 'form-control', 'placeholder' => 'Documento', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="fecha_nacimiento">Fecha Nacimiento</label>
-        <?php echo Form::input('fecha_nacimiento', Helper_Date::format(isset($post['fecha_nacimiento']) ? $post['fecha_nacimiento'] : '', Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('fecha_nacimiento', Helper_Date::format(isset($socio->fecha_nacimiento) ? $socio->fecha_nacimiento : '', Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
   </div><!-- Fin de fila -->
@@ -117,19 +117,19 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="monto">Monto</label>
-        <?php echo Form::input('monto', $post['monto'], array('class' => 'form-control', 'placeholder' => 'Monto', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('monto', $monto, array('class' => 'form-control', 'placeholder' => 'Monto', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="">Des. por planilla</label>
-        <?php echo Form::checkbox('descuento_planilla', 'Descuento Planilla', isset($post['descuento_planilla']) ? TRUE : FALSE) ?>
+        <?php echo Form::checkbox('descuento_planilla', 'Descuento Planilla', isset($socio->descuento_planilla) ? TRUE : FALSE) ?>
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="grupo_sanguineo">Grupo Sanguíneo</label>
-        <?php echo Form::input('grupo_sanguineo', $post['grupo_sanguineo'], array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('grupo_sanguineo', $socio->grupo_sanguineo, array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
 
