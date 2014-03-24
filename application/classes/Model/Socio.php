@@ -32,7 +32,9 @@ class Model_Socio extends Model_ORM_Template {
         // Ver como validamos...
         // array('digit'),
       ),
-      'numero_ficha' => array(),
+      'numero_ficha' => array(
+      ),
+      
     );
   }
 }

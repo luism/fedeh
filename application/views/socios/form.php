@@ -1,7 +1,7 @@
 <div class="row">
   <h2 class="">Socio</h2>
 </div>
-<?php echo Form::open('socios/new', array('role' => 'form', 'class' => 'form')); ?>
+<?php echo Form::open('socios/form', array('role' => 'form', 'class' => 'form')); ?>
   <?php if ($errors) { ?>
   <div class="row">
     <!-- Mensajes de error -->
@@ -25,7 +25,11 @@
   <fieldset>
 
     <!-- Form Name -->
-    <legend>Nuevo</legend>
+    <!--<legend>Nuevo</legend>-->
+    
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>
+
     <div class="col-md-4">
       <div class="form-group">
         <label for="nombre">Nombre</label>
@@ -129,7 +133,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="grupo_sanguineo">Grupo Sanguíneo</label>
-        <?php echo Form::input('grupo_sanguineo', $socio->grupo_sanguineo, array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('grupo_sanguineo', $persona->grupo_sanguineo, array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
 

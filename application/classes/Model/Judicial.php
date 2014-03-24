@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 class Model_Judicial extends Model_Persona {
-  protected $_belongs_to = array('persona' => array('foreign_key' => 'personas_id'));
+  protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
   public function rules()
   {
     // Atributos espeicificos de judicial

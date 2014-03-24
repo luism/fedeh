@@ -1,3 +1,4 @@
+
 <div class="row">
   <h2 class="">Nota</h2>
 </div>
@@ -25,7 +26,10 @@
   <fieldset>
 
     <!-- Form Name -->
-    <legend>Nuevo</legend>
+    <!--<legend>Nuevo</legend>-->
+    
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>
 
          <div class="col-md-4">
             <div class="form-group">
@@ -43,7 +47,7 @@
           <div class="col-md-2">
             <div class="form-group">
               <label for="fecha_nota">Fecha de la nota</label>
-              <?php echo Form::input('fecha_nota', $post['fecha_nota'], array('class' => 'form-control', 'placeholder' => 'Fecha de la nota', 'autofocus', 'required' => '')) ?>
+              <?php echo Form::input('fecha_nota', Helper_Date::format(isset($nota->fecha_nota) ? $nota->fecha_nota : '', Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
             </div>
           </div>
          </div><!-- Fin de fila -->
@@ -69,7 +73,7 @@
           <div class="col-md-2">
             <div class="form-group">
               <label for="fecha_expte">Fecha de Expediente</label>
-              <?php echo Form::input('fecha_expte', $post['fecha_expte'], array('class' => 'form-control', 'placeholder' => 'Fecha de expediente', 'autofocus')) ?>
+              <?php echo Form::input('fecha_expte', Helper_Date::format(isset($nota->fecha_expte) ? $nota->fecha_expte : '', Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
             </div>
           </div>
         </div>  

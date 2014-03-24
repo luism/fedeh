@@ -25,7 +25,10 @@
         <fieldset>
 
         <!-- Form Name -->
-        <legend>Nuevo</legend>            
+        <!--<legend>Nuevo</legend>  -->
+        
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>          
 
           <div class="col-md-4">
             <div class="form-group">
@@ -52,7 +55,7 @@
           <div class="col-md-2">
             <div class="form-group">
               <label for="fecha_capacitacion">Fecha de Capacitación</label>
-              <?php echo Form::input('fecha_capacitacion', $post['fecha_capacitacion'], array('class' => 'form-control', 'placeholder' => 'Fecha de Capacitación', 'autofocus', 'required' => '')) ?>
+              <?php echo Form::input('fecha_capacitacion', Helper_Date::format(isset($capacitacion->fecha_capacitacion) ? $capacitacion->fecha_capacitacion : '', Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
             </div>
           </div>
           <div class="col-md-2">

@@ -26,7 +26,10 @@
         <fieldset>
 
         <!-- Form Name -->
-        <legend>Nuevo</legend>
+        <!--<legend>Nuevo</legend>-->
+        
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>
 
           <div class="col-md-4">
             <div class="form-group">
@@ -55,7 +58,7 @@
         <div class="col-md-2">
             <div class="form-group">
               <label for="fecha">Fecha del evento</label>
-              <?php echo Form::input('fecha', $post['fecha'], array('class' => 'form-control', 'placeholder' => 'Fecha del evento', 'autofocus', 'required' => '')) ?>
+              <?php echo Form::input('fecha', Helper_Date::format(isset($evento->fecha) ? $evento->fecha : '', Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
             </div>
           </div>
           <div class="col-md-2">

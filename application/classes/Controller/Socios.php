@@ -50,7 +50,7 @@ class Controller_Socios extends Controller_Template_Base
               ->rule('tipo_aporte','not_empty');
       if ($post->check()) {
         // Instanciamos una persona
-        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante'));
+        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
         // Instanciamos un socio
         // Agregamos los datos al modelo instanciado
         $socio->values($_POST,array('tipo_documento','nro_documento','domicilio_laboral','fecha_nacimiento','tipo_aporte','descuento_planilla'));

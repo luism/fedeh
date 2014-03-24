@@ -24,7 +24,10 @@
         <fieldset>
 
     <!-- Form Name -->
-    <legend>Nuevo</legend>
+    <!--<legend>Nuevo</legend>-->
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>
 
           <div class="col-md-4">
             <div class="form-group">
@@ -142,8 +145,8 @@
           </div>
           <div class="col-md-2">
             <div class="form-group">
-              <label for="fecha_oficio">Fecha del Oficio</label>
-              <?php echo Form::input('fecha_oficio', $post['fecha_oficio'], array('class' => 'form-control', 'placeholder' => 'Fecha del Oficio', 'autofocus', 'required' => '')) ?>
+              <label for="fecha_oficio">Fecha del oficio</label>
+              <?php echo Form::input('fecha_oficio', Helper_Date::format(isset($judicial->fecha_oficio) ? $judicial->fecha_oficio: '', Helper_Date::DATE_ES), array('class' => 'form-control', 'placeholder' => 'dd/mm/aaaa', 'autofocus', 'required' => '')) ?>
             </div>
           </div>
         </div><!-- Fin de fila -->
