@@ -2,13 +2,14 @@
 
 class Controller_Judiciales extends Controller_Template_Base
 {
-
-  public function before(){
+public function before(){
     parent::before();
-    // Podria verificar el ROl del usuario y mostrar una panta que 
-    // que informe que no está autorizado a ver este recurso
+    // Fix manual para fechas:
+      if(isset($_POST['fecha_oficio']))
+      {
+        $_POST['fecha_oficio'] = Helper_Date::format($_POST['fecha_oficio'], Helper_Date::DATE_EN);
+      }
   }
-
   public function action_index()
   {
 
@@ -27,7 +28,7 @@ class Controller_Judiciales extends Controller_Template_Base
 
   public function action_new()
   {
-    // Creamos y guardamos el socio, pero primero verificar que mando datos:
+    // Creamos y guardamos el socio judicial, pero primero verificar que mando datos:
     if (isset($_POST) && Valid::not_empty($_POST)) {
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)

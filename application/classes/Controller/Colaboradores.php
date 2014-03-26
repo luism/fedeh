@@ -3,6 +3,14 @@
 class Controller_Colaboradores extends Controller_Template_Base
 {
 
+public function before(){
+    parent::before();
+    // Fix manual para fechas:
+      if(isset($_POST['fecha_nacimiento']))
+      {
+        $_POST['fecha_nacimiento'] = Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_EN);
+      }
+  }
   public function before(){
     parent::before();
     // Podria verificar el ROl del usuario y mostrar una panta que 
