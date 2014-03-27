@@ -116,4 +116,20 @@ class Controller_Socios extends Controller_Template_Base
     $persona->delete();
     $this->redirect('socios/index');
   }
+  public function action_consulta()
+  {
+
+    // Listamos
+    $socios = ORM::factory('Socio');
+    $collection = $socios->find_all();
+    $this->template->content = View::factory('socios/consulta')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Socios</li>
+    </ol>";
+  }
+
 }

@@ -107,4 +107,19 @@ public function before(){
     $persona->delete();
     $this->redirect('judiciales/index');
   }
+  public function action_consulta()
+  {
+
+    // Listamos
+    $judiciales = ORM::factory('Persona');
+    $collection = $judiciales->find_all();
+    $this->template->content = View::factory('judiciales/consulta')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Judiciales</li>
+    </ol>";
+  }
 }

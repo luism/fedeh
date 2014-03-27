@@ -102,4 +102,20 @@ class Controller_Pacientes extends Controller_Template_Base
     $persona->delete();
     $this->redirect('pacientes/index');
   }
+
+  public function action_consulta()
+  {
+
+    // Listamos
+    $pacientes = ORM::factory('Persona');
+    $collection = $pacientes->find_all();
+    $this->template->content = View::factory('pacientes/consulta')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Pacientes</li>
+    </ol>";
+  }
 }

@@ -11,12 +11,7 @@ public function before(){
         $_POST['fecha_nacimiento'] = Helper_Date::format($_POST['fecha_nacimiento'], Helper_Date::DATE_EN);
       }
   }
-  public function before(){
-    parent::before();
-    // Podria verificar el ROl del usuario y mostrar una panta que 
-    // que informe que no está autorizado a ver este recurso
-  }
-
+  
   public function action_index()
   {
 
@@ -111,5 +106,21 @@ public function before(){
     $user->delete();
     $persona->delete();
     $this->redirect('colaboradores/index');
+  }
+
+  public function action_consulta()
+  {
+
+    // Listamos
+    $colaboradores = ORM::factory('Persona');
+    $collection = $colaboradores->find_all();
+    $this->template->content = View::factory('colaboradores/consulta')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Colaboradores</li>
+    </ol>";
   }
 }
