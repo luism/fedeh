@@ -47,7 +47,7 @@ public function before(){
         // Instanciamos una nota
         $nota = ORM::factory('Nota');
         // Agregamos los datos al modelo instanciado
-        $nota->values($post, array('motivo', 'fecha_nota', 'dirigida_a', 'expte_generado', 'entidad_expte', 'fecha_expte',));
+        $nota->values($post->as_array(), array('motivo', 'fecha_nota', 'dirigida_a', 'expte_generado', 'entidad_expte', 'fecha_expte',));
         try{
           $nota->save();
           // ver a donde redireccionamos
