@@ -99,7 +99,7 @@ class Controller_Notas extends Controller_Template_Base {
         }
       }
     }
-    $this->template->content = View::factory('notas/form')
+    $this->template->content = View::factory('notas/edit')
      ->bind('nota', $nota)
      ->bind('errors', $errors);
   }
