@@ -29,8 +29,8 @@
         <td><?php echo $nota->entidad_expte ?></td>
         <td><?php echo $nota->fecha_expte ?></td>
         <td>
-          <a href="#" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<? echo URL::base('http') . 'notas/delete/'. $nota->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<?php echo URL::base('http') . 'notas/edit/'. $nota->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+          <a href="<?php echo URL::base('http') . 'notas/delete/'. $nota->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

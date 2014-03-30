@@ -1,8 +1,20 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Notas extends Controller_Template_Base
-{
+class Controller_Notas extends Controller_Template_Base {
 
+  public function before()
+  {
+    parent::before();
+    // Fix manual para fechas:
+    if(isset($_POST['fecha_nota']))
+    {
+      $_POST['fecha_nota'] = Helper_Date::format($_POST['fecha_nota'], Helper_Date::DATE_EN);
+    }
+    if(isset($_POST['fecha_expte']))
+    {
+      $_POST['fecha_expte'] = Helper_Date::format($_POST['fecha_expte'], Helper_Date::DATE_EN);
+    }
+  }
   
   public function action_index()
   {
@@ -22,9 +34,9 @@ class Controller_Notas extends Controller_Template_Base
   }
 
   public function action_new()
-  {
-  
-    if (isset($_POST) && Valid::not_empty($_POST)) {
+  {  
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {
 
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
@@ -36,17 +48,7 @@ class Controller_Notas extends Controller_Template_Base
         // Instanciamos una nota
         $nota = ORM::factory('Nota');
         // Agregamos los datos al modelo instanciado
-        $nota->values(array(
-            'motivo' => $post['motivo'],
-            'fecha_nota' => $post['fecha_nota'],
-            'dirigida_a' => $post['dirigida_a'],
-            'expte_generado' => $post['expte_generado'],
-            'entidad_expte' => $post['entidad_expte'],
-            'fecha_expte' => $post['fecha_expte'],
-          )
-        );
-
-
+        $nota->values($post, array('motivo', 'fecha_nota', 'dirigida_a', 'expte_generado', 'entidad_expte', 'fecha_expte',));
         try{
           $nota->save();
           // ver a donde redireccionamos
@@ -58,21 +60,51 @@ class Controller_Notas extends Controller_Template_Base
       }
     }
 
-    // redireccionar al fomrulario si da error
-    //$session->set('nota',$nota);
-    //$session->set('errors',$errors);
-    //$this->redirect('notas/new');
     $this->template->content = View::factory('notas/new')
          ->bind('post', $post)
          ->bind('errors', $errors);
   }
 
-  public function update()
+  public function action_edit()
   {
-    // Actualizamos el rol
+    $id = $this->request->param('id');
+    $nota = ORM::factory('Nota',$id);
+
+    if ($nota->loaded())
+    {
+      // Load was successful
+      if (isset($_POST) && Valid::not_empty($_POST))
+      {
+
+        // Factory es un patron de diseño, tener en cuenta.
+        $post = Validation::factory($_POST)
+                ->rule('motivo','not_empty')
+                ->rule('fecha_nota','not_empty')
+                ->rule('dirigida_a','not_empty');
+
+        if ($post->check()) {
+          // Agregamos los datos al modelo instanciado
+          $nota->values($_POST, array('id','motivo', 'fecha_nota', 'dirigida_a', 'expte_generado', 'entidad_expte', 'fecha_expte'));
+          try
+          {
+
+            $nota->update();
+            // ver a donde redireccionamos
+            $this->redirect('notas/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('nota');
+          }
+        }
+      }
+    }
+    $this->template->content = View::factory('notas/form')
+     ->bind('nota', $nota)
+     ->bind('errors', $errors);
   }
 
-  public function delete()
+  public function action_delete()
   {
     // Borramos la nota
     $id = $this->request->param('id');
