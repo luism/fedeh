@@ -2,7 +2,14 @@
 
 class Controller_Capacitaciones extends Controller_Template_Base
 {
-
+public function before(){
+    parent::before();
+    // Fix manual para fechas:
+      if(isset($_POST['fecha_capacitacion']))
+      {
+        $_POST['fecha_capacitacion'] = Helper_Date::format($_POST['fecha_capacitacion'], Helper_Date::DATE_EN);
+      }
+  }
   
   public function action_index()
   {

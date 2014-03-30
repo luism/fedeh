@@ -157,4 +157,60 @@ class Controller_Socios extends Controller_Template_Base
     $persona->delete();
     $this->redirect('socios/index');
   }
+  public function action_consulta()
+  {
+    $nombrebusq = $_POST['nombrebusq'];
+    // Listamos
+    $socio = ORM::factory('Socio')
+            ->where('nombre',$nombrebusq)
+            ->find_all();
+    //$collection = $socios->find_all();
+    $this->template->content = View::factory('socios/consulta')
+    // Pasamos la variable socio con todos los registros traidos
+         ->bind('persona', $socio->persona)
+         ->bind('socio', $socio)
+         ->bind('ficha', $socio->ficha)
+         ->bind('monto', $post['monto'])
+         ->bind('tipos_aportes', $tipos_aportes)
+         ->bind('errors', $errors);
+
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Socios</li>
+    </ol>";
+  }
+
+  public function action_descuentoplanilla()
+  {
+
+    // Listamos
+    $socios = ORM::factory('Socio');
+    $collection = $socios->find_all();
+    $this->template->content = View::factory('socios/descuentoplanilla')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Socios</li>
+    </ol>";
+  }
+
+  public function action_fichasdisp()
+  {
+
+    // Listamos
+    $socios = ORM::factory('Socio');
+    $collection = $socios->find_all();
+    $this->template->content = View::factory('socios/fichasdisp')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Socios</li>
+    </ol>";
+  }
+
 }

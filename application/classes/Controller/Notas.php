@@ -1,19 +1,18 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Notas extends Controller_Template_Base {
-
-  public function before()
-  {
+class Controller_Notas extends Controller_Template_Base
+{
+public function before(){
     parent::before();
     // Fix manual para fechas:
-    if(isset($_POST['fecha_nota']))
-    {
-      $_POST['fecha_nota'] = Helper_Date::format($_POST['fecha_nota'], Helper_Date::DATE_EN);
-    }
-    if(isset($_POST['fecha_expte']))
-    {
-      $_POST['fecha_expte'] = Helper_Date::format($_POST['fecha_expte'], Helper_Date::DATE_EN);
-    }
+      if(isset($_POST['fecha_nota']))
+      {
+        $_POST['fecha_nota'] = Helper_Date::format($_POST['fecha_nota'], Helper_Date::DATE_EN);
+      }
+      if(isset($_POST['fecha_expte']))
+      {
+        $_POST['fecha_expte'] = Helper_Date::format($_POST['fecha_expte'], Helper_Date::DATE_EN);
+      }
   }
   
   public function action_index()

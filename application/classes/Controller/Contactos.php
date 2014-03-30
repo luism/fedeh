@@ -101,4 +101,20 @@ class Controller_Contactos extends Controller_Template_Base
     $persona->delete();
     $this->redirect('contactos/index');
   }
+
+  public function action_consulta()
+  {
+
+    // Listamos
+    $contactos = ORM::factory('Persona');
+    $collection = $contactos->find_all();
+    $this->template->content = View::factory('contactos/consulta')
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection);
+    $this->template->breadcrumb = "
+    <ol class=\"breadcrumb\">
+      <li><a href=\"#\">Home</a></li>
+      <li class=\"active\">Contactos</li>
+    </ol>";
+  }
 }
