@@ -78,12 +78,49 @@ public function before(){
          ->bind('errors', $errors);
   }
 
-  public function update()
+  public function action_edit()
   {
-    // Actualizamos el rol
+    $id = $this->request->param('id');
+    $capacitacion = ORM::factory('Capacitacion',$id);
+
+    if ($capacitacion->loaded())
+    {
+      // Load was successful
+      if (isset($_POST) && Valid::not_empty($_POST))
+      {
+
+        // Factory es un patron de diseño, tener en cuenta.
+        $post = Validation::factory($_POST)
+                ->rule('titulo','not_empty')
+                ->rule('descripcion','not_empty')
+                ->rule('cupos','not_empty')
+                ->rule('fecha_capacitacion','not_empty')
+                ->rule('hora','not_empty')
+                ->rule('lugar','not_empty');
+
+        if ($post->check()) {
+          // Agregamos los datos al modelo instanciado
+          $capacitacion->values($_POST, array('id','titulo', 'descripcion', 'cupos', 'fecha_capacitacion', 'hora', 'lugar'));
+          try
+          {
+
+            $capacitacion->update();
+            // ver a donde redireccionamos
+            $this->redirect('capacitaciones/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('capacitacion');
+          }
+        }
+      }
+    }
+    $this->template->content = View::factory('capacitaciones/edit')
+     ->bind('capacitacion', $capacitacion)
+     ->bind('errors', $errors);
   }
 
-  public function delete()
+  public function action_delete()
   {
     // Borramos la capacitacion
     $id = $this->request->param('id');

@@ -29,7 +29,7 @@
     <!--<legend>Nuevo</legend>-->
     
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>
+    <p class="bg-info"><legend><strong>Editar nota</strong></legend></p>
 
          <div class="col-md-4">
             <div class="form-group">

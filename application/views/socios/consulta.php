@@ -12,7 +12,7 @@ Nombre
 <form class="form-search">
   <input type="text" class="input-medium search-query">
   <button type="submit" class="btn">Consultar</button>
-  <?php echo Form::input('nombrebusq', $post['nombrebusq'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>
+  <!--<?php //echo Form::input('nombrebusq', $post['nombrebusq'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>-->
 </form>
 N° de ficha
 <form class="form-search">
@@ -32,7 +32,7 @@ N° de ficha
       </tr>
     </thead>
     <tbody>
-      <!--<?php //foreach ($collection as $socio) { ?>-->
+      <?php foreach ($collection as $socio) { ?>
       <tr>
         <td><?php echo $socio->id ?></td>
         <td><?php echo $socio->persona->nombre ?></td>
@@ -42,7 +42,7 @@ N° de ficha
           <a href="<? echo URL::base('http') . 'socios/delete/'. $socio->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
-      <!--<?php //}?>-->
+      <?php }?>
     </tbody>
   </table>
 </div>

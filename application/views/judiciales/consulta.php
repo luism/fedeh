@@ -1,5 +1,5 @@
 <div class="row">
-<h2 class="">Consulta de Judical</h2>  
+<h2 class="">Consulta de Judicial</h2>  
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">Apellido

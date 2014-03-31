@@ -29,8 +29,8 @@
         <td><?php echo $capacitacion->hora ?></td>
         <td><?php echo $capacitacion->lugar ?></td>
         <td>
-          <a href="#" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<? echo URL::base('http') . 'capcitaciones/delete/'. $capacitacion->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<? echo URL::base('http') . 'capacitaciones/edit/' . $capacitacion->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+          <a href="<? echo URL::base('http') . 'capacitaciones/delete/'. $capacitacion->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

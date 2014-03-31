@@ -1,5 +1,5 @@
 <div class="row">
-<h2 class="">Listado de Judicales</h2>  
+<h2 class="">Listado de Judiciales</h2>  
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">Judiciales</div>
