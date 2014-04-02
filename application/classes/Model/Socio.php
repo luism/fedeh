@@ -3,7 +3,7 @@
 class Model_Socio extends Model_ORM_Template {
   protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
   protected $_has_one = array(
-      'ficha' => array('foreign_key' => 'socio_id'),
+      'plan_de_cuenta' => array('foreign_key' => 'socio_id'),
   );
   public function rules()
   {
@@ -34,7 +34,18 @@ class Model_Socio extends Model_ORM_Template {
       ),
       'numero_ficha' => array(
       ),
-      
+      'monto' => array(
+      ),      
     );
+  }
+
+  public function generar_cuenta()
+  {
+    $cuenta = ORM::factory('PlanDeCuenta');
+    if ($this->monto)
+    {
+      # Generamos las lineas de cuenta
+    }
+    $cuenta->save();
   }
 }

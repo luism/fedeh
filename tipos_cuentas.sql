@@ -9,4 +9,4 @@ INSERT INTO `tipos_plan_cuentas` (`id`,`TipoPlan`) VALUES (2,'efectivo credito')
 INSERT INTO `tipos_plan_cuentas` (`id`,`TipoPlan`) VALUES (3,'cheque debito');
 INSERT INTO `tipos_plan_cuentas` (`id`,`TipoPlan`) VALUES (4,'cheque credito');
 INSERT INTO `tipos_plan_cuentas` (`id`,`TipoPlan`) VALUES (5,'donacion efectivo');
-INSERT INTO `tipos_plan_cuentas` (`id`,`TipoPlan`) VALUES (11,'donacion cheque');
+INSERT INTO `tipos_plan_cuentas` (`id`,`TipoPlan`) VALUES (6,'donacion cheque');

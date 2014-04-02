@@ -38,7 +38,6 @@ class Controller_Socios extends Controller_Template_Base
     // Creamos y guardamos el socio, pero primero verificar que mando datos:
     $persona = ORM::factory('Persona');
     $socio = ORM::factory('Socio');
-    $ficha = ORM::factory('Ficha');
     if (isset($_POST) && Valid::not_empty($_POST))
     {      
       // Factory es un patron de diseño, tener en cuenta.
@@ -53,11 +52,8 @@ class Controller_Socios extends Controller_Template_Base
               ->rule('fecha_nacimiento','not_empty')
               ->rule('tipo_aporte','not_empty');
       if ($post->check()) {
-        // Instanciamos una persona
-        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
-        // Instanciamos un socio
-        // Agregamos los datos al modelo instanciado
-        $socio->values($_POST,array('tipo_documento','nro_documento','domicilio_laboral','fecha_nacimiento','tipo_aporte','descuento_planilla'));
+        $persona->values($post->as_array(),array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $socio->values($post->as_array(),array('tipo_documento','nro_documento','domicilio_laboral','fecha_nacimiento','tipo_aporte','descuento_planilla','numero_ficha'));
         try
         {
           $persona->save();
@@ -65,6 +61,7 @@ class Controller_Socios extends Controller_Template_Base
           {
             $socio->values(array('persona_id' => $persona->id));
             $socio->save();
+            // $socio->generar_cuenta();
             // ver a donde redireccionamos
             $this->redirect('socios/index');
           }
@@ -114,14 +111,21 @@ class Controller_Socios extends Controller_Template_Base
               ->rule('email','not_empty')
               ->rule('telefono','not_empty');
       if ($post->check()) {
-        // Instanciamos una persona
         $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
-        // Instanciamos un socio
-        // Agregamos los datos al modelo instanciado
+        $socio->values($post->as_array(),array('tipo_documento','nro_documento','domicilio_laboral','fecha_nacimiento','tipo_aporte','descuento_planilla','numero_ficha'));
         try
         {
           $persona->save();
-          // $this->redirect('socios/index');
+          try
+          {
+            $socio->save();
+            // ver a donde redireccionamos
+            $this->redirect('socios/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('socio');
+          }          
         } 
         catch (ORM_Validation_Exception $e)
         {
@@ -223,6 +227,20 @@ class Controller_Socios extends Controller_Template_Base
       <li><a href=\"#\">Home</a></li>
       <li class=\"active\">Socios</li>
     </ol>";
+  }
+
+  public function action_ver()
+  {
+    $socio = ORM::factory('Socio', $this->request->param('id'));
+    if ($socio->loaded())
+    {
+      $this->template->content = View::factory('socios/ver')
+      ->bind('socio',$socio);
+    }
+    else
+    {
+      $this->redirect('socios/index');
+    }
   }
 
 }

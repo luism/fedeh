@@ -1,7 +1,7 @@
 <div class="row">
   <h2 class="">Socio</h2>
 </div>
-<?php echo Form::open('socios' . ($socio->id ? '/edit/'. $socio->id : '/new'), array('role' => 'form', 'class' => 'form')); ?>
+<?php echo Form::open('socios/edit/' . $socio->id, array('role' => 'form', 'class' => 'form')); ?>
   <?php if ($errors) { ?>
   <div class="row">
     <!-- Mensajes de error -->
@@ -46,7 +46,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="numero_ficha">Numero de Ficha</label>
-        <?php echo Form::input('numero_ficha', $socio->numero_ficha, array('class' => 'form-control', 'placeholder' => 'Número de Ficha', 'autofocus', 'required' => '')) ?>
+        <?php echo Form::input('numero_ficha', $ficha->numero_ficha, array('class' => 'form-control', 'placeholder' => 'Número de Ficha', 'autofocus')) ?>
       </div>
     </div>
 
@@ -133,7 +133,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="grupo_sanguineo">Grupo Sanguíneo</label>
-        <?php echo Form::input('grupo_sanguineo', $persona->grupo_sanguineo, array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus')) ?>
+        <?php echo Form::input('grupo_sanguineo', $persona->grupo_sanguineo, array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus', 'required' => '')) ?>
       </div>
     </div>
 

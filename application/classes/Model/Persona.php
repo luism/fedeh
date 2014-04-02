@@ -9,6 +9,7 @@ class Model_Persona extends Model_ORM_Template {
         'contacto' => array('foreign_key' => 'persona_id'),
         'colaborador' => array('foreign_key' => 'persona_id'),
         'empresa' => array('foreign_key' => 'persona_id'),
+        'pland_de_cuenta' => array('foreign_key' => 'persona_id'),
     );
     public function rules()
     {
