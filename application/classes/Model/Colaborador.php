@@ -2,6 +2,8 @@
 
 class Model_Colaborador extends Model_Persona {
   protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
+  protected $_table_name = 'colaboradores'; 
+
   public function rules()
   {
     // Atributos espeicificos de socio

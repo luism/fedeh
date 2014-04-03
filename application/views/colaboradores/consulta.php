@@ -5,19 +5,19 @@
 <div class="panel-heading">Apellido
 <form class="form-search">
   <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn">Consultar</button>
+  <button type="submit" class="btn btn-primary">Consultar</button>
   <!--<?php //echo Form::input('apellido', $post['apellido'], array('class' => 'form-control', 'placeholder' => 'Apellido', 'autofocus', 'required' => '')) ?>-->
 </form>
 Nombre
 <form class="form-search">
   <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn">Consultar</button>
+  <button type="submit" class="btn btn-primary">Consultar</button>
   <!--<?php //echo Form::input('nombre', $post['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>-->
 </form>
 D.N.I.
 <form class="form-search">
   <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn">Consultar</button>
+  <button type="submit" class="btn btn-primary">Consultar</button>
   <!--<?php //echo Form::input('nombre', $post['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>-->
 </form>
   </div>
@@ -43,7 +43,7 @@ D.N.I.
         <td><?php echo $colaborador->nombre ?></td>
         <td><?php echo $colaborador->apellido ?></td>
         <td><?php echo $colaborador->domicilio_personal ?></td>
-        <td><?php echo $colaborador->Telefono ?></td>
+        <td><?php echo $colaborador->telefono ?></td>
         <td><?php echo $colaborador->email ?></td>
         <td><?php echo $colaborador->colaborador->nro_documento ?></td>
         <td>

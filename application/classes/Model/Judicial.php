@@ -2,6 +2,8 @@
 
 class Model_Judicial extends Model_Persona {
   protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
+  protected $_table_name = 'judiciales';
+
   public function rules()
   {
     // Atributos espeicificos de judicial

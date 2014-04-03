@@ -46,16 +46,7 @@ public function before(){
         // Instanciamos una capacitacion
         $capacitacion = ORM::factory('Capacitacion');
         // Agregamos los datos al modelo instanciado
-        $capacitacion->values(array(
-            'titulo' => $post['titulo'],
-            'descripcion' => $post['descripcion'],
-            'cupos' => $post['cupos'],
-            'fecha_capacitacion' => $post['fecha_capacitacion'],
-            'hora' => $post['hora'],
-            'lugar' => $post['lugar'],
-                      
-          )
-        );
+        $capacitacion->values($post->as_array(), array('titulo','descripcion','cupos','fecha_capacitacion','hora','lugar',));
 
 
         try{
