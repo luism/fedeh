@@ -1,10 +1,7 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class Model_Socio extends Model_ORM_Template {
+class Model_Socio extends Model_Persona {
   protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
-  protected $_has_one = array(
-      'plan_de_cuenta' => array('foreign_key' => 'socio_id'),
-  );
   public function rules()
   {
     // Atributos espeicificos de socio
@@ -37,15 +34,5 @@ class Model_Socio extends Model_ORM_Template {
       'monto' => array(
       ),      
     );
-  }
-
-  public function generar_cuenta()
-  {
-    $cuenta = ORM::factory('PlanDeCuenta');
-    if ($this->monto)
-    {
-      # Generamos las lineas de cuenta
-    }
-    $cuenta->save();
   }
 }

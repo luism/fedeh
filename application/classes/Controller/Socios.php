@@ -61,7 +61,9 @@ class Controller_Socios extends Controller_Template_Base
           {
             $socio->values(array('persona_id' => $persona->id));
             $socio->save();
-            // $socio->generar_cuenta();
+            # Generamos la cuenta.
+            # TODO: Deberíamos pasar esto a algun Callback
+            $persona->generar_cuenta(1,$socio->monto);
             // ver a donde redireccionamos
             $this->redirect('socios/index');
           }

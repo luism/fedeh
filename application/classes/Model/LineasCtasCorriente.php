@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class Model_LineasCtasCorriente extends Model_ORM_Template {
+class Model_LineasCuentasCorriente extends Model_ORM_Template {
   protected $_belongs_to = array('tipo_cuenta_corriente' => array('foreign_key' => 'tipo_cuenta_corriente_id'),
     'plan_de_cuenta' => array('foreign_key' => 'plan_de_cuenta_id'));
   protected $_table_name = 'lineas_ctas_corrientes';

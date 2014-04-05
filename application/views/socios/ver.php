@@ -6,4 +6,10 @@
 <p>
   
 Se genero la Cuenta:
+<?php if ($socio->persona->tiene_cuenta()): ?>
+si
+<?php else: ?>
+no
+<a href="#">Generar Cuenta</a>
+<?php endif; ?>
 </p>

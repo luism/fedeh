@@ -9,7 +9,10 @@ class Model_Persona extends Model_ORM_Template {
         'contacto' => array('foreign_key' => 'persona_id'),
         'colaborador' => array('foreign_key' => 'persona_id'),
         'empresa' => array('foreign_key' => 'persona_id'),
-        'pland_de_cuenta' => array('foreign_key' => 'persona_id'),
+        'plan_de_cuenta' => array(
+            'model' => 'PlanDeCuenta',
+            'foreign_key' => 'persona_id'
+        ),
     );
     public function rules()
     {
@@ -44,5 +47,27 @@ class Model_Persona extends Model_ORM_Template {
                 array('max_length', array(':value', 45)),
             ),
         );
+    }
+
+    /* Funcion para generar la cuenta a las personas. */
+    public function generar_cuenta($tipo_cuenta = 1, $monto = 0)
+    {
+        #instanciamos un plan de cuenta
+        $cuenta = ORM::factory('PlanDeCuenta');
+        # Agregamos el tipo de cuenta que es
+        $cuenta->tipos_plan_cuentas_id = $tipo_cuenta;
+        # La relacionamos a la persona
+        $cuenta->persona_id = $this->id;
+        # salvamos
+        $cuenta->save();
+    }
+    
+    /* Funcion para saber si la persona tiene cuenta generada */
+    public function tiene_cuenta()
+    {
+        if ($this->plan_de_cuenta->id != NULL)
+            return true;
+        else
+            return false;
     }
 }
