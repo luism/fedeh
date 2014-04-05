@@ -1,7 +1,7 @@
 <div class="row">
   <h2 class="">Judicial</h2>
 </div>
-<?php echo Form::open('judiciales/new', array('role' => 'form', 'class' => 'form')); ?>
+<?php echo Form::open('judiciales' . ($judicial->id ? '/edit/' . $judicial->id : '/new'), array('role' => 'form', 'class' => 'form')); ?>
   <?php if ($errors) { ?>
   <div class="row">
     <!-- Mensajes de error -->
@@ -27,7 +27,7 @@
     <!--<legend>Nuevo</legend>-->
 
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>
+    <p class="bg-info"><legend><strong>$subtitulo</strong></legend></p>
 
           <div class="col-md-4">
             <div class="form-group">

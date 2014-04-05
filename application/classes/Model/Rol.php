@@ -2,6 +2,7 @@
 
 // EL nombre del modelo debe conicidir con la tabla pero en singular 
 class Model_Rol extends ORM {
+    protected $_table_name = 'roles';
  
     public function rules()
     {

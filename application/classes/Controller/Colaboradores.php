@@ -16,7 +16,7 @@ public function before(){
   {
 
     // Listamos
-    $colaboradores = ORM::factory('Persona');
+    $colaboradores = ORM::factory('Colaborador');
     $collection = $colaboradores->find_all();
     $this->template->content = View::factory('colaboradores/index')
     // Pasamos la variable collection con todos los registros traidos
@@ -31,7 +31,10 @@ public function before(){
   public function action_new()
   {
     // Creamos y guardamos el colaborador, pero primero verificar que mando datos:
-    if (isset($_POST) && Valid::not_empty($_POST)) {
+    $persona = ORM::factory('Persona');
+    $colaborador = ORM::factory('Colaborador');
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -39,42 +42,31 @@ public function before(){
               ->rule('domicilio_personal','not_empty')
               ->rule('email','not_empty')
               ->rule('telefono','not_empty')
-              ->rule('fecha_nacimiento','not_empty')
               ->rule('tipo_documento','not_empty')
-              ->rule('nro_documento','not_empty');
+              ->rule('nro_documento','not_empty')
+              ->rule('fecha_nacimiento','not_empty');
+
       if ($post->check()) {
-        // Instanciamos una persona
-        $persona = ORM::factory('Persona');
-        $persona->values(array(
-            'nombre' => $post['nombre'],
-            'apellido' => $post['apellido'],
-            'domicilio_personal'=>$post['domicilio_personal'],
-            'email'=>$post['email'],
-            'telefono'=>$post['telefono'],
-            'grupo_sanguineo'=>['grupo_sanguineo'],
-          )
-        );
-        // Instanciamos un colaborador
-        $colaborador = ORM::factory('Colaborador');
-        // Agregamos los datos al modelo instanciado
-        $colaborador->values(array(
-            'fecha_nacimiento' => $post['fecha_nacimiento'],
-            'tipo_documento' => $post['tipo_documento'],
-            'nro_documento' => $post['nro_documento'],
-            )
-        );
-        try {
+        $persona->values($post->as_array(),array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $colaborador->values($post->as_array(),array('tipo_documento','nro_documento','fecha_nacimiento'));
+        try
+        {
           $persona->save();
-          try{
-            $colaborador->values(array('personas_id' => $persona->id));
+          try
+          {
+            $colaborador->values(array('persona_id' => $persona->id));
             $colaborador->save();
+            // $socio->generar_cuenta();
             // ver a donde redireccionamos
             $this->redirect('colaboradores/index');
           }
-          catch (ORM_Validation_Exception $e){
+          catch (ORM_Validation_Exception $e)
+          {
             $errors = $e->errors('colaborador');
           }          
-        } catch (ORM_Validation_Exception $e) {
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
           $errors = $e->errors('persona');          
         }
       }
@@ -84,26 +76,77 @@ public function before(){
       }
     }
 
-    
-    // entratamien formulario para nuevo rol
+    //$subtitulo = 'Nuevo';
+    // Mostramos formulario para nuevo socio
     $this->template->content = View::factory('colaboradores/new')
-         ->bind('post', $post)
+         ->bind('persona', $persona)
+         ->bind('colaborador', $colaborador)
+         //->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
   }
 
-  public function update()
+  public function action_edit()
   {
-    // Actualizamos el rol
+    $colaborador = ORM::factory('Colaborador',$this->request->param('id'));
+    $persona = ORM::factory('Persona',$colaborador->persona->id);
+    //$subtitulo = 'Editar';
+
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
+      // Factory es un patron de diseño, tener en cuenta.
+      $post = Validation::factory($_POST)
+              ->rule('nombre','not_empty')
+              ->rule('apellido','not_empty')
+              ->rule('domicilio_personal','not_empty')
+              ->rule('email','not_empty')
+              ->rule('telefono','not_empty');
+      if ($post->check()) {
+        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $colaborador->values($post->as_array(),array('tipo_documento','nro_documento','fecha_nacimiento'));
+        try
+        {
+          $persona->save();
+          try
+          {
+            $colaborador->save();
+            // ver a donde redireccionamos
+            $this->redirect('colaboradores/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('colaborador');
+          }          
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
+          $errors = $e->errors('persona');          
+        }
+      }
+      else
+      {
+        $errors = $post->errors('persona');
+      }
+    }
+
+
+    $this->template->content = View::factory('colaboradores/edit')
+         ->bind('persona', $persona)
+         ->bind('colaborador', $colaborador)
+         //->set('ficha', ORM::factory('Ficha'))
+         //->set('monto', '')
+         //->bind('tipos_aportes', $tipos_aportes)
+         //->bind('subtitulo', $subtitulo)
+         ->bind('errors', $errors);
   }
 
-  public function delete()
+  public function action_delete()
   {
     // Borramos el colaborador
     $id = $this->request->param('id');
-    $user = ORM::factory('Colaborador',$id);
-    $persona = $user->persona;
+    $colaborador = ORM::factory('Colaborador',$id);
+    $persona = $colaborador->persona;
     # TODO agregar control de error al borrar
-    $user->delete();
+    $colaborador->delete();
     $persona->delete();
     $this->redirect('colaboradores/index');
   }
@@ -112,7 +155,7 @@ public function before(){
   {
 
     // Listamos
-    $colaboradores = ORM::factory('Persona');
+    $colaboradores = ORM::factory('Colaborador');
     $collection = $colaboradores->find_all();
     $this->template->content = View::factory('colaboradores/consulta')
     // Pasamos la variable collection con todos los registros traidos

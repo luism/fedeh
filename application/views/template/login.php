@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="favicon.png">
 
-    <title>Fundación FEDEH - <? echo $title; ?></title>
+    <title>Fundación FEDEH - <?php echo $title; ?></title>
 
     <!-- Bootstrap core CSS -->
     <!-- Custom styles for this template -->

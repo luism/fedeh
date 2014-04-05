@@ -91,7 +91,7 @@ class Controller_Pacientes extends Controller_Template_Base
     // Actualizamos el rol
   }
 
-  public function delete()
+  public function action_delete()
   {
     // Borramos el paciente
     $id = $this->request->param('id');
