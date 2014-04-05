@@ -1,7 +1,7 @@
 <div class="row">
   <h2 class="">Colaborador</h2>
 </div>
-<?php echo Form::open('colaboradores/new', array('role' => 'form', 'class' => 'form')); ?>
+<?php echo Form::open('colaboradores/edit/' . $colaborador->id, array('role' => 'form', 'class' => 'form')); ?>
   <?php if ($errors) { ?>
   <div class="row">
     <!-- Mensajes de error -->
@@ -26,7 +26,7 @@
         <!-- Form Name -->
         
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-        <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>
+        <p class="bg-info"><legend><strong>Editar</strong></legend></p>
 
           <div class="col-md-4">
             <div class="form-group">

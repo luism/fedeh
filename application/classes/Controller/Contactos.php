@@ -90,7 +90,7 @@ class Controller_Contactos extends Controller_Template_Base
     // Actualizamos el rol
   }
 
-  public function delete()
+  public function action_delete()
   {
     // Borramos el contacto
     $id = $this->request->param('id');

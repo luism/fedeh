@@ -29,8 +29,8 @@
         <td><?php echo $paciente->grupo_sanguineo ?></td>
         <td><?php echo $paciente->paciente->estado ?></td>
         <td>
-          <a href="<? echo URL::base('http') . 'pacientes/edit/'. $paciente->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<? echo URL::base('http') . 'pacientes/delete/'. $paciente->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<?php echo URL::base('http') . 'pacientes/edit/'. $paciente->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+          <a href="<?php echo URL::base('http') . 'pacientes/delete/'. $paciente->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

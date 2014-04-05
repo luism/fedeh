@@ -10,7 +10,6 @@ class Model_Judicial extends Model_Persona {
     return array(
       'numero_oficio' => array(
         array('not_empty'),
-        //como valido int
       ),
       'fecha_oficio' => array(
         array('not_empty'),

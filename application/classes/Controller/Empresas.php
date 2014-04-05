@@ -93,7 +93,7 @@ class Controller_Empresas extends Controller_Template_Base
     // Actualizamos el rol
   }
 
-  public function delete()
+  public function action_delete()
   {
     // Borramos la empresa
     $id = $this->request->param('id');

@@ -31,8 +31,8 @@
         <td><?php echo $empresa->email ?></td>
         <td><?php echo $empresa->empresa->contacto_empresa ?></td>
         <td>
-          <a href="<? echo URL::base('http') . 'empresas/edit/'. $empresa->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<? echo URL::base('http') . 'empresas/delete/'. $empresa->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<?php echo URL::base('http') . 'empresas/edit/'. $empresa->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+          <a href="<?php echo URL::base('http') . 'empresas/delete/'. $empresa->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>
