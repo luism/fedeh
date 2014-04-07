@@ -37,7 +37,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label for="apellidos">Apellidos</label>
+              <label for="apellido">Apellidos</label>
               <?php echo Form::input('apellido',$persona->apellido, array('class' => 'form-control', 'placeholder' => 'Apellidos', 'autofocus', 'required' => '')) ?>
             </div>
           </div>

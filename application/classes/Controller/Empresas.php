@@ -2,6 +2,7 @@
 
 class Controller_Empresas extends Controller_Template_Base
 {
+  private $subtitulo = '';
 
   public function before(){
     parent::before();
@@ -11,9 +12,8 @@ class Controller_Empresas extends Controller_Template_Base
 
   public function action_index()
   {
-
     // Listamos
-    $empresas = ORM::factory('Persona');
+    $empresas = ORM::factory('Empresa');
     $collection = $empresas->find_all();
     $this->template->content = View::factory('empresas/index')
     // Pasamos la variable collection con todos los registros traidos
@@ -27,51 +27,41 @@ class Controller_Empresas extends Controller_Template_Base
 
   public function action_new()
   {
-    // Creamos y guardamos el colaborador, pero primero verificar que mando datos:
-    if (isset($_POST) && Valid::not_empty($_POST)) {
+    // Creamos y guardamos la empresa, pero primero verificar que mando datos:
+    $persona = ORM::factory('Persona');
+    $empresa = ORM::factory('Empresa');
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
-              //->rule('apellido','not_empty')
+              ->rule('apellido','not_empty')
               ->rule('domicilio_personal','not_empty')
               ->rule('email','not_empty')
               ->rule('telefono','not_empty')
               ->rule('rubro','not_empty')
-              ->rule('contacto_empresa','not_empty')
+              ->rule('nombre_empresa','not_empty')
               ->rule('cuit','not_empty');
-      if ($post->check()) {
-        // Instanciamos una persona
-        $persona = ORM::factory('Persona');
-        $persona->values(array(
-            'nombre' => $post['nombre'],
-            //'apellido' => $post['apellido'],
-            'domicilio_personal'=>$post['domicilio_personal'],
-            'email'=>$post['email'],
-            'telefono'=>$post['telefono'],
-            'grupo_sanguineo'=>['grupo_sanguineo'],
-          )
-        );
-        // Instanciamos un empresa
-        $empresa = ORM::factory('Empresa');
-        // Agregamos los datos al modelo instanciado
-        $empresa->values(array(
-            'rubro' => $post['rubro'],
-            'contacto_empresa' => $post['contacto_empresa'],
-            'cuit' => $post['cuit'],
-            )
-        );
-        try {
+        if ($post->check()) {
+        $persona->values($post->as_array(),array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $empresa->values($post->as_array(),array('rubro','nombre_empresa','cuit'));
+        try
+        {
           $persona->save();
-          try{
-            $empresa->values(array('personas_id' => $persona->id));
+          try
+          {
+            $empresa->values(array('persona_id' => $persona->id));
             $empresa->save();
-            // ver a donde redireccionamos
+           // ver a donde redireccionamos
             $this->redirect('empresas/index');
           }
-          catch (ORM_Validation_Exception $e){
+          catch (ORM_Validation_Exception $e)
+          {
             $errors = $e->errors('empresa');
           }          
-        } catch (ORM_Validation_Exception $e) {
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
           $errors = $e->errors('persona');          
         }
       }
@@ -81,26 +71,75 @@ class Controller_Empresas extends Controller_Template_Base
       }
     }
 
-    
-    // entratamien formulario para nuevo rol
-    $this->template->content = View::factory('empresas/new')
-         ->bind('post', $post)
+    $subtitulo = 'Nuevo';
+    // Mostramos formulario para nueva empresa
+    $this->template->content = View::factory('empresas/form')
+         ->bind('persona', $persona)
+         ->bind('empresa', $empresa)
+         ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
   }
 
-  public function update()
+  public function action_edit()
   {
-    // Actualizamos el rol
+    $empresa = ORM::factory('Empresa',$this->request->param('id'));
+    $persona = ORM::factory('Persona',$empresa->persona->id);
+    $subtitulo = 'Editar';
+
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
+      // Factory es un patron de diseño, tener en cuenta.
+      $post = Validation::factory($_POST)
+              ->rule('nombre','not_empty')
+              ->rule('apellido','not_empty')
+              ->rule('domicilio_personal','not_empty')
+              ->rule('email','not_empty')
+              ->rule('telefono','not_empty')
+              ->rule('rubro','not_empty')
+              ->rule('nombre_empresa','not_empty')
+              ->rule('cuit','not_empty');
+      if ($post->check()) {
+        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $empresa->values($post->as_array(),array('rubro','nombre_empresa','cuit'));
+        try
+        {
+          $persona->save();
+          try
+          {
+            $empresa->save();
+            // ver a donde redireccionamos
+            $this->redirect('empresas/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('empresa');
+          }          
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
+          $errors = $e->errors('persona');          
+        }
+      }
+      else
+      {
+        $errors = $post->errors('persona');
+      }
+    } 
+    $this->template->content = View::factory('empresas/form')
+         ->bind('persona', $persona)
+         ->bind('empresa', $empresa)
+         ->bind('subtitulo', $subtitulo)
+         ->bind('errors', $errors);    
   }
 
   public function action_delete()
   {
     // Borramos la empresa
     $id = $this->request->param('id');
-    $user = ORM::factory('Empresa',$id);
-    $persona = $user->persona;
+    $empresa = ORM::factory('Empresa',$id);
+    $persona = $empresa->persona;
     # TODO agregar control de error al borrar
-    $user->delete();
+    $empresa->delete();
     $persona->delete();
     $this->redirect('empresas/index');
   }

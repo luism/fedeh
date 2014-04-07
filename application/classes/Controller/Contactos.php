@@ -2,6 +2,7 @@
 
 class Controller_Contactos extends Controller_Template_Base
 {
+  private $subtitulo = '';
 
   public function before(){
     parent::before();
@@ -13,7 +14,7 @@ class Controller_Contactos extends Controller_Template_Base
   {
 
     // Listamos
-    $contactos = ORM::factory('Persona');
+    $contactos = ORM::factory('Contacto');
     $collection = $contactos->find_all();
     $this->template->content = View::factory('contactos/index')
     // Pasamos la variable collection con todos los registros traidos
@@ -27,8 +28,11 @@ class Controller_Contactos extends Controller_Template_Base
 
   public function action_new()
   {
-    // Creamos y guardamos el paciente, pero primero verificar que mando datos:
-    if (isset($_POST) && Valid::not_empty($_POST)) {
+    // Creamos y guardamos el contacto, pero primero verificar que mando datos:
+    $persona = ORM::factory('Persona');
+    $contacto = ORM::factory('Contacto');
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -38,38 +42,24 @@ class Controller_Contactos extends Controller_Template_Base
               ->rule('telefono','not_empty')
               ->rule('profesion','not_empty');
       if ($post->check()) {
-        // Instanciamos una persona
-        $persona = ORM::factory('Persona');
-        $persona->values(array(
-            'nombre' => $post['nombre'],
-            'apellido' => $post['apellido'],
-            'domicilio_personal'=>$post['domicilio_personal'],
-            'email'=>$post['email'],
-            'telefono'=>$post['telefono'],
-            'donante'=>$post['donante'],
-            'grupo_sanguineo'=>['grupo_sanguineo'],
-          )
-        );
-        // Instanciamos un paciente
-        $contacto = ORM::factory('Contacto');
-        // Agregamos los datos al modelo instanciado
-        $contacto->values(array(
-            'domicilio_laboral' => $post['domicilio_laboral'],
-            'profesion' => $post['profesion'],
-            )
-        );
-        try {
+        $persona->values($post->as_array(),array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $contacto->values($post->as_array(),array('domicilio_laboral','profesion'));
+        try
+        {
           $persona->save();
-          try{
-            $contacto->values(array('personas_id' => $persona->id));
+          try
+          {
+            $contacto->values(array('persona_id' => $persona->id));
             $contacto->save();
-            // ver a donde redireccionamos
             $this->redirect('contactos/index');
           }
-          catch (ORM_Validation_Exception $e){
+          catch (ORM_Validation_Exception $e)
+          {
             $errors = $e->errors('contacto');
           }          
-        } catch (ORM_Validation_Exception $e) {
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
           $errors = $e->errors('persona');          
         }
       }
@@ -79,34 +69,85 @@ class Controller_Contactos extends Controller_Template_Base
       }
     }
 
-    // entratamien formulario para nuevo contacto
-    $this->template->content = View::factory('contactos/new')
-         ->bind('post', $post)
+    // Listado de tipos de aporte
+    $subtitulo = 'Nuevo';
+    // Mostramos formulario para nuevo contacto
+    $this->template->content = View::factory('contactos/form')
+         ->bind('persona', $persona)
+         ->bind('contacto', $contacto)
+         //->bind('monto', $post['monto'])
+         ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
   }
 
-  public function update()
+  public function action_edit()
   {
-    // Actualizamos el rol
+    $contacto = ORM::factory('Contacto',$this->request->param('id'));
+    $persona = ORM::factory('Persona',$contacto->persona->id);
+    $ubtitulo = 'Editar';
+
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
+      // Factory es un patron de diseño, tener en cuenta.
+      $post = Validation::factory($_POST)
+              ->rule('nombre','not_empty')
+              ->rule('apellido','not_empty')
+              ->rule('domicilio_personal','not_empty')
+              ->rule('email','not_empty')
+              ->rule('telefono','not_empty')
+              ->rule('profesion','not_empty');
+      if ($post->check()) {
+        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $contacto->values($post->as_array(),array('domicilio_laboral','profesion'));
+        try
+        {
+          $persona->save();
+          try
+          {
+            $contacto->save();
+            $this->redirect('contactos/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('contacto');
+          }          
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
+          $errors = $e->errors('persona');          
+        }
+      }
+      else
+      {
+        $errors = $post->errors('contacto');
+      }
+    }
+
+    // Mostramos formulario para editar contacto
+    $this->template->content = View::factory('contactos/form')
+         ->bind('persona', $persona)
+         ->bind('contacto', $contacto)
+         //->bind('monto', $post['monto'])
+         ->bind('subtitulo', $subtitulo)
+         ->bind('errors', $errors);
   }
 
   public function action_delete()
   {
     // Borramos el contacto
     $id = $this->request->param('id');
-    $user = ORM::factory('Contacto',$id);
-    $persona = $user->persona;
+    $contacto = ORM::factory('Contacto',$id);
+    $persona = $contacto->persona;
     # TODO agregar control de error al borrar
-    $user->delete();
+    $contacto->delete();
     $persona->delete();
     $this->redirect('contactos/index');
   }
 
   public function action_consulta()
   {
-
     // Listamos
-    $contactos = ORM::factory('Persona');
+    $contactos = ORM::factory('Contacto');
     $collection = $contactos->find_all();
     $this->template->content = View::factory('contactos/consulta')
     // Pasamos la variable collection con todos los registros traidos

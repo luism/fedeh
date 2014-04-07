@@ -10,7 +10,7 @@ class Model_Empresa extends Model_Persona {
         array('not_empty'),
         array('max_length', array(':value', 45)),
       ),
-      'contacto_empresa' => array(
+      'nombre_empresa' => array(
         array('not_empty'),
         array('max_length', array(':value', 45)),
       ),
