@@ -1,6 +1,6 @@
 <div class="row">
-<h2 class="">Listado de Socios</h2>  
-<div>    
+<h2 class="">Listado de Socios</h2>
+<div>
 <a href="<?php echo URL::base('http') ?>socios/new"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo</a></li>
 <a href="<?php echo URL::base('http') ?>socios/consulta"><i class="glyphicon glyphicon-search"></i>Consulta</a>
 </div>
