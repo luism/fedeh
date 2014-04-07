@@ -8,7 +8,7 @@
 		return array(
 				'estado' => array(
 					array('not_empty'),
-					array('max_lenght', array(':value', 45)),
+					//array('max_lenght', array(':value', 45)),
 				)
 			);	
 		}

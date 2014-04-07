@@ -2,6 +2,9 @@
 
 class Controller_Pacientes extends Controller_Template_Base
 {
+private $subtitulo = '';
+// Listado de estados de pacientes
+public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_tratamiento' => 'En tratamiento',);
 
   public function before(){
     parent::before();
@@ -13,7 +16,7 @@ class Controller_Pacientes extends Controller_Template_Base
   {
 
     // Listamos
-    $pacientes = ORM::factory('Persona');
+    $pacientes = ORM::factory('Paciente');
     $collection = $pacientes->find_all();
     $this->template->content = View::factory('pacientes/index')
     // Pasamos la variable collection con todos los registros traidos
@@ -28,7 +31,10 @@ class Controller_Pacientes extends Controller_Template_Base
   public function action_new()
   {
     // Creamos y guardamos el paciente, pero primero verificar que mando datos:
-    if (isset($_POST) && Valid::not_empty($_POST)) {
+    $persona = ORM::factory('Persona');
+    $paciente = ORM::factory('Paciente');
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -37,37 +43,26 @@ class Controller_Pacientes extends Controller_Template_Base
               ->rule('email','not_empty')
               ->rule('telefono','not_empty')
               ->rule('estado','not_empty');
+              
       if ($post->check()) {
-        // Instanciamos una persona
-        $persona = ORM::factory('Persona');
-        $persona->values(array(
-            'nombre' => $post['nombre'],
-            'apellido' => $post['apellido'],
-            'domicilio_personal'=>$post['domicilio_personal'],
-            'email'=>$post['email'],
-            'telefono'=>$post['telefono'],
-            'grupo_sanguineo'=>['grupo_sanguineo'],
-          )
-        );
-        // Instanciamos un paciente
-        $paciente = ORM::factory('Paciente');
-        // Agregamos los datos al modelo instanciado
-        $paciente->values(array(
-            'estado' => $post['estado'],
-            )
-        );
-        try {
+        $persona->values($post->as_array(),array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $paciente->values($post->as_array(),array('estado'));
+        try
+        {
           $persona->save();
-          try{
-            $paciente->values(array('personas_id' => $persona->id));
+          try
+          {
+            $paciente->values(array('persona_id' => $persona->id));
             $paciente->save();
-            // ver a donde redireccionamos
             $this->redirect('pacientes/index');
           }
-          catch (ORM_Validation_Exception $e){
+          catch (ORM_Validation_Exception $e)
+          {
             $errors = $e->errors('paciente');
           }          
-        } catch (ORM_Validation_Exception $e) {
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
           $errors = $e->errors('persona');          
         }
       }
@@ -77,18 +72,70 @@ class Controller_Pacientes extends Controller_Template_Base
       }
     }
 
-    // Listado de estados de pacientes
-    $estado = array('activo' => 'Activo','no_activo' => 'No activo','en_tratamiento' => 'En tratamiento',);
-    // entratamien formulario para nuevo rol
-    $this->template->content = View::factory('pacientes/new')
-         ->bind('post', $post)
+    // Listado de tipos de estados
+    $estado = $this->ESTADO;
+    $subtitulo = 'Nuevo';
+    // Mostramos formulario para nuevo paciente
+    $this->template->content = View::factory('pacientes/form')
+         ->bind('persona', $persona)
+         ->bind('paciente', $paciente)
          ->bind('estado', $estado)
+         ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
-  }
+   }
 
-  public function update()
+  public function action_edit()
   {
-    // Actualizamos el rol
+    $paciente = ORM::factory('Paciente',$this->request->param('id'));
+    $persona = ORM::factory('Persona',$paciente->persona->id);
+    $subtitulo = 'Editar';
+
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {      
+      // Factory es un patron de diseño, tener en cuenta.
+      $post = Validation::factory($_POST)
+              ->rule('nombre','not_empty')
+              ->rule('apellido','not_empty')
+              ->rule('domicilio_personal','not_empty')
+              ->rule('email','not_empty')
+              ->rule('telefono','not_empty')
+              ->rule('estado','not_empty');
+      if ($post->check()) {
+        $persona->values($_POST,array('nombre','apellido','domicilio_personal','email','telefono','donante','grupo_sanguineo'));
+        $paciente->values($post->as_array(),array('estado'));
+        try
+        {
+          $persona->save();
+          try
+          {
+            $paciente->save();
+            // ver a donde redireccionamos
+            $this->redirect('pacientes/index');
+          }
+          catch (ORM_Validation_Exception $e)
+          {
+            $errors = $e->errors('paciente');
+          }          
+        } 
+        catch (ORM_Validation_Exception $e)
+        {
+          $errors = $e->errors('persona');          
+        }
+      }
+      else
+      {
+        $errors = $post->errors('persona');
+      }
+    }
+
+
+    $estado = $this->ESTADO;
+    $this->template->content = View::factory('pacientes/form')
+         ->bind('persona', $persona)
+         ->bind('paciente', $paciente)
+         ->bind('estado', $estado)
+         ->bind('subtitulo', $subtitulo)
+         ->bind('errors', $errors);
   }
 
   public function action_delete()
@@ -105,9 +152,8 @@ class Controller_Pacientes extends Controller_Template_Base
 
   public function action_consulta()
   {
-
     // Listamos
-    $pacientes = ORM::factory('Persona');
+    $pacientes = ORM::factory('Paciente');
     $collection = $pacientes->find_all();
     $this->template->content = View::factory('pacientes/consulta')
     // Pasamos la variable collection con todos los registros traidos

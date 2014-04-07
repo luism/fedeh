@@ -25,9 +25,10 @@
       <?php foreach ($collection as $paciente) { ?>
       <tr>
         <td><?php echo $paciente->id ?></td>
-        <td><?php echo $paciente->nombre ?></td>
-        <td><?php echo $paciente->grupo_sanguineo ?></td>
-        <td><?php echo $paciente->paciente->estado ?></td>
+        <td><?php echo $paciente->persona->nombre ?></td>
+        <td><?php echo $paciente->persona->apellido ?></td>
+        <td><?php echo $paciente->persona->grupo_sanguineo ?></td>
+        <td><?php echo $paciente->estado ?></td>
         <td>
           <a href="<?php echo URL::base('http') . 'pacientes/edit/'. $paciente->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
           <a href="<?php echo URL::base('http') . 'pacientes/delete/'. $paciente->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>

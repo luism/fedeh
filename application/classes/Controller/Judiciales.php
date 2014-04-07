@@ -58,8 +58,6 @@ public function before(){
           {
             $judicial->values(array('persona_id' => $persona->id));
             $judicial->save();
-            // $socio->generar_cuenta();
-            // ver a donde redireccionamos
             $this->redirect('judiciales/index');
           }
           catch (ORM_Validation_Exception $e)
@@ -154,7 +152,6 @@ public function before(){
   }
   public function action_consulta()
   {
-
     // Listamos
     $judiciales = ORM::factory('Judicial');
     $collection = $judiciales->find_all();
