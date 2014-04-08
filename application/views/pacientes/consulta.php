@@ -15,7 +15,7 @@ Nombre
 <form class="form-search">
   <input type="text" class="input-medium search-query">
   <button type="submit" class="btn btn-primary">Consultar</button>
-  <!--<?php //echo Form::input('nombre', $post['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>-->
+  <?php echo Form::input('nombre', $POST['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus')) ?>
 </form>
 
   </div>

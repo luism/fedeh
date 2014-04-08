@@ -152,9 +152,10 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
 
   public function action_consulta()
   {
-    // Listamos
+    $nombre = $_POST['nombre'];
     $pacientes = ORM::factory('Paciente');
-    $collection = $pacientes->find_all();
+    // Listamos
+    $collection = $pacientes->where('nombre', 'like',"%$nombre%")->find_all();
     $this->template->content = View::factory('pacientes/consulta')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
