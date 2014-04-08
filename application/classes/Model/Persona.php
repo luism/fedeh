@@ -1,6 +1,11 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-// EL nombre del modelo debe conicidir con la tabla pero en singular 
+/**
+ * Modelo Persona
+ * 
+ * EL nombre del modelo debe conicidir con la tabla pero en singular
+ * 
+ */
 class Model_Persona extends Model_ORM_Template {
     protected $_has_one = array(
         'socio' => array('foreign_key' => 'persona_id'),
@@ -49,7 +54,11 @@ class Model_Persona extends Model_ORM_Template {
         );
     }
 
-    /* Funcion para generar la cuenta a las personas. */
+    /**
+     * Funcion para generar la cuenta a las personas
+     *
+     * @var int $tipo_cuenta
+     */
     public function generar_cuenta($tipo_cuenta = 1, $monto = 0)
     {
         #instanciamos un plan de cuenta
@@ -60,9 +69,13 @@ class Model_Persona extends Model_ORM_Template {
         $cuenta->persona_id = $this->id;
         # salvamos
         $cuenta->save();
+        $cuenta->generar_cuotas();
     }
-    
-    /* Funcion para saber si la persona tiene cuenta generada */
+
+    /**
+     * Funcion para saber si la persona tiene cuenta generada
+     *
+     */
     public function tiene_cuenta()
     {
         if ($this->plan_de_cuenta->id != NULL)

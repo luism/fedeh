@@ -32,7 +32,7 @@ class Model_Socio extends Model_Persona {
       'numero_ficha' => array(
       ),
       'monto' => array(
-      ),      
+      ),
     );
   }
 }

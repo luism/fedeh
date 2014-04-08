@@ -13,7 +13,7 @@
       <?php foreach ($errors as $message): ?>
           <li><?php echo $message ?></li>
       <?php endforeach ?>
-      
+
       </ul>
       </p>
     </div>
@@ -26,7 +26,7 @@
 
     <!-- Form Name -->
     <!--<legend>Nuevo</legend>-->
-    
+
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <p class="bg-info"><legend><strong><?php echo $subtitulo ?></strong></legend></p>
 

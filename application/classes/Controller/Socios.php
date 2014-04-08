@@ -1,5 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * Controlador de Socios
+ */
 class Controller_Socios extends Controller_Template_Base
 {
   private $subtitulo = '';
@@ -8,7 +11,7 @@ class Controller_Socios extends Controller_Template_Base
 
   public function before(){
     parent::before();
-    // Podria verificar el ROl del usuario y mostrar una panta que 
+    // Podria verificar el ROl del usuario y mostrar una panta que
     // que informe que no está autorizado a ver este recurso
     // Fix manual para fechas:
       if(isset($_POST['fecha_nacimiento']))
@@ -17,6 +20,13 @@ class Controller_Socios extends Controller_Template_Base
       }
   }
 
+  /**
+   * Listado de socios.
+   * 
+   * TODO: Agregar un paginador
+   * 
+   * @return void
+   */
   public function action_index()
   {
 
@@ -33,13 +43,17 @@ class Controller_Socios extends Controller_Template_Base
     </ol>";
   }
 
+  /**
+   * Nuevo Socio
+   * @return void
+   */
   public function action_new()
   {
     // Creamos y guardamos el socio, pero primero verificar que mando datos:
     $persona = ORM::factory('Persona');
     $socio = ORM::factory('Socio');
     if (isset($_POST) && Valid::not_empty($_POST))
-    {      
+    {
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -70,11 +84,11 @@ class Controller_Socios extends Controller_Template_Base
           catch (ORM_Validation_Exception $e)
           {
             $errors = $e->errors('socio');
-          }          
-        } 
+          }
+        }
         catch (ORM_Validation_Exception $e)
         {
-          $errors = $e->errors('persona');          
+          $errors = $e->errors('persona');
         }
       }
       else
@@ -97,6 +111,10 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('errors', $errors);
   }
 
+  /**
+   * Editar Socio
+   * @return void
+   */
   public function action_edit()
   {
     $socio = ORM::factory('Socio',$this->request->param('id'));
@@ -152,16 +170,35 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('errors', $errors);
   }
 
+  /**
+   * Borrar Socio
+   * @return void
+   */
   public function action_delete()
   {
     // Borramos el socio
-    $id = $this->request->param('id');
-    $socio = ORM::factory('Socio',$id);
-    $persona = $socio->persona;
-    # TODO agregar control de error al borrar
-    $socio->delete();
-    $persona->delete();
-    $this->redirect('socios/index');
+    try {
+      $id = $this->request->param('id');
+      if (!$id)
+      {
+        # Como estamos dentro de un try/catch, cuando generemos la nueva excepcion
+        # se tomará la rama del catch donde haremos el manejo del error y mostraremos el mensaje.
+        throw new Exception("No existe el registro para el id solicitado o no exite ningun id", 1);
+      }
+      $socio = ORM::factory('Socio',$id);
+      $persona = $socio->persona;
+      if ($persona->tiene_cuenta())
+      {
+        throw new Exception("Tiene Plan de Cuenta", 1);        
+      }
+      # TODO agregar control de error al borrar
+      $socio->delete();
+      $persona->delete();
+      $this->redirect('socios/index');
+      
+    } catch (Exception $e) {
+      $this->redirect('socios/index');      
+    }
   }
   public function action_consulta()
   {
@@ -231,13 +268,23 @@ class Controller_Socios extends Controller_Template_Base
     </ol>";
   }
 
+  /**
+   * Ver Socio
+   * @return void
+   */
   public function action_ver()
   {
     $socio = ORM::factory('Socio', $this->request->param('id'));
     if ($socio->loaded())
     {
+      $persona = $socio->persona;
+      $plan_de_cuenta = $persona->plan_de_cuenta;
+      $lineas_cuentas_corrientes = $plan_de_cuenta->lineas_cuentas_corrientes->find_all();
       $this->template->content = View::factory('socios/ver')
-      ->bind('socio',$socio);
+      ->bind('socio',$socio)
+      ->bind('persona',$persona)
+      ->bind('plan_de_cuenta',$plan_de_cuenta)
+      ->bind('lineas_cuentas_corrientes',$lineas_cuentas_corrientes);
     }
     else
     {
