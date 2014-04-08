@@ -59,7 +59,7 @@ class Model_Persona extends Model_ORM_Template {
      *
      * @var int $tipo_cuenta
      */
-    public function generar_cuenta($tipo_cuenta = 1, $monto = 0, $frecuencia)
+    public function generar_cuenta($tipo_cuenta = 1, $monto = 0)
     {
         #instanciamos un plan de cuenta
         $cuenta = ORM::factory('PlanDeCuenta');

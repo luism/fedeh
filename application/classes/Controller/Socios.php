@@ -251,8 +251,14 @@ class Controller_Socios extends Controller_Template_Base
     $socio = ORM::factory('Socio', $this->request->param('id'));
     if ($socio->loaded())
     {
+      $persona = $socio->persona;
+      $plan_de_cuenta = $persona->plan_de_cuenta;
+      $lineas_cuentas_corrientes = $plan_de_cuenta->lineas_cuentas_corrientes->find_all();
       $this->template->content = View::factory('socios/ver')
-      ->bind('socio',$socio);
+      ->bind('socio',$socio)
+      ->bind('persona',$persona)
+      ->bind('plan_de_cuenta',$plan_de_cuenta)
+      ->bind('lineas_cuentas_corrientes',$lineas_cuentas_corrientes);
     }
     else
     {
