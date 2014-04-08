@@ -1,5 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
+/**
+ * Controlador de Socios
+ */
 class Controller_Socios extends Controller_Template_Base
 {
   private $subtitulo = '';
@@ -17,6 +20,13 @@ class Controller_Socios extends Controller_Template_Base
       }
   }
 
+  /**
+   * Listado de socios.
+   * 
+   * TODO: Agregar un paginador
+   * 
+   * @return void
+   */
   public function action_index()
   {
 
@@ -33,6 +43,10 @@ class Controller_Socios extends Controller_Template_Base
     </ol>";
   }
 
+  /**
+   * Nuevo Socio
+   * @return void
+   */
   public function action_new()
   {
     // Creamos y guardamos el socio, pero primero verificar que mando datos:
@@ -97,6 +111,10 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('errors', $errors);
   }
 
+  /**
+   * Editar Socio
+   * @return void
+   */
   public function action_edit()
   {
     $socio = ORM::factory('Socio',$this->request->param('id'));
@@ -152,6 +170,10 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('errors', $errors);
   }
 
+  /**
+   * Borrar Socio
+   * @return void
+   */
   public function action_delete()
   {
     // Borramos el socio
@@ -246,6 +268,10 @@ class Controller_Socios extends Controller_Template_Base
     </ol>";
   }
 
+  /**
+   * Ver Socio
+   * @return void
+   */
   public function action_ver()
   {
     $socio = ORM::factory('Socio', $this->request->param('id'));
