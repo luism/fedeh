@@ -19,6 +19,12 @@ class Model_Persona extends Model_ORM_Template {
             'foreign_key' => 'persona_id'
         ),
     );
+    protected $_TIPO_APORTE = array(
+        'mensual' => 12,
+        'trimestral' => 4,
+        'semestral' => 2,
+        'anual' => 1
+    );
     public function rules()
     {
         return array(
@@ -59,7 +65,7 @@ class Model_Persona extends Model_ORM_Template {
      *
      * @var int $tipo_cuenta
      */
-    public function generar_cuenta($tipo_cuenta = 1, $monto = 0)
+    public function generar_cuenta($tipo_cuenta = 1, $monto = 0, $tipo_aporte = 'mensual')
     {
         #instanciamos un plan de cuenta
         $cuenta = ORM::factory('PlanDeCuenta');
@@ -67,9 +73,11 @@ class Model_Persona extends Model_ORM_Template {
         $cuenta->tipos_plan_cuentas_id = $tipo_cuenta;
         # La relacionamos a la persona
         $cuenta->persona_id = $this->id;
-        # salvamos
+        $cuenta->fecha_adelante = date('Y-m-d', time());
+        # Salvamos primero por que debe crearse el id
         $cuenta->save();
-        $cuenta->generar_cuotas();
+        # Ahora si recien generamos las cuotas ya que necesitan el id de cuenta.
+        $cuenta->generar_cuotas($monto,$this->_TIPO_APORTE[$tipo_aporte]);
     }
 
     /**

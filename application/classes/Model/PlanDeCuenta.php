@@ -40,17 +40,30 @@ class Model_PlanDeCuenta extends Model_ORM_Template {
    */
   public function generar_cuotas($monto=10, $cuotas=12)
   {
-    for ($i=1; $i < $cuotas ; $i++) {
-      $tipo_linea_cc = ORM::factory('TipoCuentaCorriente');
-      $tipo_linea_cc->where('tipocuenta', '=', 'efectivo debito')->find_all();
+    $tipo_linea_cc_id = $this->dame_tipo_linea_cc('efectivo debito')->id;
+    # Iteramos para el numero de cuptas
+    echo $monto;
+    for ($i=1; $i <= $cuotas ; $i++) {
+
       $cuota = new Model_LineaCuentaCorriente();
       $cuota->plan_de_cuenta_id = $this->id;
       $cuota->debe = $monto;
       $cuota->detalle = 'cuota';
-      $cuota->tipo_cuenta_corriente_id = 1;
+      $cuota->tipo_cuenta_corriente_id = $tipo_linea_cc_id;
       # TODO: generar fechas de vencimientos para las cuotas.
-      // $cuota->fecha_cta_cte = $fecha_vencimiento
+      $cuota->fecha_cta_cte = date('Y-m-d',strtotime('+' . ($i-1) . 'months'));
       $cuota->save();
     }
+  }
+
+  /**
+   * Buscar el id del tipo de linea de cc
+   * @return [type] [description]
+   */
+  public function dame_tipo_linea_cc($tipo = NULL)
+  {
+    $tipo_linea_cc = ORM::factory('TipoCuentaCorriente');
+    $tipo_linea_cc->where('tipocuenta', '=', $tipo)->find();
+    return $tipo_linea_cc;
   }
 }

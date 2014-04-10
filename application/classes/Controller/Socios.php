@@ -74,10 +74,10 @@ class Controller_Socios extends Controller_Template_Base
           try
           {
             $socio->values(array('persona_id' => $persona->id));
-            $socio->save();
             # Generamos la cuenta.
             # TODO: Deberíamos pasar esto a algun Callback
-            $persona->generar_cuenta(1,$socio->monto);
+            $persona->generar_cuenta(1,$post->as_array()['monto'],$post->as_array()['tipo_aporte']);
+            $socio->save();
             // ver a donde redireccionamos
             $this->redirect('socios/index');
           }
