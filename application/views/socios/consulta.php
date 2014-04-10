@@ -48,7 +48,7 @@
         <td><?php echo $socio['tipo_documento'] ?> <?php echo $socio['nro_documento'] ?></td>
         <td>
           <a href="<?php echo URL::base('http') . 'socios/edit/'. $socio['id'] ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<?php echo URL::base('http') . 'socios/delete/'. $socio['id'] ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<?php echo URL::base('http') . 'socios/delete/'. $socio['id'] ?>" class="btn"nclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

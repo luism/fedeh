@@ -173,7 +173,8 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
     ->on('pacientes.persona_id', '=', 'personas.id')
     ->where('nombre', 'like',"%$name%")
     ->and_where('apellido', 'like',"%$apellido%");
-    $collection = $query->execute()->as_array();
+    //$collection = $query->execute()->as_array();
+    $collection = $query->as_object()->execute();
   
     $this->template->content = View::factory('pacientes/consulta')
     // Pasamos la variable collection con todos los registros traidos

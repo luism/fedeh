@@ -247,9 +247,16 @@ class Controller_Socios extends Controller_Template_Base
   public function action_descuentoplanilla()
   {
 
-    // Listamos
     $socios = ORM::factory('Socio');
-    $collection = $socios->find_all();
+
+    $query = DB::select()
+    ->from('socios')
+    ->join('personas')
+    ->on('socios.persona_id', '=', 'personas.id')
+    ->where('descuento_planilla', 'like', 0);
+    $collection = $query->as_object()->execute();
+    //$collection = $query->execute()->as_object();
+
     $this->template->content = View::factory('socios/descuentoplanilla')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);

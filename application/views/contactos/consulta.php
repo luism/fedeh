@@ -45,7 +45,7 @@
         <td><?php echo $contacto['profesion'] ?></td>
         <td>
           <a href="<?php echo URL::base('http') . 'contactos/edit/'. $contacto['id'] ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<?php echo URL::base('http') . 'contactos/delete/'. $contacto['id'] ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<?php echo URL::base('http') . 'contactos/delete/'. $contacto['id'] ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>
