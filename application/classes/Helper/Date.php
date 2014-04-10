@@ -25,7 +25,7 @@ class Helper_Date {
   public static function format($data = NULL, $format = NULL)
   {
     if ($format == NULL)
-      $format = strpos($data, ':') === false || $data == null ? self::DATE_BR : self::DATETIME_BR;
+      $format = strpos($data, ':') === false || $data == null ? self::DATE_ES : self::DATETIME_ES;
 
     if ($data != NULL)
     {
