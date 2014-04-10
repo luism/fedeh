@@ -154,12 +154,41 @@ public function before(){
   public function action_consulta()
   {
 
-    // Listamos
-    $colaboradores = ORM::factory('Colaborador');
-    $collection = $colaboradores->find_all();
+    $apellido = '';
+    if (isset($_POST['apellido']))
+    {
+      $apellido = $_POST['apellido'];      
+    }
+    
+    $name = '';
+    if (isset($_POST['name']))
+    {
+      $name = $_POST['name'];
+    }
+
+    $doc = '';
+    if (isset($_POST['doc']))
+    {
+      $dni = $_POST['doc'];
+    }
+
+    $pacientes = ORM::factory('Colaborador');
+    // Del Libro de Kohana 3.0
+    $query = DB::select()
+    ->from('colaboradores')
+    ->join('personas')
+    ->on('colaboradores.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%")
+    ->and_where('nro_documento','like',"%$doc%");
+    $collection = $query->execute()->as_array();
+  
     $this->template->content = View::factory('colaboradores/consulta')
     // Pasamos la variable collection con todos los registros traidos
-         ->bind('collection',$collection);
+         ->bind('collection',$collection)
+         ->bind('apellido',$apellido)
+         ->bind('name',$name)
+         ->bind('doc',$doc);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>

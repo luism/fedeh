@@ -2,24 +2,27 @@
 <h2 class="">Consulta de Colaborador</h2>  
 <div class="panel panel-default">
   <!-- Default panel contents -->
-<div class="panel-heading">Apellido
-<form class="form-search">
-  <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn btn-primary">Consultar</button>
-  <!--<?php //echo Form::input('apellido', $post['apellido'], array('class' => 'form-control', 'placeholder' => 'Apellido', 'autofocus', 'required' => '')) ?>-->
-</form>
-Nombre
-<form class="form-search">
-  <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn btn-primary">Consultar</button>
-  <!--<?php //echo Form::input('nombre', $post['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>-->
-</form>
-D.N.I.
-<form class="form-search">
-  <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn btn-primary">Consultar</button>
-  <!--<?php //echo Form::input('nombre', $post['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>-->
-</form>
+    <?php echo Form::open(NULL, array('role' => 'form', 'class' => 'form')); ?>
+        <div class="panel-heading">
+        Apellido
+          <?php echo Form::input('apellido', $apellido, array('class' => 'input-medium search-query', 'placeholder' => '', 'autofocus')) ?>
+          <!--<?php //echo Form::input('last_name', S_POST['last_name'], array('class' => 'form-control', 'placeholder' => '', 'autofocus')) ?>-->
+          <!--<button type="submit" class="btn btn-primary">Consultar</button>-->
+        </div>
+        <div class="panel-heading">
+        Nombre
+          <?php echo Form::input('name', $name, array('class' => 'input-medium search-query', 'placeholder' => '', 'autofocus')) ?>
+          <!--<?php //echo Form::submit('save', 'Consultar', array('name' => 'save', 'class' => 'btn btn-primary')); ?>-->
+        </div>
+        <div class="panel-heading">
+        Documento
+          <?php echo Form::input('doc', $doc, array('class' => 'input-medium search-query', 'placeholder' => '', 'autofocus')) ?>
+          <!--<?php //echo Form::submit('save', 'Consultar', array('name' => 'save', 'class' => 'btn btn-primary')); ?>-->
+        </div>
+        <div class="panel-heading">
+          <?php echo Form::submit('save', 'Consultar', array('last_name' => 'save', 'class' => 'btn btn-primary')); ?>
+        </div>
+      <?php echo Form::close(); ?><!-- Fin de Formulario -->
   </div>
 
   <!-- Table -->
@@ -39,16 +42,16 @@ D.N.I.
     <tbody>
       <?php foreach ($collection as $colaborador) { ?>
       <tr>
-        <td><?php echo $colaborador->id ?></td>
-        <td><?php echo $colaborador->persona->nombre ?></td>
-        <td><?php echo $colaborador->persona->apellido ?></td>
-        <td><?php echo $colaborador->persona->domicilio_personal ?></td>
-        <td><?php echo $colaborador->persona->telefono ?></td>
-        <td><?php echo $colaborador->persona->email ?></td>
-        <td><?php echo $colaborador->nro_documento ?></td>
+        <td><?php echo $colaborador['id'] ?></td>
+        <td><?php echo $colaborador['nombre'] ?></td>
+        <td><?php echo $colaborador['apellido'] ?></td>
+        <td><?php echo $colaborador['domicilio_personal'] ?></td>
+        <td><?php echo $colaborador['telefono'] ?></td>
+        <td><?php echo $colaborador['email'] ?></td>
+        <td><?php echo $colaborador['nro_documento'] ?></td>
         <td>
-          <a href="<?php echo URL::base('http') . 'colaboradores/edit/'. $colaborador->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<?php echo URL::base('http') . 'colaboradores/delete/'. $colaborador->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<?php echo URL::base('http') . 'colaboradores/edit/'. $colaborador['id'] ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+          <a href="<?php echo URL::base('http') . 'colaboradores/delete/'. $colaborador['id'] ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

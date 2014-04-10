@@ -152,7 +152,7 @@ public function before(){
   }
   public function action_consulta()
   {
-    // Listamos
+   
     $apellido = '';
     if (isset($_POST['apellido']))
     {
@@ -172,8 +172,6 @@ public function before(){
     }
 
     $judiciales = ORM::factory('Judicial');
-    //$collection = DB::select()->from('judiciales')->where('nombre', 'like', '%'.$name.'%')->find_all();
-    //$collection = $judiciales->where('nombre', 'like',"%$name%")->find_all();
     // Del Libro de Kohana 3.0
     $query = DB::select()
     ->from('judiciales')
@@ -183,7 +181,7 @@ public function before(){
     ->and_where('apellido', 'like',"%$apellido%")
     ->and_where('numero_oficio', 'like', "%$nro_oficio%");
     $collection = $query->execute()->as_array();
-    //$collection = $judiciales->find_all();
+  
     $this->template->content = View::factory('judiciales/consulta')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection)

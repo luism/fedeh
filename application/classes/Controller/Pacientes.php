@@ -152,7 +152,7 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
 
   public function action_consulta()
   {
-    // Listamos
+    
     $apellido = '';
     if (isset($_POST['apellido']))
     {
@@ -165,8 +165,7 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
       $name = $_POST['name'];
     }
     $pacientes = ORM::factory('Paciente');
-    //$collection = DB::select()->from('pacientes')->where('nombre', 'like', '%'.$name.'%')->find_all();
-    //$collection = $pacientes->where('nombre', 'like',"%$name%")->find_all();
+   
     // Del Libro de Kohana 3.0
     $query = DB::select()
     ->from('pacientes')
@@ -175,7 +174,7 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
     ->where('nombre', 'like',"%$name%")
     ->and_where('apellido', 'like',"%$apellido%");
     $collection = $query->execute()->as_array();
-    //$collection = $pacientes->find_all();
+  
     $this->template->content = View::factory('pacientes/consulta')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection)

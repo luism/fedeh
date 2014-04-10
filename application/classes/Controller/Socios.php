@@ -202,38 +202,46 @@ class Controller_Socios extends Controller_Template_Base
   }
   public function action_consulta()
   {
-    // Listamos
-    $socios = ORM::factory('Socio');
-    $collection = $socios->find_all();
+    $apellido = '';
+    if (isset($_POST['apellido']))
+    {
+      $apellido = $_POST['apellido'];      
+    }
+    
+    $name = '';
+    if (isset($_POST['name']))
+    {
+      $name = $_POST['name'];
+    }
+
+    $ficha = '';
+    if (isset($_POST['ficha']))
+    {
+      $dni = $_POST['ficha'];
+    }
+
+    $pacientes = ORM::factory('Socio');
+    // Del Libro de Kohana 3.0
+    $query = DB::select()
+    ->from('socios')
+    ->join('personas')
+    ->on('socios.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%");
+    //->and_where('numero_ficha','like',"%$ficha%");
+    $collection = $query->execute()->as_array();
+  
     $this->template->content = View::factory('socios/consulta')
     // Pasamos la variable collection con todos los registros traidos
-         ->bind('collection',$collection);
+         ->bind('collection',$collection)
+         ->bind('apellido',$apellido)
+         ->bind('name',$name)
+         ->bind('ficha',$ficha);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
       <li class=\"active\">Socios</li>
     </ol>";
-    
-
-
-    //$socio = ORM::factory('Socio')
-            
-      //      ->find_all();
-    //$collection = $socios->find_all();
-    //$this->template->content = View::factory('socios/consulta')
-    // Pasamos la variable socio con todos los registros traidos
-        // ->bind('persona', $socio->persona)
-        // ->bind('socio', $socio)
-        // ->bind('ficha', $socio->ficha)
-        // ->bind('monto', $post['monto'])
-        // ->bind('tipos_aportes', $tipos_aportes)
-        // ->bind('errors', $errors);
-
-    //$this->template->breadcrumb = "
-    //<ol class=\"breadcrumb\">
-      //<li><a href=\"#\">Home</a></li>
-      //<li class=\"active\">Socios</li>
-    //</ol>";
   }
 
   public function action_descuentoplanilla()
