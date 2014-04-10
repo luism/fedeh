@@ -5,21 +5,24 @@
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Apellido
-<form class="form-search">
-  <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn btn-primary">Consultar</button>
-  <!--<?php //echo Form::input('apellido', $paciente->apellido, array('class' => 'form-control', 'placeholder' => 'Apellido', 'autofocus', 'required' => '')) ?>-->
-</form>
-Nombre
-<form class="form-search">
-  <input type="text" class="input-medium search-query">
-  <button type="submit" class="btn btn-primary">Consultar</button>
-  <?php echo Form::input('nombre', $POST['nombre'], array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus')) ?>
-</form>
-
-  </div>
-
+  <?php echo Form::open(NULL, array('role' => 'form', 'class' => 'form')); ?>
+    <div class="panel-heading">
+    Apellido
+      <?php echo Form::input('apellido', $apellido, array('class' => 'input-medium search-query', 'placeholder' => '', 'autofocus')) ?>
+      <!--<?php //echo Form::input('last_name', S_POST['last_name'], array('class' => 'form-control', 'placeholder' => '', 'autofocus')) ?>-->
+      <!--<button type="submit" class="btn btn-primary">Consultar</button>-->
+    </div>
+    <div class="panel-heading">
+    Nombre
+      <?php echo Form::input('name', $name, array('class' => 'input-medium search-query', 'placeholder' => '', 'autofocus')) ?>
+      <!--<?php //echo Form::submit('save', 'Consultar', array('name' => 'save', 'class' => 'btn btn-primary')); ?>-->
+    </div>
+    <div class="panel-heading">
+      <?php echo Form::submit('save', 'Consultar', array('last_name' => 'save', 'class' => 'btn btn-primary')); ?>
+    </div>
+  <?php echo Form::close(); ?><!-- Fin de Formulario -->
+</div>
+  
   <!-- Table -->
   <table class="table">
     <thead>
@@ -35,14 +38,14 @@ Nombre
     <tbody>
       <?php foreach ($collection as $paciente) { ?>
       <tr>
-        <td><?php echo $paciente->id ?></td>
-        <td><?php echo $paciente->persona->nombre ?></td>
-        <td><?php echo $paciente->persona->apellido ?></td>
-        <td><?php echo $paciente->persona->grupo_sanguineo ?></td>
-        <td><?php echo $paciente->estado ?></td>
+        <td><?php echo $paciente['id'] ?></td>
+        <td><?php echo $paciente['nombre'] ?></td>
+        <td><?php echo $paciente['apellido'] ?></td>
+        <td><?php echo $paciente['grupo_sanguineo'] ?></td>
+        <td><?php echo $paciente['estado'] ?></td>
         <td>
-          <a href="<?php echo URL::base('http') . 'pacientes/edit/'. $paciente->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<?php echo URL::base('http') . 'pacientes/delete/'. $paciente->id ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
+          <a href="<?php echo URL::base('http') . 'pacientes/edit/'. $paciente['id'] ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+          <a href="<?php echo URL::base('http') . 'pacientes/delete/'. $paciente['id'] ?>" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
       <?php }?>

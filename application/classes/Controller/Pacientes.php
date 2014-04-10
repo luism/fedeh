@@ -152,13 +152,35 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
 
   public function action_consulta()
   {
-    $nombre = $_POST['nombre'];
-    $pacientes = ORM::factory('Paciente');
     // Listamos
-    $collection = $pacientes->where('nombre', 'like',"%$nombre%")->find_all();
+    $apellido = '';
+    if (isset($_POST['apellido']))
+    {
+      $apellido = $_POST['apellido'];      
+    }
+    
+    $name = '';
+    if (isset($_POST['name']))
+    {
+      $name = $_POST['name'];
+    }
+    $pacientes = ORM::factory('Paciente');
+    //$collection = DB::select()->from('pacientes')->where('nombre', 'like', '%'.$name.'%')->find_all();
+    //$collection = $pacientes->where('nombre', 'like',"%$name%")->find_all();
+    // Del Libro de Kohana 3.0
+    $query = DB::select()
+    ->from('pacientes')
+    ->join('personas')
+    ->on('pacientes.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%");
+    $collection = $query->execute()->as_array();
+    //$collection = $pacientes->find_all();
     $this->template->content = View::factory('pacientes/consulta')
     // Pasamos la variable collection con todos los registros traidos
-         ->bind('collection',$collection);
+         ->bind('collection',$collection)
+         ->bind('apellido',$apellido)
+         ->bind('name',$name);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
