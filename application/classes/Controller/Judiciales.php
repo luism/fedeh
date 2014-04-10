@@ -153,15 +153,47 @@ public function before(){
   public function action_consulta()
   {
     // Listamos
+    $apellido = '';
+    if (isset($_POST['apellido']))
+    {
+      $apellido = $_POST['apellido'];      
+    }
+    
+    $name = '';
+    if (isset($_POST['name']))
+    {
+      $name = $_POST['name'];
+    }
+
+    $nro_oficio = '';
+    if (isset($_POST['nro_oficio']))
+    {
+      $nro_oficio = $_POST['nro_oficio']; 
+    }
+
     $judiciales = ORM::factory('Judicial');
-    $collection = $judiciales->find_all();
+    //$collection = DB::select()->from('judiciales')->where('nombre', 'like', '%'.$name.'%')->find_all();
+    //$collection = $judiciales->where('nombre', 'like',"%$name%")->find_all();
+    // Del Libro de Kohana 3.0
+    $query = DB::select()
+    ->from('judiciales')
+    ->join('personas')
+    ->on('judiciales.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%")
+    ->and_where('numero_oficio', 'like', "%$nro_oficio%");
+    $collection = $query->execute()->as_array();
+    //$collection = $judiciales->find_all();
     $this->template->content = View::factory('judiciales/consulta')
     // Pasamos la variable collection con todos los registros traidos
-         ->bind('collection',$collection);
+         ->bind('collection',$collection)
+         ->bind('apellido',$apellido)
+         ->bind('name',$name)
+         ->bind('nro_oficio',$nro_oficio);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Judiciales</li>
+      <li class=\"active\">Pacientes</li>
     </ol>";
   }
 }

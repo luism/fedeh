@@ -146,12 +146,33 @@ class Controller_Contactos extends Controller_Template_Base
 
   public function action_consulta()
   {
-    // Listamos
+    
+    $apellido = '';
+    if (isset($_POST['apellido']))
+    {
+      $apellido = $_POST['apellido'];      
+    }
+    
+    $name = '';
+    if (isset($_POST['name']))
+    {
+      $name = $_POST['name'];
+    }
     $contactos = ORM::factory('Contacto');
-    $collection = $contactos->find_all();
+    // Del Libro de Kohana 3.0
+    $query = DB::select()
+    ->from('contactos')
+    ->join('personas')
+    ->on('contactos.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%");
+    $collection = $query->execute()->as_array();
+
     $this->template->content = View::factory('contactos/consulta')
     // Pasamos la variable collection con todos los registros traidos
-         ->bind('collection',$collection);
+         ->bind('collection',$collection)
+         ->bind('apellido',$apellido)
+         ->bind('name',$name);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
