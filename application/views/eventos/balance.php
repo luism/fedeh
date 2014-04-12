@@ -67,12 +67,8 @@
         <td><?php echo $evento->gastos_varios ?></td>
         <td><?php echo $evento->gastos_varios+$evento->gastos_decoracion+$evento->gastos_imprenta+$evento->gastos_movilidad+$evento->gastos_permisos+$evento->gastos_servicios+$evento->gastos_tecnica ?></td>
         <td><strong><?php echo $evento->ingresos-($evento->gastos_varios+$evento->gastos_decoracion+$evento->gastos_imprenta+$evento->gastos_movilidad+$evento->gastos_permisos+$evento->gastos_servicios+$evento->gastos_tecnica) ?></strong></td>
-
-        </tr>  
-          <a href="<?php echo URL::base('http') . 'eventos/edit/'. $evento->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<?php echo URL::base('http') . 'eventos/delete/'. $evento->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
-        </td>
-          
+      </tr>  
+                 
       <?php }?>
     </tbody>
   </table>
@@ -100,14 +96,12 @@
         <td><?php echo $evento->lugar ?></td>
         <td><?php echo $evento->descripcion ?></td>
         <td><?php echo $evento->ingresos ?></td>
-        <td>
-          <a href="<?php echo URL::base('http') . 'eventos/edit/'. $evento->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="<?php echo URL::base('http') . 'eventos/delete/'. $evento->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
-        </td>
-      </tr>      
+        </tr>      
       <?php }?>
     </tbody>
   </table>
   <?php }?>
+  <a href="<?php echo URL::base('http') . 'eventos/edit/'. $evento->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
+  <a href="<?php echo URL::base('http') . 'eventos/delete/'. $evento->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
 </div>
 </div>

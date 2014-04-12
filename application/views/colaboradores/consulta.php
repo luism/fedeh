@@ -33,7 +33,13 @@
       </tr>
     </thead>
     <tbody>
+      <?php if($collection == NULL){?> 
+      <div class="alert-danger alert alert-dismissable">
+      <strong>No existe ese colaborador</strong>    
+      </div>
+      <?php } else {?> 
       <?php foreach ($collection as $colaborador) { ?>
+           
       <tr>
         <td><?php echo $colaborador['id'] ?></td>
         <td><?php echo $colaborador['nombre'] ?></td>
@@ -46,8 +52,8 @@
           <a href="<?php echo URL::base('http') . 'colaboradores/edit/'. $colaborador['id'] ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
           <a href="<?php echo URL::base('http') . 'colaboradores/delete/'. $colaborador['id'] ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
-      </tr>      
-      <?php }?>
+      </tr>  
+      <?php } }?>    
     </tbody>
   </table>
 </div>

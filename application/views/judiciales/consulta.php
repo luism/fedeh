@@ -35,6 +35,11 @@
       </tr>
     </thead>
     <tbody>
+      <?php if($collection == NULL){?> 
+      <div class="alert-danger alert alert-dismissable">
+      <strong>No existe esa persona judicial</strong>    
+      </div>
+      <?php } else {?> 
       <?php foreach ($collection as $judicial) { ?>
       <tr>
         <td><?php echo $judicial['id'] ?></td>
@@ -51,7 +56,7 @@
           <a href="<?php echo URL::base('http') . 'judiciales/delete/'. $judicial['id'] ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
       </tr>      
-      <?php }?>
+      <?php } } ?>
     </tbody>
   </table>
 </div>
