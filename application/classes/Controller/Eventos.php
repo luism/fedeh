@@ -75,7 +75,7 @@ public function before(){
     $id = $this->request->param('id');
     $evento = ORM::factory('Evento',$id);
 
-    if ($nota->loaded())
+    if ($evento->loaded())
     {
       // Load was successful
       if (isset($_POST) && Valid::not_empty($_POST))
@@ -122,8 +122,24 @@ public function before(){
 
   public function action_balance()
   {
+    $name = '';
+    if (isset($_POST['name']))
+    {
+      $name = $_POST['name'];
+    }
+    $eventos = ORM::factory('Evento');
+   
+    // Del Libro de Kohana 3.0
+    $query = DB::select()
+    ->from('eventos')
+    ->where('nombre', 'like',"%$name%");
+    //$collection = $query->execute()->as_array();
+    $collection = $query->as_object()->execute();
+  
     $this->template->content = View::factory('eventos/balance')
-         ->bind('collection',$collection);
+    // Pasamos la variable collection con todos los registros traidos
+         ->bind('collection',$collection)
+         ->bind('name',$name);
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
