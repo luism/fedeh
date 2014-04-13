@@ -23,6 +23,8 @@
 
   <body>
 
+    <?php Helper_Fichas::fichas_disponibles_popup() ?>
+
     <?php echo $menu; ?>
 
     <?php //echo $breadcrumb; ?>
@@ -32,7 +34,6 @@
       <?php echo $content; ?>
 
     </div> <!-- /container -->
-    
     <?php echo $footer; ?>
 
     <!-- Bootstrap core JavaScript

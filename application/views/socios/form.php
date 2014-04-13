@@ -19,6 +19,9 @@
     </div>
   </div>
   <?php } ?> 
+
+
+  
   <!-- Comienza fila -->
   <div class="row">
 
@@ -27,7 +30,6 @@
     <!-- Form Name -->
     <!--<legend>Nuevo</legend>-->
 
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <p class="bg-info"><legend><strong><?php echo $subtitulo ?></strong></legend></p>
 
     <div class="col-md-4">
@@ -47,6 +49,7 @@
       <div class="form-group">
         <label for="numero_ficha">Numero de Ficha</label>
         <?php echo Form::input('numero_ficha', $socio->numero_ficha, array('class' => 'form-control', 'placeholder' => 'Número de Ficha', 'autofocus', 'required' => '')) ?>
+        <a href="" class="btn" data-toggle="modal" data-target="#myModal">Ver fichas disponibles</a>
       </div>
     </div>
 

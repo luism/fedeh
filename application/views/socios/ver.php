@@ -1,3 +1,5 @@
+
+
 <h3>Nombre y Apellido: <?php echo $persona->nombre ?> <?php echo $persona->apellido ?>
 </h3>
 

@@ -267,20 +267,36 @@ class Controller_Socios extends Controller_Template_Base
     </ol>";
   }
 
-  public function action_fichasdisp()
+  /**
+   * Método para mostrar un listado de fichas disponibles. 
+   * TODO: Para poder hacerlo mas dinámico y agil deberiamos poder tener la posibilidad de devolver
+   * el codigo html o un json con el listado de los numero de fichas diponibles.
+   * Hay dos posibilidades: Cuando damos de alta un socio podemos en el text box de ficha dinamicamente
+   * sugerir un numero de ficha diponible, sino con el popover llamar mediante ajax la lista de fichas.
+   * 
+   * @return response html o json
+   */
+  public function action_fichas_disponibles()
   {
 
-    // Listamos
-    $socios = ORM::factory('Socio');
-    $collection = $socios->find_all();
-    $this->template->content = View::factory('socios/fichasdisp')
-    // Pasamos la variable collection con todos los registros traidos
-         ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
+    if ($this->request->is_ajax())    
+    {
+      $this->request->headers('Content-type','application/json; charset='.Kohana::$charset);
+      $this->response->body(Helper_Fichas::fichas_disponibles_popup());
+    }
+    else
+    {
+      // Listamos
+      $collection_arr = Model_Socio::listar_fichas_disponibles();
+      $this->template->content = View::factory('socios/fichasdisp')
+      // Pasamos la variable collection con todos los registros traidos
+        ->bind('collection',$collection_arr);
+      $this->template->breadcrumb = "
+      <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
       <li class=\"active\">Socios</li>
-    </ol>";
+      </ol>";
+    }
   }
 
   /**
@@ -306,5 +322,4 @@ class Controller_Socios extends Controller_Template_Base
       $this->redirect('socios/index');
     }
   }
-
 }
