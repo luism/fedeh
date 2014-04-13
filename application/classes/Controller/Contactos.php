@@ -160,13 +160,19 @@ class Controller_Contactos extends Controller_Template_Base
     }
     $contactos = ORM::factory('Contacto');
     // Del Libro de Kohana 3.0
-    $query = DB::select()
+   /* $query = DB::select()
     ->from('contactos')
     ->join('personas')
     ->on('contactos.persona_id', '=', 'personas.id')
     ->where('nombre', 'like',"%$name%")
     ->and_where('apellido', 'like',"%$apellido%");
-    $collection = $query->execute()->as_array();
+    $collection = $query->execute()->as_array();*/
+    $collection = ORM::factory('Contacto')
+    ->join('personas')
+    ->on('contacto.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%")
+    ->find_all();
 
     $this->template->content = View::factory('contactos/consulta')
     // Pasamos la variable collection con todos los registros traidos

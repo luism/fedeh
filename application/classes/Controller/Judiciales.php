@@ -173,14 +173,22 @@ public function before(){
 
     $judiciales = ORM::factory('Judicial');
     // Del Libro de Kohana 3.0
-    $query = DB::select()
+    /*$query = DB::select()
     ->from('judiciales')
     ->join('personas')
     ->on('judiciales.persona_id', '=', 'personas.id')
     ->where('nombre', 'like',"%$name%")
     ->and_where('apellido', 'like',"%$apellido%")
     ->and_where('numero_oficio', 'like', "%$nro_oficio%");
-    $collection = $query->execute()->as_array();
+    $collection = $query->execute()->as_array();*/
+
+    $collection = ORM::factory('Judicial')
+    ->join('personas')
+    ->on('judicial.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%")
+    ->and_where('numero_oficio', 'like', "%$nro_oficio%")
+    ->find_all();
   
     $this->template->content = View::factory('judiciales/consulta')
     // Pasamos la variable collection con todos los registros traidos
@@ -191,7 +199,7 @@ public function before(){
     $this->template->breadcrumb = "
     <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Pacientes</li>
+      <li class=\"active\">Judiciales</li>
     </ol>";
   }
 }

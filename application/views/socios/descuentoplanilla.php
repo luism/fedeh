@@ -20,8 +20,8 @@
       <?php foreach ($collection as $socio) { ?>
       <tr>
         <td><?php echo $socio->id ?></td>
-        <td><?php echo $socio->nombre ?></td>
-        <td><?php echo $socio->apellido ?></td>
+        <td><?php echo $socio->persona->nombre ?></td>
+        <td><?php echo $socio->persona->apellido ?></td>
         <td><?php echo $socio->tipo_aporte ?></td>
         <td><?php echo $socio->numero_ficha ?></td>
         <td><?php echo $socio->tipo_documento ?> <?php echo $socio->nro_documento ?></td>

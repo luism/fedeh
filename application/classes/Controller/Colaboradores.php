@@ -174,32 +174,22 @@ public function before(){
 
     $colaboradores = ORM::factory('Colaborador');
     // Del Libro de Kohana 3.0
-    $query = DB::select()
+    /*$query = DB::select()
     ->from('colaboradores')
     ->join('personas')
     ->on('colaboradores.persona_id', '=', 'personas.id')
     ->where('nombre', 'like',"%$name%")
     ->and_where('apellido', 'like',"%$apellido%")
     ->and_where('nro_documento','like',"%$doc%");
-    $collection = $query->execute()->as_array();
+    $collection = $query->execute()->as_array();*/
 
-      /*$query = DB::select()
-      ->from('colaboradores')
-      ->join('personas')
-      ->on('colaboradores.persona_id', '=', 'personas.id')
-      ->where_open()
-      ->where('nombre', 'like',"%$name%")
-      ->or_where('apellido', 'like',"%$apellido%")
-      ->where_close()
-      ->and_where_open()
-      ->where('nombre', 'like',"%$name%")
-      ->or_where('nro_documento','like',"%$doc%")
-      ->and_where_close()
-      ->and_where_open()
-      ->where('apellido', 'like',"%$apellido%")
-      ->or_where('nro_documento','like',"%$doc%")
-      ->and_where_close();
-      $collection = $query->execute()->as_array();*/
+    $collection = ORM::factory('Colaborador')
+    ->join('personas')
+    ->on('colaborador.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%")
+    ->and_where('nro_documento', 'like', "%$doc%")
+    ->find_all();
 
     $this->template->content = View::factory('colaboradores/consulta')
     // Pasamos la variable collection con todos los registros traidos

@@ -130,11 +130,15 @@ public function before(){
     $eventos = ORM::factory('Evento');
    
     // Del Libro de Kohana 3.0
-    $query = DB::select()
+    /*$query = DB::select()
     ->from('eventos')
     ->where('nombre', 'like',"%$name%");
     //$collection = $query->execute()->as_array();
-    $collection = $query->as_object()->execute();
+    $collection = $query->as_object()->execute();*/
+    $collection = ORM::factory('Evento')
+      ->where('nombre', 'like',"%$name%")
+      ->find_all();
+
   
     $this->template->content = View::factory('eventos/balance')
     // Pasamos la variable collection con todos los registros traidos

@@ -220,16 +220,24 @@ class Controller_Socios extends Controller_Template_Base
       $dni = $_POST['ficha'];
     }
 
-    $pacientes = ORM::factory('Socio');
+    $socios = ORM::factory('Socio');
     // Del Libro de Kohana 3.0
-    $query = DB::select()
+    /*$query = DB::select()
     ->from('socios')
     ->join('personas')
     ->on('socios.persona_id', '=', 'personas.id')
     ->where('nombre', 'like',"%$name%")
     ->and_where('apellido', 'like',"%$apellido%");
     //->and_where('numero_ficha','like',"%$ficha%");
-    $collection = $query->execute()->as_array();
+    $collection = $query->execute()->as_array();*/
+
+    $collection = ORM::factory('Socio')
+    ->join('personas')
+    ->on('socio.persona_id', '=', 'personas.id')
+    ->where('nombre', 'like',"%$name%")
+    ->and_where('apellido', 'like',"%$apellido%")
+    ->and_where('numero_ficha', 'like', "%$ficha%")
+    ->find_all();
   
     $this->template->content = View::factory('socios/consulta')
     // Pasamos la variable collection con todos los registros traidos
@@ -249,13 +257,19 @@ class Controller_Socios extends Controller_Template_Base
 
     $socios = ORM::factory('Socio');
 
-    $query = DB::select()
+    /*$query = DB::select()
     ->from('socios')
     ->join('personas')
     ->on('socios.persona_id', '=', 'personas.id')
     ->where('descuento_planilla', 'like', 0);
     $collection = $query->as_object()->execute();
-    //$collection = $query->execute()->as_object();
+    //$collection = $query->execute()->as_object();*/
+    $collection = ORM::factory('Socio')
+        ->join('personas')
+        ->on('socio.persona_id', '=', 'personas.id')
+        ->where('descuento_planilla', 'like', 0)
+        ->find_all();
+
 
     $this->template->content = View::factory('socios/descuentoplanilla')
     // Pasamos la variable collection con todos los registros traidos
