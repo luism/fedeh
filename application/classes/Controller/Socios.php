@@ -31,7 +31,7 @@ class Controller_Socios extends Controller_Template_Base
   {
 
     // Listamos
-    $socios = ORM::factory('Socio');
+    $socios = ORM::factory('Socio')->where('deshabilitado', '=', 'TRUE');
     $collection = $socios->find_all();
     $this->template->content = View::factory('socios/index')
     // Pasamos la variable collection con todos los registros traidos
@@ -187,13 +187,11 @@ class Controller_Socios extends Controller_Template_Base
       }
       $socio = ORM::factory('Socio',$id);
       $persona = $socio->persona;
-      if ($persona->tiene_cuenta())
-      {
-        throw new Exception("Tiene Plan de Cuenta", 1);        
-      }
+      // if ($persona->tiene_cuenta())
+      //   throw new Exception("Tiene Plan de Cuenta", 1);
       # TODO agregar control de error al borrar
-      $socio->delete();
-      $persona->delete();
+      $socio->deshabilitado = TRUE;
+      $socio->save();
       $this->redirect('socios/index');
       
     } catch (Exception $e) {

@@ -11,4 +11,18 @@ class Model_Ficha extends ORM {
             ),
         );
     }
+
+    public function listar()
+    {
+        $fichas_arr = array();
+        $fichas = ORM::factory('Ficha');
+        if  ($fichas->count_all())
+        {
+            $fichas->find_all();
+            foreach ($fichas as $value) {
+                $fichas_arr[] = $value;
+            }
+        }
+        return $fichas_arr;
+    }
 }
