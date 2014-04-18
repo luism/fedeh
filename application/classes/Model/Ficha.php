@@ -1,6 +1,13 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 class Model_Ficha extends ORM {
+
+    protected $_has_one = array(
+        'socio' => array('foreign_key' => 'ficha_id'),
+    );
+    protected $_has_many = array(
+        'historial' => array('foreign_key' => 'ficha_id'),
+    );
  
     public function rules()
     {
@@ -12,6 +19,10 @@ class Model_Ficha extends ORM {
         );
     }
 
+    /**
+     * Listamos todas las fichas
+     * @return array arreglo de fichas
+     */
     public function listar()
     {
         $fichas_arr = array();
@@ -24,5 +35,23 @@ class Model_Ficha extends ORM {
             }
         }
         return $fichas_arr;
+    }
+
+    /**
+     * Listamos las fichas disponibles.
+     * @return [type] [description]
+     */
+    static public function listar_disponibles()
+    {
+        /*
+        SELECT fichas.id, fichas.numero_ficha FROM fichas 
+        LEFT JOIN socios ON fichas.id = socios.ficha_id
+        WHERE socios.id IS NULL;
+        */
+       $fichas = ORM::factory('Ficha')
+       ->join('socios','LEFT')
+       ->on('ficha.id', '=', 'socios.ficha_id')
+       ->where('socios.id', '=', NULL)->find_all();
+       return $fichas;
     }
 }

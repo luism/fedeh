@@ -26,8 +26,9 @@ class Helper_Fichas
      */
     public static function generar_fichas_ocupadas($fichas_ocupadas = array())
     {
+        $lista_ok = array();
         if(!is_array($fichas_ocupadas))
-            return array();
+            return $lista_ok;
         foreach ($fichas_ocupadas as $value) {
             $lista_ok[] = $value['numero_ficha'];
         }

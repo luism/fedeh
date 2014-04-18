@@ -77,6 +77,7 @@ class Controller_Socios extends Controller_Template_Base
             # Generamos la cuenta.
             # TODO: Deberíamos pasar esto a algun Callback
             $persona->generar_cuenta(1,$post->as_array()['monto'],$post->as_array()['tipo_aporte']);
+            $socio->asignar_ficha($post->as_array()['numero_ficha']);
             $socio->save();
             // ver a donde redireccionamos
             $this->redirect('socios/index');
@@ -299,10 +300,12 @@ class Controller_Socios extends Controller_Template_Base
     else
     {
       // Listamos
-      $collection_arr = Model_Socio::listar_fichas_disponibles();
+      // $collection_arr = Model_Socio::listar_fichas_disponibles();
+      // Metodo para buscar las fichas disponibles con una consulta en la DB
+      $collection = Model_Ficha::listar_disponibles();
       $this->template->content = View::factory('socios/fichasdisp')
       // Pasamos la variable collection con todos los registros traidos
-        ->bind('collection',$collection_arr);
+        ->bind('collection',$collection);
       $this->template->breadcrumb = "
       <ol class=\"breadcrumb\">
       <li><a href=\"#\">Home</a></li>

@@ -1,7 +1,15 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
 class Model_Socio extends Model_Persona {
-protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
+
+    protected $_belongs_to = array(
+        'persona' => array('foreign_key' => 'persona_id')
+    );
+
+    protected $_has_many = array(
+        'historial' => array('foreign_key' => 'socio_id')
+    );
+
     public function rules()
     {
     // Atributos espeicificos de socio
@@ -61,5 +69,19 @@ protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id')
         $fichas_disponibles = Helper_Fichas::generar();
         # Retornamos la diferencia entre las disponibles totales - ocupadas
         return array_diff($fichas_disponibles, $fichas_ocupadas_ok);
+    }
+
+    /**
+     * [asignar_ficha description]
+     * @param  [type] $numero_ficha [description]
+     * @return [type]               [description]
+     */
+    public function asignar_ficha($numero_ficha)
+    {
+        $ficha = ORM::factory('Ficha')
+                ->where('numero_ficha', '=', $numero_ficha)
+                ->find();
+        $this->ficha_id = $ficha->id;
+        return $ficha->id;
     }
 }
