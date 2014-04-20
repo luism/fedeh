@@ -66,4 +66,27 @@ class Model_PlanDeCuenta extends Model_ORM_Template {
     $tipo_linea_cc->where('tipocuenta', '=', $tipo)->find();
     return $tipo_linea_cc;
   }
+
+  /**
+  *MEtodo para generar cuotas de un judicial
+  *@return this Retorna un plan de cuenta
+  */
+  public function generar_cuotasjudiciales($monto=10, $cuotas)
+  {
+    $tipo_linea_cc_id = $this->dame_tipo_linea_cc('efectivo debito')->id;
+    # Iteramos para el numero de cuotas
+    echo $monto;
+    for ($i=1; $i <= $cuotas ; $i++) {
+
+      $cuota = new Model_LineaCuentaCorriente();
+      $cuota->plan_de_cuenta_id = $this->id;
+      $cuota->debe = $monto;
+      $cuota->detalle = 'cuota';
+      $cuota->tipo_cuenta_corriente_id = $tipo_linea_cc_id;
+      # TODO: generar fechas de vencimientos para las cuotas.
+      $cuota->fecha_cta_cte = date('Y-m-d',strtotime('+' . ($i-1) . 'months'));
+      $cuota->save();
+    }
+  }
+
 }

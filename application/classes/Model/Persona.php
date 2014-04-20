@@ -81,6 +81,25 @@ class Model_Persona extends Model_ORM_Template {
     }
 
     /**
+    *Funcion para generar la cuenta de un judicial
+    *@var int $tipo_cuenta
+    */
+    public function generar_cuentajudicial($tipo_cuenta = 1, $monto = 0, $cuotas)
+    {
+        #instanciamos un plan de cuenta
+        $cuenta = ORM::factory('PlanDeCuenta');
+        # Agregamos el tipo de cuenta que es
+        $cuenta->tipos_plan_cuentas_id = $tipo_cuenta;
+        # La relacionamos a la persona
+        $cuenta->persona_id = $this->id;
+        $cuenta->fecha_adelante = date('Y-m-d', time());
+        # Salvamos primero por que debe crearse el id
+        $cuenta->save();
+        # Ahora si recien generamos las cuotas ya que necesitan el id de cuenta.
+        $cuenta->generar_cuotasjudiciales($monto,$cuotas);
+    }
+
+    /**
      * Funcion para saber si la persona tiene cuenta generada
      *
      */
@@ -91,4 +110,5 @@ class Model_Persona extends Model_ORM_Template {
         else
             return false;
     }
+
 }

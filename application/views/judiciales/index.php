@@ -38,6 +38,7 @@
         <td><?php echo $judicial->cantidad_cuotas ?></td>
         <td><?php echo $judicial->monto_cuotas ?></td>
         <td>
+          <a href="<?php echo URL::base('http') . 'judiciales/ver/'. $judicial->id ?>" class="btn"><i class="glyphicon glyphicon-eye-open"></i> <strong>Ver</strong></a>
           <a href="<?php echo URL::base('http') . 'judiciales/edit/'. $judicial->id ?>" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
           <a href="<?php echo URL::base('http') . 'judiciales/delete/'. $judicial->id ?>" class="btn" onclick="return confirm('¿Está seguro que desea eliminar el registro?');"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>

@@ -57,6 +57,9 @@ public function before(){
           try
           {
             $judicial->values(array('persona_id' => $persona->id));
+            #Genero la cuenta para socio judicial
+            $persona->generar_cuentajudicial(2,$post->as_array()['monto_cuotas'],$post->as_array()['cantidad_cuotas']);
+            //$persona->generar_cuentajudicial(2,$post->as_array()['monto_cuotas'],$tipo_aporte = 'mensual');
             $judicial->save();
             $this->redirect('judiciales/index');
           }
@@ -150,6 +153,8 @@ public function before(){
     $persona->delete();
     $this->redirect('judiciales/index');
   }
+
+  
   public function action_consulta()
   {
    
@@ -201,5 +206,29 @@ public function before(){
       <li><a href=\"#\">Home</a></li>
       <li class=\"active\">Judiciales</li>
     </ol>";
+  }
+
+  /**
+   * Ver Judicial
+   * @return void
+   */
+  public function action_ver()
+  {
+    $judicial = ORM::factory('Judicial', $this->request->param('id'));
+    if ($judicial->loaded())
+    {
+      $persona = $judicial->persona;
+      $plan_de_cuenta = $persona->plan_de_cuenta;
+      $lineas_cuentas_corrientes = $plan_de_cuenta->lineas_cuentas_corrientes->find_all();
+      $this->template->content = View::factory('judiciales/ver')
+      ->bind('judicial',$judicial)
+      ->bind('persona',$persona)
+      ->bind('plan_de_cuenta',$plan_de_cuenta)
+      ->bind('lineas_cuentas_corrientes',$lineas_cuentas_corrientes);
+    }
+    else
+    {
+      $this->redirect('judiciales/index');
+    }
   }
 }

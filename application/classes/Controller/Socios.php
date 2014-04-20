@@ -199,6 +199,8 @@ class Controller_Socios extends Controller_Template_Base
       $this->redirect('socios/index');      
     }
   }
+
+  
   public function action_consulta()
   {
     $apellido = '';
