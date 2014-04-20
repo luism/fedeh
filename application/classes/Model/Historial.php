@@ -2,6 +2,8 @@
 
 class Model_Historial extends ORM {
 
+    protected $_table_name = 'historial';
+
     protected $_belongs_to = array(
         'ficha' => array('foreign_key' => 'ficha_id'),
         'socio' => array('foreign_key' => 'socio_id'),

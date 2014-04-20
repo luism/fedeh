@@ -36,11 +36,7 @@ class Controller_Socios extends Controller_Template_Base
     $this->template->content = View::factory('socios/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Socios</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio',array('Socios','active')));
   }
 
   /**
@@ -110,6 +106,7 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('tipos_aportes', $tipos_aportes)
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Socios',array('Nuevo','active')));
   }
 
   /**
@@ -169,6 +166,7 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('tipos_aportes', $tipos_aportes)
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Socios',array('Editar','active')));
   }
 
   /**
@@ -246,11 +244,7 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('apellido',$apellido)
          ->bind('name',$name)
          ->bind('ficha',$ficha);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Socios</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Socios',array('Consulta','active')));
   }
 
   public function action_descuentoplanilla()
@@ -308,11 +302,7 @@ class Controller_Socios extends Controller_Template_Base
       $this->template->content = View::factory('socios/fichasdisp')
       // Pasamos la variable collection con todos los registros traidos
         ->bind('collection',$collection);
-      $this->template->breadcrumb = "
-      <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Socios</li>
-      </ol>";
+      $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Socios',array('Fichas Disponibles','active')));
     }
   }
 
@@ -333,6 +323,7 @@ class Controller_Socios extends Controller_Template_Base
       ->bind('persona',$persona)
       ->bind('plan_de_cuenta',$plan_de_cuenta)
       ->bind('lineas_cuentas_corrientes',$lineas_cuentas_corrientes);
+      $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Socios','Ver',array($socio->id,'active')));
     }
     else
     {

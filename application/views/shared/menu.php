@@ -25,7 +25,7 @@
                 <li class="dropdown-header">Fichas</li>
                 <li><a href="<?php echo URL::base('http') ?>socios/descuentoplanilla"><i class="glyphicon glyphicon-edit"></i>Descuentos por planilla</a></li>
                 <li><a href="<?php echo URL::base('http') ?>socios/fichas_disponibles"><i class="glyphicon glyphicon-eye-open"></i>Ver fichas disponibles</a></li>
-                <li><a href="<?php echo URL::base('http') ?>"><i class="glyphicon glyphicon-eye-open"></i>Ver los movimientos de ficha</a></li>
+                <li><a href="<?php echo URL::base('http') ?>fichas/historial"><i class="glyphicon glyphicon-eye-open"></i>Ver los movimientos de ficha</a></li>
               </ul>
             </li>
 
