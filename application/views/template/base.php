@@ -25,16 +25,16 @@
 
     <?php Helper_Fichas::fichas_disponibles_popup() ?>
 
-    <?php echo $menu; ?>
+    <?php echo $menu ?>
 
-    <?php //echo $breadcrumb; ?>
+    <?php echo isset($breadcrumb) ? $breadcrumb : '' ?>
 
     <div class="container">
 
-      <?php echo $content; ?>
+      <?php echo $content ?>
 
     </div> <!-- /container -->
-    <?php echo $footer; ?>
+    <?php echo $footer ?>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
