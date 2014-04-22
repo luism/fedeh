@@ -7,10 +7,10 @@ class Helper_Application {
 
     public static function breadcrumbs($values='')
     {
+        $html = '';
         if (is_array($values))
         {
-            ?><ol class="breadcrumb"><?php   
-            
+            $html = "<ol class=\"breadcrumb\">\n";   
             foreach ($values as $value)
             {
                 $active = '';
@@ -18,14 +18,12 @@ class Helper_Application {
                 if (is_array($value))
                 {
                     $controller = $value[0];
-                    $active = ($value[1] === 'active' ? 'class="active"' : $active);
+                    $active = ($value[1] === 'active' ? ' class="active" ' : $active);
                 }
-                ?>
-                <li <?php echo $active ?>><?php echo $controller ?></li>
-                <?php   
+                $html .= "\t<li$active>$controller</li>\n";
             }
-
-            ?></ol><?php   
+            $html .= "</ol>";
         }
+        return $html;
     }
 }
