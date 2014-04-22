@@ -1,3 +1,4 @@
+
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
@@ -102,7 +103,6 @@ class Controller_Socios extends Controller_Template_Base
          ->bind('persona', $persona)
          ->bind('socio', $socio)
          ->bind('ficha', $ficha)
-         ->bind('monto', $post['monto'])
          ->bind('tipos_aportes', $tipos_aportes)
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
@@ -190,6 +190,8 @@ class Controller_Socios extends Controller_Template_Base
       //   throw new Exception("Tiene Plan de Cuenta", 1);
       # TODO agregar control de error al borrar
       $socio->deshabilitado = TRUE;
+      $socio->numero_ficha = NULL;
+      $socio->ficha_id = NULL;
       $socio->save();
       $this->redirect('socios/index');
       

@@ -42,7 +42,6 @@ class Model_PlanDeCuenta extends Model_ORM_Template {
   {
     $tipo_linea_cc_id = $this->dame_tipo_linea_cc('efectivo debito')->id;
     # Iteramos para el numero de cuptas
-    echo $monto;
     for ($i=1; $i <= $cuotas ; $i++) {
 
       $cuota = new Model_LineaCuentaCorriente();

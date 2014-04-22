@@ -36,6 +36,9 @@ class Model_Socio extends Model_Persona {
             'descuento_planilla' => array(/* Ver como validamos...// array('digit'),*/),
             'numero_ficha' => array(),
             'monto' => array(),
+            'ficha_id' => array(
+                array(array($this, 'is_unique')),
+            ),
         );
     }
 
@@ -83,5 +86,14 @@ class Model_Socio extends Model_Persona {
                 ->find();
         $this->ficha_id = $ficha->id;
         return $ficha->id;
+    }
+
+    public function is_unique($ficha_id)
+    {
+            return ! (bool) DB::select(array(DB::expr('COUNT(ficha_id)'), 'total'))
+                ->from($this->_table_name)
+                ->where('ficha_id', '=', $ficha_id)
+                ->execute()
+                ->get('total');
     }
 }
