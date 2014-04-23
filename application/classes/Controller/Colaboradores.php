@@ -203,4 +203,52 @@ public function before(){
       <li class=\"active\">Colaboradores</li>
     </ol>";
   }
+
+  public function action_asignar()
+  {
+    $errors = '';
+    if (isset($_POST) && Valid::not_empty($_POST))
+    {
+      $desde_ficha = $_POST['desde_ficha'];
+      $hasta_ficha = $_POST['hasta_ficha'];
+      $colaborador_id = $_POST['colaborador_id'];
+
+      try
+      {
+        $query = DB::update('fichas')
+                ->set(array('colaborador_id' => NULL))
+                ->where('colaborador_id', '=', $colaborador_id);
+                echo $query;
+        $query->execute();
+        $query = DB::update('fichas')
+                ->set(array('colaborador_id' => $colaborador_id))
+                ->where('id', '>=', $desde_ficha)
+                ->and_where('id', '<=', $hasta_ficha);
+                echo $query;
+        $query->execute();
+      }
+      catch (ORM_Validation_Exception $e)
+      {
+        $errors = $e->errors('fichas');
+      }
+
+      // $colaborador = ORM::factory('Colaborador', $colaborador_id);
+      // $fichas = ORM::factory('Fichas')->where('id', '>', $desde_ficha)->and_where('id', '<', $hasta_ficha)
+      // ->find_all();
+      // $fichas->colaborador_id
+      // foreach ($fichas as $ficha)
+      // {
+      //   $ficha->colaborador_id = $colaborador_id;
+
+      //   $ficha->save();
+      // }
+    }
+    $colaboradores = Model_Colaborador::lista_colaboradores();
+    $this->template->content = View::factory('colaboradores/asignar')
+    // Pasamos la variable colaboradores con todos los registros traidos
+         ->bind('errors',$errors)
+         ->bind('colaboradores',$colaboradores);
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Asignar','active')));
+    
+  }
 }

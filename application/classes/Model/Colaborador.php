@@ -22,4 +22,15 @@ class Model_Colaborador extends Model_Persona {
       ),
     );
   }
+
+  public static function lista_colaboradores()
+  {
+    $lista_colaboradores = [];
+    $colaboradores = ORM::factory('Colaborador');
+    $collection = $colaboradores->find_all();
+    foreach ($collection as $colaborador) {
+      $lista_colaboradores[$colaborador->id] = $colaborador->persona->nombre;
+    }
+    return $lista_colaboradores;
+  }
 }
