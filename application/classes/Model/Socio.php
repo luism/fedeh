@@ -45,9 +45,9 @@ class Model_Socio extends Model_Persona {
     /**
     * Listamos las fichas disponibles
     * Por defecto tendremos en cuenta las fichas del 1 al 1000
-    * 
+    *
     * TODO: Agregar a una configuracion general el maximo de fichas.
-    * 
+    *
     * @return array fichas disponibles
     */
     public static function listar_fichas_disponibles()
@@ -59,7 +59,7 @@ class Model_Socio extends Model_Persona {
             ->on('personas.id', '=', 'socios.persona_id')
             ->execute()
             ->as_array();
-        # Generamos un array ya acomodado de la forma: 
+        # Generamos un array ya acomodado de la forma:
         # Array
         # (
         #     [0] => 1
@@ -95,5 +95,17 @@ class Model_Socio extends Model_Persona {
                 ->where('ficha_id', '=', $ficha_id)
                 ->execute()
                 ->get('total');
+    }
+
+    public function nombre_completo($primero_apellido = FALSE)
+    {
+        if ($primero_apellido)
+        {
+            return $this->persona->apellido . ', ' . $this->persona->nombre;
+        }
+        else
+        {
+            return $this->persona->nombre . ' ' . $this->persona->apellido;
+        }
     }
 }

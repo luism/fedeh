@@ -11,19 +11,14 @@
         <th>Socio</th>
         <th>Accion</th>
         <th>Fecha</th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
       <?php foreach ($historial as $item) { ?>
       <tr>
-        <td><?php echo $item->socio->persona->nombre ?></td>
+        <td><?php echo $item->socio->nombre_completo(TRUE) ?></td>
         <td><?php echo $item->accion ?></td>
         <td><?php echo $item->fecha ?></td>
-        <td>
-          <a href="#" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
-          <a href="#" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
-        </td>
       </tr>      
       <?php }?>
     </tbody>

@@ -19,9 +19,9 @@
       <tr>
         <td><?php echo $ficha->id ?></td>
         <td><?php echo $ficha->numero_ficha ?></td>
-        <td></td>
+        <td><?php //echo $ficha->ultimo_asociado()->persona->nombre ?></td>
         <td>
-          <a href="<?php echo URL::base('http') . 'fichas/hitorial/'. $ficha->id ?>" class="btn"><i class="glyphicon glyphicon-glyphicon-eye-open"></i> <strong>Ver</strong></a>
+          <a href="<?php echo URL::base('http') . 'fichas/historial/'. $ficha->id ?>" class="btn"><i class="glyphicon glyphicon-glyphicon-eye-open"></i> <strong>Ver</strong></a>
         </td>
       </tr>      
       <?php }?>

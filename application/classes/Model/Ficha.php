@@ -8,7 +8,7 @@ class Model_Ficha extends ORM {
     protected $_has_many = array(
         'historial' => array('foreign_key' => 'ficha_id'),
     );
- 
+
     public function rules()
     {
         return array(
@@ -44,7 +44,7 @@ class Model_Ficha extends ORM {
     static public function listar_disponibles()
     {
         /*
-        SELECT fichas.id, fichas.numero_ficha FROM fichas 
+        SELECT fichas.id, fichas.numero_ficha FROM fichas
         LEFT JOIN socios ON fichas.id = socios.ficha_id
         WHERE socios.id IS NULL;
         */
@@ -53,5 +53,19 @@ class Model_Ficha extends ORM {
        ->on('ficha.id', '=', 'socios.ficha_id')
        ->where('socios.id', '=', NULL)->find_all();
        return $fichas;
+    }
+
+    public function ultimo_asociado()
+    {
+        $historiales = $this->historial->find_all()->as_array();
+        if (is_array($historiales))
+        {
+            $historial = end($historiales);
+            return $historial->socio;
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 }

@@ -23,9 +23,9 @@ class Controller_Socios extends Controller_Template_Base
 
   /**
    * Listado de socios.
-   * 
+   *
    * TODO: Agregar un paginador
-   * 
+   *
    * @return void
    */
   public function action_index()
@@ -120,7 +120,7 @@ class Controller_Socios extends Controller_Template_Base
     $subtitulo = 'Editar';
 
     if (isset($_POST) && Valid::not_empty($_POST))
-    {      
+    {
       // Factory es un patron de diseño, tener en cuenta.
       $post = Validation::factory($_POST)
               ->rule('nombre','not_empty')
@@ -143,11 +143,11 @@ class Controller_Socios extends Controller_Template_Base
           catch (ORM_Validation_Exception $e)
           {
             $errors = $e->errors('socio');
-          }          
-        } 
+          }
+        }
         catch (ORM_Validation_Exception $e)
         {
-          $errors = $e->errors('persona');          
+          $errors = $e->errors('persona');
         }
       }
       else
@@ -194,21 +194,21 @@ class Controller_Socios extends Controller_Template_Base
       $socio->ficha_id = NULL;
       $socio->save();
       $this->redirect('socios/index');
-      
+
     } catch (Exception $e) {
-      $this->redirect('socios/index');      
+      $this->redirect('socios/index');
     }
   }
 
-  
+
   public function action_consulta()
   {
     $apellido = '';
     if (isset($_POST['apellido']))
     {
-      $apellido = $_POST['apellido'];      
+      $apellido = $_POST['apellido'];
     }
-    
+
     $name = '';
     if (isset($_POST['name']))
     {
@@ -239,7 +239,7 @@ class Controller_Socios extends Controller_Template_Base
     ->and_where('apellido', 'like',"%$apellido%")
     ->and_where('numero_ficha', 'like', "%$ficha%")
     ->find_all();
-  
+
     $this->template->content = View::factory('socios/consulta')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection)
@@ -279,18 +279,18 @@ class Controller_Socios extends Controller_Template_Base
   }
 
   /**
-   * Método para mostrar un listado de fichas disponibles. 
+   * Método para mostrar un listado de fichas disponibles.
    * TODO: Para poder hacerlo mas dinámico y agil deberiamos poder tener la posibilidad de devolver
    * el codigo html o un json con el listado de los numero de fichas diponibles.
    * Hay dos posibilidades: Cuando damos de alta un socio podemos en el text box de ficha dinamicamente
    * sugerir un numero de ficha diponible, sino con el popover llamar mediante ajax la lista de fichas.
-   * 
+   *
    * @return response html o json
    */
   public function action_fichas_disponibles()
   {
 
-    if ($this->request->is_ajax())    
+    if ($this->request->is_ajax())
     {
       $this->request->headers('Content-type','application/json; charset='.Kohana::$charset);
       $this->response->body(Helper_Fichas::fichas_disponibles_popup());
