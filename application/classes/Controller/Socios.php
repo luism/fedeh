@@ -73,14 +73,9 @@ class Controller_Socios extends Controller_Template_Base
             $socio->values(array('persona_id' => $persona->id));
             # Generamos la cuenta.
             # TODO: Deberíamos pasar esto a algun Callback
-<<<<<<< HEAD
-            $persona->generar_cuenta(1,$post->as_array()['monto'],$post->as_array()['tipo_aporte']);
-            $socio->asignar_ficha($post->as_array()['numero_ficha']);
-=======
             $monto = $post->as_array()['monto'];
             $tipo_aporte = $post->as_array()['tipo_aporte'];
             $persona->generar_cuenta(1,$monto,$tipo_aporte);
->>>>>>> Arreglo un error cuando creo socio y genera la cuenta.`
             $socio->save();
             // ver a donde redireccionamos
             $this->redirect('socios/index');
