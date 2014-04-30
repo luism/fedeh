@@ -73,8 +73,9 @@ class Controller_Socios extends Controller_Template_Base
             $socio->values(array('persona_id' => $persona->id));
             # Generamos la cuenta.
             # TODO: Deberíamos pasar esto a algun Callback
-            $monto = $post->as_array()['monto'];
-            $tipo_aporte = $post->as_array()['tipo_aporte'];
+            $post_arr = $post->as_array();
+            $monto = $post_arr['monto'];
+            $tipo_aporte = $post_arr['tipo_aporte'];
             $persona->generar_cuenta(1,$monto,$tipo_aporte);
             $socio->save();
             // ver a donde redireccionamos
