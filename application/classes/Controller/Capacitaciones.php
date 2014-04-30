@@ -21,11 +21,7 @@ public function before(){
     $this->template->content = View::factory('capacitaciones/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Capacitaciones</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','capacitaciones',array('Listado','active')));
   }
 
   public function action_new()
@@ -67,6 +63,7 @@ public function before(){
     $this->template->content = View::factory('capacitaciones/new')
          ->bind('post', $post)
          ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','capacitaciones',array('Nuevo','active')));
   }
 
   public function action_edit()
@@ -109,6 +106,7 @@ public function before(){
     $this->template->content = View::factory('capacitaciones/edit')
      ->bind('capacitacion', $capacitacion)
      ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','capacitaciones',array('Editar','active')));
   }
 
   public function action_delete()

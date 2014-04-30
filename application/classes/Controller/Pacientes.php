@@ -21,11 +21,7 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
     $this->template->content = View::factory('pacientes/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Pacientes</li>
-    </ol>";
+   $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Pacientes',array('Listado','active')));   
   }
 
   public function action_new()
@@ -82,6 +78,7 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
          ->bind('estado', $estado)
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Pacientes',array('Nuevo','active')));   
    }
 
   public function action_edit()
@@ -136,6 +133,7 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
          ->bind('estado', $estado)
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Pacientes',array('Editar','active')));   
   }
 
   public function action_delete()
@@ -188,10 +186,6 @@ public $ESTADO = array('activo' => 'Activo','no_activo' => 'No activo','en_trata
          ->bind('collection',$collection)
          ->bind('apellido',$apellido)
          ->bind('name',$name);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Pacientes</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Pacientes',array('Consultar','active')));   
   }
 }

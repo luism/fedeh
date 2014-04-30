@@ -18,11 +18,7 @@ class Controller_Empresas extends Controller_Template_Base
     $this->template->content = View::factory('empresas/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Empresas</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Empresas',array('Listado','active')));
   }
 
   public function action_new()
@@ -78,6 +74,7 @@ class Controller_Empresas extends Controller_Template_Base
          ->bind('empresa', $empresa)
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Empresas',array('Nuevo','active')));   
   }
 
   public function action_edit()
@@ -129,7 +126,8 @@ class Controller_Empresas extends Controller_Template_Base
          ->bind('persona', $persona)
          ->bind('empresa', $empresa)
          ->bind('subtitulo', $subtitulo)
-         ->bind('errors', $errors);    
+         ->bind('errors', $errors); 
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Empresas',array('Editar','active')));   
   }
 
   public function action_delete()

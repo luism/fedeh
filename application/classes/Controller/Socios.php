@@ -271,11 +271,7 @@ class Controller_Socios extends Controller_Template_Base
     $this->template->content = View::factory('socios/descuentoplanilla')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Socios</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Socios',array('Descuento por planilla','active')));
   }
 
   /**

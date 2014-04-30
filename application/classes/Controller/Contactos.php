@@ -19,11 +19,7 @@ class Controller_Contactos extends Controller_Template_Base
     $this->template->content = View::factory('contactos/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Contactos</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Contactos',array('Listado','active')));
   }
 
   public function action_new()
@@ -78,6 +74,7 @@ class Controller_Contactos extends Controller_Template_Base
          //->bind('monto', $post['monto'])
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Contactos',array('Nuevo','active')));
   }
 
   public function action_edit()
@@ -130,6 +127,7 @@ class Controller_Contactos extends Controller_Template_Base
          //->bind('monto', $post['monto'])
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Contactos',array('Editar','active')));
   }
 
   public function action_delete()
@@ -179,10 +177,6 @@ class Controller_Contactos extends Controller_Template_Base
          ->bind('collection',$collection)
          ->bind('apellido',$apellido)
          ->bind('name',$name);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Contactos</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Contactos',array('Consultar','active')));
   }
 }

@@ -21,11 +21,7 @@ public function before(){
     $this->template->content = View::factory('judiciales/index')
     // Pasamos la variable collection con todos los registros traidos
          ->bind('collection',$collection);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Judiciales</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Judiciales',array('Listado','active')));
   }
 
   public function action_new()
@@ -88,6 +84,7 @@ public function before(){
          //->bind('monto', $post['monto'])
          ->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Judiciales',array('Nuevo','active')));
   }
 
   public function action_edit()
@@ -139,7 +136,8 @@ public function before(){
          //->set('monto', '')
          //->bind('tipos_aportes', $tipos_aportes)
          ->bind('subtitulo', $subtitulo)
-         ->bind('errors', $errors);   
+         ->bind('errors', $errors); 
+  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Judiciales',array('Editar','active'))); 
   }
 
   public function action_delete()
@@ -152,6 +150,7 @@ public function before(){
     $judicial->delete();
     $persona->delete();
     $this->redirect('judiciales/index');
+  
   }
 
   
@@ -201,11 +200,7 @@ public function before(){
          ->bind('apellido',$apellido)
          ->bind('name',$name)
          ->bind('nro_oficio',$nro_oficio);
-    $this->template->breadcrumb = "
-    <ol class=\"breadcrumb\">
-      <li><a href=\"#\">Home</a></li>
-      <li class=\"active\">Judiciales</li>
-    </ol>";
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Judiciales',array('Consulta','active')));
   }
 
   /**
