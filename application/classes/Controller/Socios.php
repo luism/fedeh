@@ -75,8 +75,10 @@ class Controller_Socios extends Controller_Template_Base
             # TODO: Deberíamos pasar esto a algun Callback
             $post_arr = $post->as_array();
             $monto = $post_arr['monto'];
+            $numero_ficha = $post_arr['numero_ficha'];
             $tipo_aporte = $post_arr['tipo_aporte'];
             $persona->generar_cuenta(1,$monto,$tipo_aporte);
+            $socio->asignar_ficha($numero_ficha);
             $socio->save();
             // ver a donde redireccionamos
             $this->redirect('socios/index');

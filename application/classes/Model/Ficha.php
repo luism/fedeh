@@ -8,6 +8,9 @@ class Model_Ficha extends ORM {
     protected $_has_many = array(
         'historial' => array('foreign_key' => 'ficha_id'),
     );
+    protected $_belongs_to = array(
+        'colaborador' => array('foreign_key' => 'colaborador_id')
+    );
 
     public function rules()
     {

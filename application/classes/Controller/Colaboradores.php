@@ -3,7 +3,7 @@
 class Controller_Colaboradores extends Controller_Template_Base
 {
 
-public function before(){
+  public function before(){
     parent::before();
     // Fix manual para fechas:
       if(isset($_POST['fecha_nacimiento']))
@@ -79,7 +79,7 @@ public function before(){
          ->bind('colaborador', $colaborador)
          //->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
-  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Nuevo','active')));
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Nuevo','active')));
   }
 
   public function action_edit()
@@ -134,7 +134,7 @@ public function before(){
          //->bind('tipos_aportes', $tipos_aportes)
          //->bind('subtitulo', $subtitulo)
          ->bind('errors', $errors);
-  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Editar','active')));
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Editar','active')));
   }
 
   public function action_delete()
@@ -195,7 +195,7 @@ public function before(){
          ->bind('apellido',$apellido)
          ->bind('name',$name)
          ->bind('doc',$doc);
-   $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Consultar','active')));
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Consultar','active')));
   }
 
   public function action_asignar()
@@ -243,6 +243,14 @@ public function before(){
          ->bind('errors',$errors)
          ->bind('colaboradores',$colaboradores);
     $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Asignar','active')));
+  }
+
+  public function action_resumen()
+  {
+    $colaboradores = ORM::factory('Colaborador')->find_all();
+    $this->template->content = View::factory('colaboradores/resumen')
+    ->bind('colaboradores', $colaboradores);
     
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Colaboradores',array('Resumen','active')));
   }
 }

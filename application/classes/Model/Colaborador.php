@@ -2,6 +2,7 @@
 
 class Model_Colaborador extends Model_Persona {
   protected $_belongs_to = array('persona' => array('foreign_key' => 'persona_id'));
+  protected $_has_many = array('fichas' => array('foreign_key' => 'colaborador_id'));
   protected $_table_name = 'colaboradores'; 
 
   public function rules()
