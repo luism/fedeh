@@ -5,7 +5,7 @@
 <!-- Form Name -->
 <?php echo Form::open('cuentas/nuevo_pago', array('role' => 'form', 'class' => 'form')); ?>
 
-  <?php if ($errors) { ?>
+  <?php if (isset($errors)) { ?>
   <div class="row">
     <!-- Mensajes de error -->
     <div class="alert-danger alert alert-dismissable">
@@ -24,7 +24,7 @@
   <fieldset>
   
   <!-- Comienza fila -->
-  <p class="bg-info"><legend><strong>Nuevo Pgo</strong></legend></p>
+  <p class="bg-info"><legend><strong>Nuevo Pago</strong></legend></p>
   <div class="row">
     <!--<legend>Nuevo</legend>-->
     

@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class Model_Socio extends Model_Persona {
+class Model_Socio extends Model_Persona implements JsonSerializable {
 
     protected $_belongs_to = array(
         'persona' => array('foreign_key' => 'persona_id')
@@ -107,5 +107,27 @@ class Model_Socio extends Model_Persona {
         {
             return $this->persona->nombre . ' ' . $this->persona->apellido;
         }
+    }
+
+    /**
+     * Usaremos la implementacion de JsonSerializable para poder crear un ojeto
+     * serializable en Json.
+     *
+     * Ejemplo tomado de : http://www.sitepoint.com/use-jsonserializable-interface/
+     *
+     * public function jsonSerialize()
+     * {
+     *     return [
+     *         'customer' => [
+     *             'name' => $this->name,
+     *             'email' => $this->email
+     *         ]
+     *     ];
+     * }
+     *
+     */
+    public function jsonSerialize()
+    {
+        return $this->as_array();
     }
 }
