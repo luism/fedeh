@@ -6,7 +6,7 @@
  * EL nombre del modelo debe conicidir con la tabla pero en singular
  * 
  */
-class Model_Persona extends Model_ORM_Template {
+class Model_Persona extends Model_ORM_Template  implements JsonSerializable {
     protected $_has_one = array(
         'socio' => array('foreign_key' => 'persona_id'),
         'judicial' => array('foreign_key' => 'persona_id'),
@@ -111,4 +111,8 @@ class Model_Persona extends Model_ORM_Template {
             return false;
     }
 
+    public function jsonSerialize()
+    {
+        return $this->as_array();
+    }
 }

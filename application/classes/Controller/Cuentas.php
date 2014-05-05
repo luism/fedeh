@@ -13,26 +13,52 @@ class Controller_Cuentas extends Controller_Template_Base
     public function action_nuevo_pago()
     {
         $linea_cc = ORM::factory('LineaCuentaCorriente');
+        $tipo_id = NULL;
+        // Generamos un array para poder armar un select con las personas
+        // disponibles para ingresar un nuevo pago
+        $data = ($this->request->method() === Request::POST) ? $this->request->post() : $this->request->query();
         if (isset($_POST) && Valid::not_empty($_POST))
         {
             $post = Validation::factory($_POST)
-              ->rule('detalle','not_empty')
+              ->rule('tipo_id','not_empty')
               ->rule('haber','not_empty')
-              ->rule('numero_comprobante','not_empty')
               ->rule('fecha_cta_cte','not_empty');
             if ($post->check())
             {
-                $linea_cc->values($post_>as_array(),array('detalle','haber','fecha_cta_cte',))
+                $linea_cc->values($post->as_array(),array('detalle','haber','fecha_cta_cte','numero_comprobante','fecha_comprobante'));
+                # Buscamos la persona
+
+                # Buscamos la cuenta si no la tiene la creamos
+
             }
-
+            else
+            {
+                $errors = $post->errors('LineaCuentaCorriente');
+            }
         }
-        $this->template->content = View::factory('cuentas/nuevo_pago')
-        ->bind('pago', $linea_cc);
-        $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio',array('Socios','active')));
-    }
 
-    public function action_pago()
-    {
+        $tipo_arr = array(
+            '' => '-- Seleccione tipo',
+            'socio' => 'Socio',
+            'judicial' => 'Judicial',
+            'contacto' => 'Contacto',
+            'empresa' => 'Empresa',
+            'paciente' => 'Paciente',
+        );
+        $personas = ORM::factory('Persona')
+            // Con esto
+            ->select(array(Db::expr('CONCAT(apellido,", ",nombre)'),'nombre_completo'))
+            ->order_by('apellido')
+            ->order_by('nombre')
+            ->find_all()
+            ->as_array('id','nombre_completo');
+        $this->template->content = View::factory('cuentas/nuevo_pago')
+        ->bind('errors',$errors)
+        ->bind('pago', $linea_cc)
+        ->bind('personas',$personas)
+        ->bind('tipo_id',$data['tipo_id'])
+        ->bind('tipo_arr', $tipo_arr);
+        $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Cuentas',array('Nuevo Pago','active')));
     }
 
     public function action_balance()

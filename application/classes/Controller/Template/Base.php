@@ -18,6 +18,7 @@ class Controller_Template_Base extends Controller_Template_Resources
     // Chequeamos si está logueado excepto para el controlador Account y el método login.
     if (!Auth::instance()->logged_in('participant') & $this->request->controller() != 'Account')
     {
+      // Guardo en sesion la url pedida
       $this->redirect('account/login');
     }
 
@@ -69,12 +70,14 @@ class Controller_Template_Base extends Controller_Template_Resources
           URL::base('http').'/assets/css/bootstrap.css' => 'all',
           URL::base('http').'/assets/css/navbar-fixed-top.css' => 'all',
           URL::base('http').'/assets/css/third-level-menu.css' => 'all',
+          'http://harvesthq.github.io/chosen/chosen.css' => 'all',
         );
       }
 
       $scripts = array(
-        'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
+        // 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
         URL::base('http').'/assets/js/bootstrap.min.js',
+        'http://harvesthq.github.io/chosen/chosen.jquery.js'
       );
   
       $this->template->styles = array_merge( $this->template->styles, $styles );

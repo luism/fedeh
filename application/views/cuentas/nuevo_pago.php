@@ -4,6 +4,7 @@
 
 <!-- Form Name -->
 <?php echo Form::open('cuentas/nuevo_pago', array('role' => 'form', 'class' => 'form')); ?>
+  <?php echo Form::hidden('csrf', Security::token()); ?>
 
   <?php if (isset($errors)) { ?>
   <div class="row">
@@ -22,77 +23,76 @@
   <?php } ?> 
 
   <fieldset>
-  
-  <!-- Comienza fila -->
-  <p class="bg-info"><legend><strong>Nuevo Pago</strong></legend></p>
-  <div class="row">
-    <!--<legend>Nuevo</legend>-->
-    
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <?php echo Form::input('nombre', '', array('class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus', 'required' => '')) ?>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="apellidos">Apellidos</label>
-        <?php echo Form::input('apellido', '', array('class' => 'form-control', 'placeholder' => 'Apellido', 'autofocus', 'required' => '')) ?>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="numero_ficha">Numero de Ficha</label>
-        <?php echo Form::input('numero_ficha', '', array('class' => 'form-control', 'placeholder' => 'Número de Ficha', 'autofocus', 'required' => '')) ?>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="">Donante</label>
-        <?php echo Form::checkbox('donante', 'donante', isset($post['donante']) ? TRUE : FALSE) ?>
-      </div>
-    </div>
-  </div><!-- Fin de fila -->
 
-  
-  
-  <!-- Comienza fila -->
-  <div class="row">
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="">Aporte</label>
-        <?php echo Form::select('tipo_aporte', array(), NULL, array('class'=>'form-control')) ?>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="monto">Monto</label>
-        <?php echo Form::input('monto', '', array('class' => 'form-control', 'placeholder' => 'Monto', 'autofocus', 'required' => '')) ?>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="">Des. por planilla</label>
-        <?php echo Form::checkbox('descuento_planilla', 'Descuento Planilla', isset($post['descuento_planilla']) ? TRUE : FALSE) ?>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="grupo_sanguineo">Grupo Sanguíneo</label>
-        <?php echo Form::input('grupo_sanguineo', '', array('class' => 'form-control', 'placeholder' => 'Grupo Sanguíneo', 'autofocus', 'required' => '')) ?>
-      </div>
-    </div>
-
-    <!-- Button (Double) -->
-    <div class="col-md-12">
-      <div class="form-group">
-        <div class="col-md-8">
-          <?php echo Form::submit('save', 'Guardar', array('id' => 'save', 'class' => 'btn btn-primary')); ?>
-          <?php echo Form::button('cancel', 'Cancelar', array('id' => 'cancel', 'class' => 'btn btn-danger')); ?>
+    <p class="bg-info"><legend><strong>Nuevo Pago</strong></legend></p>
+    <!-- Comienza fila -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Tipo entidad</label>
+          <?php echo Form::select('tipo_id', $tipo_arr, $tipo_id, array('class'=>'chosen tipo form-control')) ?>
         </div>
       </div>
-    </div>
-  </div><!-- Fin de fila -->
-  <br>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Persona</label>
+          <?php echo Form::select('persona_id', $personas, NULL, array('class'=>'chosen persona form-control')) ?>
+        </div>
+      </div>
+      <script type="text/javascript">
+      $(window).load(function(){
+        $('.chosen.persona').chosen({no_results_text: "No se encontro la persona"});
+      });
+      </script>
+    </div><!-- Fin de fila -->
+
+    <!-- Comienza fila -->
+    <div class="row">    
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="numero_ficha">Detalle</label>
+          <?php echo Form::input('detalle', $pago->detalle, array('class' => 'form-control', 'placeholder' => 'Detalle', 'autofocus', 'required' => '')) ?>
+        </div>
+      </div>
+    </div><!-- Fin de fila -->
+
+    <!-- Comienza fila -->
+    <div class="row">    
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="numero_ficha">Comprobante</label>
+          <?php echo Form::input('numero_comprobante', $pago->numero_comprobante, array('class' => 'form-control', 'placeholder' => 'Comprobante', 'autofocus')) ?>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="apellidos">Fecha Comprobante</label>
+          <?php echo Form::input('fecha_comprobante', $pago->fecha_comprobante, array('class' => 'form-control', 'placeholder' => 'Fecha Comprobante', 'autofocus')) ?>
+        </div>
+      </div>   
+      <div class="col-md-2">
+        <div class="form-group">
+          <!-- Haber -->
+          <label for="nombre">Monto</label>
+          <?php echo Form::input('haber', $pago->haber, array('class' => 'form-control', 'placeholder' => '$', 'autofocus', 'required' => '')) ?>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="apellidos">Fecha</label>
+          <?php echo Form::input('fecha_cta_cte', $pago->fecha_cta_cte, array('class' => 'form-control', 'placeholder' => 'Fecha', 'autofocus', 'required' => '')) ?>
+        </div>
+      </div>
+    </div><!-- Fin de fila -->
+      
+    <div class="row">
+      <!-- Button (Double) -->
+      <div class="col-md-12">
+        <div class="form-group">
+            <?php echo Form::submit('save', 'Guardar', array('id' => 'save', 'class' => 'btn btn-primary')); ?>
+            <?php echo Form::button('cancel', 'Cancelar', array('id' => 'cancel', 'class' => 'btn btn-danger')); ?>
+        </div>
+      </div>
+    </div><!-- Fin de fila -->
   </fieldset>
 <?php echo Form::close(); ?><!-- Fin de Formulario -->

@@ -107,7 +107,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cuentas/Cuotas <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="<?php echo URL::base('http') ?>cuentas/nuevo"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo</a></li>
-            <li><a href="<?php echo URL::base('http') ?>cuentas/nuevo_pago"><i class="glyphicon glyphicon-usd"></i>Ingresar Pago</a></li>
+            <li><?php echo HTML::anchor('/cuentas/nuevo_pago', '<i class="glyphicon glyphicon-usd"></i>Ingresar Pago</a>',NULL,'http',TRUE); ?></li>
             <li><a href="<?php echo URL::base('http') ?>cuentas/balance"><i class="glyphicon glyphicon-eye-open"></i>Ver balance</a></li>
           </ul>
         </li>

@@ -13,6 +13,7 @@
     <!-- Custom styles for this template -->
     <!-- Agregado para menues de mas de un nivel -->
     <?php foreach ($styles as $file => $type) echo HTML::style($file, array('media' => $type)), PHP_EOL ?>
+    <?php echo HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')?>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,6 +41,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <?php foreach ($scripts as $file) echo HTML::script($file), PHP_EOL ?>
-    <?php echo View::factory('profiler/stats') ?>
+    <!-- <?php echo View::factory('profiler/stats') ?> -->
   </body>
 </html>
