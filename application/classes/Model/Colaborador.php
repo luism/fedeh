@@ -26,7 +26,7 @@ class Model_Colaborador extends Model_Persona {
 
   public static function lista_colaboradores()
   {
-    $lista_colaboradores = [];
+    $lista_colaboradores = array();
     $colaboradores = ORM::factory('Colaborador');
     $collection = $colaboradores->find_all();
     foreach ($collection as $colaborador) {

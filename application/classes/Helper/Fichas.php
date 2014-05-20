@@ -66,11 +66,11 @@ class Helper_Fichas
                         <?php $fichas = Model_Socio::listar_fichas_disponibles() ?>
                         <?php foreach ($fichas as $ficha) { ?>
                         <tr>
-                          <td><input type="radio"></button></td>
+                          <!-- <td><input type="radio"></button></td> -->
                           <td><?php echo $ficha ?></td>
-                          <td>
+                          <!-- <td>
                             <a href="#" class="btn"><i class=""></i> <strong>+</strong></a>
-                          </td>
+                          </td> -->
                         </tr>      
                         <?php }?>
                       </tbody>

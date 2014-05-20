@@ -1,5 +1,9 @@
 -- Trigger DDL Statements
+USE `fedeh`;
+
 DELIMITER $$
+
+DROP TRIGGER IF EXISTS fedeh.socio_alta$$
 
 USE `fedeh`$$
 
@@ -16,6 +20,10 @@ BEGIN
 
 END$$
 
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS fedeh.socio_update$$
+
 CREATE
 DEFINER=`root`@`localhost`
 TRIGGER `fedeh`.`socio_update`
@@ -30,3 +38,27 @@ BEGIN
   END IF;
 
 END$$
+
+USE `fedeh`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS fedeh.socio_update$$
+USE `fedeh`$$
+
+
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `fedeh`.`socio_update`
+AFTER UPDATE ON `fedeh`.`socios`
+FOR EACH ROW
+BEGIN
+  -- Verificamos si se deshabilitó
+  IF NEW.deshabilitado THEN
+    INSERT INTO historial (accion,ficha_id,socio_id,fecha)
+
+    VALUES('desasigna.',OLD.ficha_id,NEW.id,NOW());
+  END IF;
+
+END$$
+DELIMITER ;
