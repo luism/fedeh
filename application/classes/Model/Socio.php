@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class Model_Socio extends Model_Persona implements JsonSerializable {
+class Model_Socio extends Model_Persona {
 
     protected $_belongs_to = array(
         'persona' => array('foreign_key' => 'persona_id')
