@@ -27,7 +27,7 @@ class Controller_Cuentas extends Controller_Template_Base
             {
                 $linea_cc->values($post->as_array(),array('detalle','haber','fecha_cta_cte','numero_comprobante','fecha_comprobante'));
                 # Buscamos la persona
-
+                
                 # Buscamos la cuenta si no la tiene la creamos
 
             }
@@ -63,5 +63,13 @@ class Controller_Cuentas extends Controller_Template_Base
 
     public function action_balance()
     {
+        $this->template->content = View::factory('cuentas/balance');
+        $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Cuentas', array('Balance', 'active')));
+    }
+
+    public function action_nuevo()
+    {
+        $this->template->content = View::factory('cuentas/nuevo');
+        $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Cuentas', array('Nuevo', 'active')));
     }
 }

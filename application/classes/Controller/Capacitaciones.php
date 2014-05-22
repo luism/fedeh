@@ -106,7 +106,7 @@ public function before(){
     $this->template->content = View::factory('capacitaciones/edit')
      ->bind('capacitacion', $capacitacion)
      ->bind('errors', $errors);
-  $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','capacitaciones',array('Editar','active')));
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','capacitaciones',array('Editar','active')));
   }
 
   public function action_delete()
@@ -116,5 +116,11 @@ public function before(){
     $capacitacion = ORM::factory('Capacitacion',$id);
     $capacitacion->delete();
     $this->redirect('capacitaciones/index');
+  }
+
+  public function action_inscripcion()
+  {
+    $this->template->content = View::factory('capacitaciones/inscripcion');
+    $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','capacitaciones',array('Nueva','active')));
   }
 }
