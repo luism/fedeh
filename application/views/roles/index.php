@@ -16,15 +16,17 @@
     </thead>
     <tbody>
       <?php foreach ($collection as $rol) { ?>
+      <? if ($rol->id > 3) { ?>
       <tr>
         <td><?php echo $rol->id ?></td>
-        <td><?php echo $rol->username ?></td>
-        <td><?php echo $rol->email ?></td>
+        <td><?php echo $rol->name ?></td>
+        <td><?php echo $rol->description ?></td>
         <td>
           <a href="#" class="btn"><i class="glyphicon glyphicon-edit"></i> <strong>Editar</strong></a>
           <a href="#" class="btn"><i class="glyphicon glyphicon-trash"></i> <strong>Borrar</strong></a>
         </td>
-      </tr>      
+      </tr>
+      <?php }?>      
       <?php }?>
     </tbody>
   </table>

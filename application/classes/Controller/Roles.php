@@ -16,13 +16,14 @@ class Controller_Roles extends Controller_Template_Base
   public function action_new()
   {
     // Mostramos formulario para nuevo rol
-    $this->template->content = View::factory('roles/form');
+    $this->template->content = View::factory('roles/new');
 
   }
 
   public function action_create()
   {
     // Creamos y guardamos el rol
+    $this->template->content = View::factory('roles/new');
   }
 
   public function update()
