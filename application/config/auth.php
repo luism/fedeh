@@ -4,7 +4,7 @@ return array(
 	'driver'       => 'ORM',
 	'hash_method'  => 'sha256',
 	'hash_key'     => 'fedehfundacion',
-	'lifetime'     => 2592000,
+	'lifetime'     => Date::MONTH,
 	'session_type' => Session::$default,
 	'session_key'  => 'auth_user',
 );

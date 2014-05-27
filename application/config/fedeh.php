@@ -3,8 +3,8 @@
 return array(
 	'encrypt_key' => 'fjdsjkfdskjfurew', 
 	'cookie_salt' => 'fjsdijeihrewhbfsugfuyegwufewgwb',
-	// 'cookie_lifetime' => DATETIME::YEAR,
-	'session_lifetime' => 0,
+	'cookie_lifetime' => Date::YEAR,
+	'session_lifetime' => 2592000,
 	'header' => array
 	(
 		'title' => 'Fundación FEDEH',

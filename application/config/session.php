@@ -10,13 +10,13 @@ return array(
 		 * integer  gc     number of requests before gc is invoked
 		 * columns  array  custom column names
 		 */
-		'name' => 'session',
-    'encrypted' => TRUE,
-    'lifetime' => Kohana::$config->load('fedeh.session_lifetime'),
-		'group'   => 'default',
-		'table'   => 'sessions',
-		'gc'      => 500,
-		'columns' => array(
+		'name' 		=> 'session',
+    	'encrypted' => TRUE,
+    	'lifetime' 	=> Kohana::$config->load('fedeh.session_lifetime'),
+		'group'   	=> 'default',
+		'table'   	=> 'sessions',
+		'gc'      	=> 500,
+		'columns' 	=> array(
 			/**
 			 * session_id:  session identifier
 			 * last_active: timestamp of the last activity
