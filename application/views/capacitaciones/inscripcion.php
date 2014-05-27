@@ -1,7 +1,7 @@
 <div class="row">
   <h2 class="">Inscripcion</h2>
 </div>
-<?php echo Form::open('capacitaciones/new', array('role' => 'form', 'class' => 'form')); ?>
+<?php echo Form::open('capacitaciones/new', array('role' => 'form', 'class' => 'form-horizontal')); ?>
   <?php if (isset($errors) && $errors) { ?>
   <div class="row">
     <!-- Mensajes de error -->
@@ -18,42 +18,34 @@
       </p>
     </div>
   </div>
-  <?php } ?> 
+  <?php } ?>
 
   <!-- Comienza fila -->
   <fieldset>
-    <div class="row">
-      <p class="bg-info"><legend><strong>Nuevo</strong></legend></p>          
+    
+  <legend>Nuevo</legend>
 
-      <div class="col-md-8">
-        <div class="form-group">
-          <label for="perona">Persona</label>
-          <?php echo Form::input('persona', '', array('class' => 'form-control', 'placeholder' => 'Persona', 'autofocus', 'required' => '')) ?>
-        </div>
-      </div>
-    </div><!-- Fin de fila -->
+  <div class="form-group">
+    <label class="control-label col-md-4" for="persona">Persona</label>
+    <div class="col-md-5">
+      <?php echo Form::input('persona', '', array('class' => 'form-control input-md', 'placeholder' => 'Persona', 'autofocus', 'required' => '')) ?>
+    </div>
+  </div>
 
-    <!-- Comienza fila -->
-    <div class="row">      
-      <div class="col-md-8">
-        <div class="form-group">
-          <label for="capacitacion">Capacitacion</label>
-          <?php echo Form::select('capacitacion_id', array('--Sleccione', 'Capacitacion 1', 'Capacitacion 2'), NULL, array('class'=>'form-control')) ?>
-        </div>
-      </div>
-    </div><!-- Fin de fila -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="capacitacion">Capacitacion</label>
+    <div class="col-md-5">
+      <?php echo Form::select('capacitacion_id', array('--Seleccione', 'Capacitacion 1', 'Capacitacion 2'), NULL, array('class'=>'form-control input-md')) ?>
+    </div>
+  </div>
 
-    <!-- Button (Double) -->
-    <div class="row">      
-      <div class="col-md-12">
-        <div class="form-group">
-          <div class="col-md-8">
-          <?php echo Form::submit('save', 'Guardar', array('id' => 'save', 'class' => 'btn btn-primary')); ?>
-          <?php echo Form::button('cancel', 'Cancelar', array('id' => 'cancel', 'class' => 'btn btn-danger')); ?>
-          </div>
-        </div>
-      </div>
-    </div><!-- Fin de fila -->
+  <div class="form-group">
+  <label class="col-md-4 control-label" for="save"></label>
+  <div class="col-md-4">
+      <?php echo Form::submit('save', 'Guardar', array('id' => 'save', 'class' => 'btn btn-primary')); ?>
+      <?php echo Form::button('cancel', 'Cancelar', array('id' => 'cancel', 'class' => 'btn btn-danger')); ?>
+  </div>
+  </div>
 
   </fieldset>
 <?php echo Form::close(); ?><!-- Fin de Formulario -->
