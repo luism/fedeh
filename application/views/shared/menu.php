@@ -137,10 +137,10 @@
           <ul class="dropdown-menu">
             <li><a href="<?php echo URL::base('http') ?>account/index"><i class="glyphicon glyphicon-list"></i>Listado</a></li>
             <li><a href="<?php echo URL::base('http') ?>account/create"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo</a></li>
-            <li class="divider"></li>
+            <!-- <li class="divider"></li>
             <li class="dropdown-header">Roles</li>
             <li><a href="<?php echo URL::base('http') ?>roles/index"><i class="glyphicon glyphicon-list"></i>Listado</a></li>
-            <li><a href="<?php echo URL::base('http') ?>roles/create"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo</a></li>
+            <li><a href="<?php echo URL::base('http') ?>roles/create"><i class="glyphicon glyphicon-plus-sign"></i>Nuevo</a></li> -->
           </ul>
         </li>
 

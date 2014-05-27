@@ -54,7 +54,7 @@
       </div>
 
       <!-- Select Basic -->
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label class="col-md-3 control-label" for="role">Rol</label>
         <div class="col-md-5">
           <select id="role" name="role" class="form-control">
@@ -62,7 +62,7 @@
             <option value="2">Option two</option>
           </select>
         </div>
-      </div>
+      </div> -->
 
       <!-- Button -->
       <!--<div class="form-group">
