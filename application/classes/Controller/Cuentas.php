@@ -21,13 +21,18 @@ class Controller_Cuentas extends Controller_Template_Base
         {
             $post = Validation::factory($_POST)
               ->rule('tipo_id','not_empty')
+              ->rule('persona_id','not_empty')
               ->rule('haber','not_empty')
               ->rule('fecha_cta_cte','not_empty');
             if ($post->check())
             {
                 $linea_cc->values($post->as_array(),array('detalle','haber','fecha_cta_cte','numero_comprobante','fecha_comprobante'));
                 # Buscamos la persona
+                $persona = ORM::factory('Persona',$post['persona_id']);
+                echo $persona->acreditar_pago($post);
+
                 
+                exit();
                 # Buscamos la cuenta si no la tiene la creamos
 
             }

@@ -30,18 +30,60 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="">Tipo entidad</label>
-          <?php echo Form::select('tipo_id', $tipo_arr, $tipo_id, array('class'=>'chosen tipo form-control')) ?>
+          <?php echo Form::select('tipo_id', $tipo_arr, $tipo_id, array('class'=>'chosen tipo form-control', 'onchange' => 'load_personas(this)')) ?>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="">Persona</label>
-          <?php echo Form::select('persona_id', $personas, NULL, array('class'=>'chosen persona form-control')) ?>
+          <?php echo Form::select('persona_id', NULL, NULL, array('id' => 'persona_id', 'class'=>'chosen persona form-control',
+          'disabled' => 'disabled')) ?>
         </div>
       </div>
       <script type="text/javascript">
       $(window).load(function(){
-        $('.chosen.persona').chosen({no_results_text: "No se encontro la persona"});
+        //$('.chosen.persona').chosen({no_results_text: "No se encontro la persona"});
+        load_personas = function(nodo){
+          var value = $(nodo).val();
+          // Using the core $.ajax() method
+          $.ajax({
+              // the URL for the request
+              url: "<?php echo URL::base('http') ?>personas/buscar",           
+              // the data to send (will be converted to a query string)
+              data: {
+                  entidad: value
+              },           
+              // whether this is a POST or GET request
+              type: "GET",           
+              // the type of data we expect back
+              dataType : "json",           
+              // code to run if the request succeeds;
+              // the response is passed to the function
+              success: function( json ) {
+                  // $( "<h1/>" ).text( json.title ).appendTo( "body" );
+                  // $( "<div class=\"content\"/>").html( json.html ).appendTo( "body" );
+                  select = $('#persona_id')
+                  select.html('')
+                  $.each(json,function(key, value) 
+                  {
+                    select.append('<option value=' + key + '>' + value + '</option>');
+                  });
+                  select.prop('disabled',false)
+              },           
+              // code to run if the request fails; the raw request and
+              // status codes are passed to the function
+              error: function( xhr, status, errorThrown ) {
+                  alert( "No se pudo cargar Personas para la entidad seleccionada.");
+                  console.log( "Error: " + errorThrown );
+                  console.log( "Status: " + status );
+                  console.dir( xhr );
+              },           
+              // code to run regardless of success or failure
+              complete: function( xhr, status ) {
+                  console.log( "Se cargó entidad: " + value );
+              }
+          });
+        }
       });
       </script>
     </div><!-- Fin de fila -->

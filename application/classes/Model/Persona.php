@@ -115,4 +115,16 @@ class Model_Persona extends Model_ORM_Template {
     {
         return $this->as_array();
     }
+
+    public function acreditar_pago($data = array())
+    {
+        # traemos la cuenta:
+        $cuenta = $this->plan_de_cuenta;
+        # Creamos un nuevo pago
+        $pago = ORM::factory('LineaCuentaCorriente');
+        $pago->values($data);
+        $cuenta->add('lineas_cuentas_corrientes', $pago)
+        
+        return TRUE;
+    }
 }
