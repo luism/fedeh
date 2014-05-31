@@ -2,23 +2,23 @@
     <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Ejemplo 1</h3>
+            <h3 class="panel-title">Fichas por colaboradores:</h3>
           </div>
           <div class="panel-body">
             <div class="" id="ejemplo1"></div>
           </div>
-          <div class="panel-footer">Total: $10.500,00</div>
+          <div class="panel-footer">Total de fichas activas: 500</div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Ejemplo 2</h3>
+            <h3 class="panel-title">Ingresos Ultimos 3 meses</h3>
           </div>
           <div class="panel-body">
             <div id="ejemplo2"></div>
           </div>
-          <div class="panel-footer">Panel footer</div>
+          <div class="panel-footer">Total Trimestre: $ 5.000,00</div>
         </div>
     </div>
     <div class="col-md-4">
@@ -61,10 +61,10 @@ var options1 = {
       type: 'column'
     },
     title: {
-      text: 'Cuotas Pagadas'
+      text: 'Fichas por Colaboradores'
     },
     xAxis: {
-      categories: ['Enero', 'Febrero', 'Marzo']
+      // categories: ['Enero', 'Febrero', 'Marzo']
     },
     yAxis: {
       title: {
@@ -170,11 +170,34 @@ var options1 = {
         ["Others", 0.7]
       ]
     }]
+  },
+  options4 = {
+    chart: {
+      type: 'bar'
+    },
+    title: {
+      text: 'Fichas por Colaboradores'
+    },
+    xAxis: {
+      categories: ['Enero', 'Febrero', 'Marzo']
+    },
+    yAxis: {
+      title: {
+        text: 'Cantidad de cuotas'
+      }
+    },
+    series: [{
+        name: 'Socios',
+        data: [50, 20, 30]
+      }, {
+        name: 'Judiciales',
+        data: [5, 7, 3]
+      }]
   }
 $(function () { 
   $('#ejemplo1').highcharts(options1);
   $('#ejemplo2').highcharts(options1);
-  $('#ejemplo3').highcharts(options1);
+  $('#ejemplo3').highcharts(options4);
   $('#ejemplo4').highcharts(options3);
   $('#ejemplo5').highcharts(options2);
 });              

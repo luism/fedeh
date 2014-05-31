@@ -14,11 +14,11 @@
     <!-- Agregado para menues de mas de un nivel -->
     <?php foreach ($styles as $file => $type) echo HTML::style($file, array('media' => $type)), PHP_EOL ?>
     <?php echo HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')?>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-      <script src="js/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
 
@@ -41,6 +41,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <?php foreach ($scripts as $file) echo HTML::script($file), PHP_EOL ?>
-    <?php echo View::factory('profiler/stats') ?>
+    <?php echo isset($_GET['profiler']) ? View::factory('profiler/stats') : '' ?>
   </body>
 </html>
