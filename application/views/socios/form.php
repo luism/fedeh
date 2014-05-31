@@ -30,7 +30,7 @@
     <!-- Form Name -->
     <!--<legend>Nuevo</legend>-->
 
-    <p class="bg-info"><legend><strong><?php echo $subtitulo ?></strong></legend></p>
+    <p class=""><legend><strong><?php echo $subtitulo ?></strong></legend></p>
 
     <div class="col-md-4">
       <div class="form-group">

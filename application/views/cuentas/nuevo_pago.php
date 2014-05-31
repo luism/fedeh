@@ -29,10 +29,19 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
+          <label for="numero_ficha">Tipo de pago</label>
+          <?php echo Form::select('tipo_pago', array('Cuota','Donacion'), 0, array('class'=>'chosen tipo form-control', 'onchange' => '')) ?>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
           <label for="">Tipo entidad</label>
           <?php echo Form::select('tipo_id', $tipo_arr, $tipo_id, array('class'=>'chosen tipo form-control', 'onchange' => 'load_personas(this)')) ?>
         </div>
       </div>
+    </div><!-- Fin de fila -->
+    <!-- Comienza fila -->
+    <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label for="">Persona</label>

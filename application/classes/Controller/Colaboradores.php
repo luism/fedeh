@@ -209,11 +209,13 @@ class Controller_Colaboradores extends Controller_Template_Base
 
       try
       {
+        # Desasgina las fichas que tenia el coalborador
         $query = DB::update('fichas')
                 ->set(array('colaborador_id' => NULL))
                 ->where('colaborador_id', '=', $colaborador_id);
                 echo $query;
         $query->execute();
+        # Asigna las nuevas fichas al colaborador
         $query = DB::update('fichas')
                 ->set(array('colaborador_id' => $colaborador_id))
                 ->where('id', '>=', $desde_ficha)
