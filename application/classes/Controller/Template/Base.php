@@ -77,6 +77,7 @@ class Controller_Template_Base extends Controller_Template_Resources
       $scripts = array(
         // 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
         URL::base('http').'/assets/js/bootstrap.min.js',
+        'http://code.highcharts.com/highcharts.js',
         'http://harvesthq.github.io/chosen/chosen.jquery.js'
       );
   
