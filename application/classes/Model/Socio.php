@@ -37,7 +37,7 @@ class Model_Socio extends Model_Persona {
             'numero_ficha' => array(),
             'monto' => array(),
             'ficha_id' => array(
-                array(array($this, 'is_unique')),
+                //array(array($this, 'is_unique')),
             ),
         );
     }

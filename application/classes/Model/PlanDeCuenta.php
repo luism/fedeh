@@ -46,7 +46,7 @@ class Model_PlanDeCuenta extends Model_ORM_Template {
 
       $cuota = new Model_LineaCuentaCorriente();
       $cuota->plan_de_cuenta_id = $this->id;
-      $cuota->debe = $monto;
+      $cuota->debe = $monto * (-1);
       $cuota->detalle = 'cuota';
       $cuota->tipo_cuenta_corriente_id = $tipo_linea_cc_id;
       # TODO: generar fechas de vencimientos para las cuotas.
@@ -79,7 +79,7 @@ class Model_PlanDeCuenta extends Model_ORM_Template {
 
       $cuota = new Model_LineaCuentaCorriente();
       $cuota->plan_de_cuenta_id = $this->id;
-      $cuota->debe = $monto;
+      $cuota->debe = $monto * (-1);
       $cuota->detalle = 'cuota';
       $cuota->tipo_cuenta_corriente_id = $tipo_linea_cc_id;
       # TODO: generar fechas de vencimientos para las cuotas.

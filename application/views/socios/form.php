@@ -123,8 +123,10 @@
     </div>
     <div class="col-md-2">
       <div class="form-group">
+        <?php if (!$socio->id) { ?>
         <label for="monto">Monto</label>
         <?php echo Form::input('monto', $socio->monto, array('class' => 'form-control', 'placeholder' => 'Monto', 'autofocus', 'required' => '')) ?>
+        <?php } ?>
       </div>
     </div>
     <div class="col-md-2">

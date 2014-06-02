@@ -23,7 +23,7 @@
       <?php foreach ($lineas_cuentas_corrientes as $i => $linea){ ?>
       <tr>
         <td><?php echo $i +1 ?></td>
-        <td><?php echo isset($linea->debe) ? '$ '.number_format($linea->debe,2,',','.') : '-'; ?></td>
+        <td><?php echo isset($linea->debe) ? '$ '.number_format($linea->debe * -1,2,',','.') : '-'; ?></td>
         <td><?php echo isset($linea->haber) ? '$ '.number_format($linea->haber,2,',','.') : '-'; ?></td>
         <td><?php echo $linea->detalle ?></td>
         <td><?php echo Helper_Date::format($linea->fecha_cta_cte) ?></td>

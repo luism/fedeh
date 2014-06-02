@@ -257,18 +257,11 @@ class Controller_Socios extends Controller_Template_Base
   {
 
     $socios = ORM::factory('Socio');
-
-    /*$query = DB::select()
-    ->from('socios')
-    ->join('personas')
-    ->on('socios.persona_id', '=', 'personas.id')
-    ->where('descuento_planilla', 'like', 0);
-    $collection = $query->as_object()->execute();
-    //$collection = $query->execute()->as_object();*/
     $collection = ORM::factory('Socio')
         ->join('personas')
         ->on('socio.persona_id', '=', 'personas.id')
         ->where('descuento_planilla', 'like', 0)
+        ->and_where('socio.deshabilitado', '=', 0)
         ->find_all();
 
 
