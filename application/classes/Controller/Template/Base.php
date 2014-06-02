@@ -61,22 +61,22 @@ class Controller_Template_Base extends Controller_Template_Resources
       if($this->is_account_login())
       {
         $styles = array(
-          URL::base('http').'/assets/css/bootstrap.css' => 'all',
-          URL::base('http').'/assets/css/signin.css' => 'all',
+          URL::base('http').'assets/css/bootstrap.css' => 'all',
+          URL::base('http').'assets/css/signin.css' => 'all',
         );
       } else
       {
         $styles = array(
-          URL::base('http').'/assets/css/bootstrap.css' => 'all',
-          URL::base('http').'/assets/css/navbar-fixed-top.css' => 'all',
-          URL::base('http').'/assets/css/third-level-menu.css' => 'all',
+          URL::base('http').'assets/css/bootstrap.css' => 'all',
+          URL::base('http').'assets/css/navbar-fixed-top.css' => 'all',
+          URL::base('http').'assets/css/third-level-menu.css' => 'all',
           'http://harvesthq.github.io/chosen/chosen.css' => 'all',
         );
       }
 
       $scripts = array(
         // 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js',
-        URL::base('http').'/assets/js/bootstrap.min.js',
+        URL::base('http').'assets/js/bootstrap.min.js',
         'http://code.highcharts.com/highcharts.js',
         'http://harvesthq.github.io/chosen/chosen.jquery.js'
       );
