@@ -54,7 +54,7 @@ public function before(){
           {
             $judicial->values(array('persona_id' => $persona->id));
             #Genero la cuenta para socio judicial
-            $persona->generar_cuentajudicial(2,$post->as_array()['monto_cuotas'],$post->as_array()['cantidad_cuotas']);
+            $persona->generar_cuentajudicial(2,$post['monto_cuotas'],$post['cantidad_cuotas']);
             //$persona->generar_cuentajudicial(2,$post->as_array()['monto_cuotas'],$tipo_aporte = 'mensual');
             $judicial->save();
             $this->redirect('judiciales/index');
