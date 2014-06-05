@@ -74,7 +74,36 @@ class Controller_Cuentas extends Controller_Template_Base {
 
     public function action_balance()
     {
-        $this->template->content = View::factory('cuentas/balance');
+        // $query_socio_debe_total = "call sp_socios_debe();";
+        // $query_socio_haber_total = "call sp_socios_haber();";
+        // $query_socio_total = "call sp_socios_total();";
+        // $socio_debe_total = DB::query(Database::SELECT, $query_socio_debe_total)->execute()->as_array();
+        // $socio_haber_total = DB::query(Database::SELECT, $query_socio_haber_total)->execute()->as_array();
+        // $socio_total = DB::query(Database::SELECT, $query_socio_total)->execute()->as_array();
+
+        // Socios
+        $query_socio_debe_total = "SELECT SUM(debe) as debe_total FROM personas p JOIN socios s ON p.id = s.persona_id JOIN plan_de_cuenta pc ON p.id = pc.persona_id JOIN lineas_ctas_corrientes lcc ON pc.id = lcc.plan_de_cuenta_id WHERE lcc.tipo_cuenta_corriente_id=1;";
+        $query_socio_haber_total = "SELECT SUM(haber) as haber_total FROM personas p JOIN socios s ON p.id = s.persona_id JOIN plan_de_cuenta pc ON p.id = pc.persona_id JOIN lineas_ctas_corrientes lcc ON pc.id = lcc.plan_de_cuenta_id WHERE lcc.tipo_cuenta_corriente_id=2;";
+        $query_socio_total = "SELECT SUM(haber)+SUM(debe) as total FROM personas p JOIN socios s ON p.id = s.persona_id JOIN plan_de_cuenta pc ON p.id = pc.persona_id JOIN lineas_ctas_corrientes lcc ON pc.id = lcc.plan_de_cuenta_id;";
+        $socio_debe_total = DB::query(Database::SELECT, $query_socio_debe_total)->execute()->as_array();
+        $socio_haber_total = DB::query(Database::SELECT, $query_socio_haber_total)->execute()->as_array();
+        $socio_total = DB::query(Database::SELECT, $query_socio_total)->execute()->as_array();
+
+
+        // Judiciales
+        $query_judicial_debe_total = "SELECT SUM(debe) as debe_total FROM personas p JOIN judiciales j ON p.id = j.persona_id JOIN plan_de_cuenta pc ON p.id = pc.persona_id JOIN lineas_ctas_corrientes lcc ON pc.id = lcc.plan_de_cuenta_id WHERE lcc.tipo_cuenta_corriente_id=1;";
+        $query_judicial_haber_total = "SELECT SUM(haber) as haber_total FROM personas p JOIN judiciales j ON p.id = j.persona_id JOIN plan_de_cuenta pc ON p.id = pc.persona_id JOIN lineas_ctas_corrientes lcc ON pc.id = lcc.plan_de_cuenta_id WHERE lcc.tipo_cuenta_corriente_id=2;";
+        $query_judicial_total = "SELECT SUM(haber)+SUM(debe) as total FROM personas p JOIN judiciales j ON p.id = j.persona_id JOIN plan_de_cuenta pc ON p.id = pc.persona_id JOIN lineas_ctas_corrientes lcc ON pc.id = lcc.plan_de_cuenta_id;";
+        $judicial_debe_total = DB::query(Database::SELECT, $query_judicial_debe_total)->execute()->as_array();
+        $judicial_haber_total = DB::query(Database::SELECT, $query_judicial_haber_total)->execute()->as_array();
+        $judicial_total = DB::query(Database::SELECT, $query_judicial_total)->execute()->as_array();
+        $this->template->content = View::factory('cuentas/balance')
+             ->bind('socio_debe_total', $socio_debe_total[0]['debe_total'])
+             ->bind('socio_haber_total', $socio_haber_total[0]['haber_total'])
+             ->bind('socio_total', $socio_total[0]['total'])
+             ->bind('judicial_debe_total', $judicial_debe_total[0]['debe_total'])
+             ->bind('judicial_haber_total', $judicial_haber_total[0]['haber_total'])
+             ->bind('judicial_total', $judicial_total[0]['total']);
         $this->template->breadcrumb = Helper_Application::breadcrumbs(array('Inicio','Cuentas', array('Balance', 'active')));
     }
 

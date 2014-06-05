@@ -10,11 +10,19 @@
     <p>Numero de Ficha: <?php echo $socio->numero_ficha ?></p>
     <!-- <p>Se genero la Cuenta: <?php echo $persona->tiene_cuenta() ? 'Si' : 'No <a href="#">Generar Cuenta</a>' ?></p> -->
     <p>Plan de cuenta: <?php echo $plan_de_cuenta->id ?></p>
+    <p>Domicilio: <?php echo $persona->domicilio_personal ?></p>
+    <p>Domicilio Laboral: <?php echo $socio->domicilio_laboral ?></p>
+    <p>Telefono: <?php echo $persona->telefono ?></p>
+    <p>E-Mail: <?php echo $persona->email ?></p>
+    <p>Documento:</p>
+    <p>Fecha de Nacimiento: <?php echo Helper_Date::format($socio->fecha_nacimiento, Helper_Date::DATE_ES); ?></p>
+    <p>Descuento por Planilla: <?php echo $socio->descuento_planilla ?></p>
+    <p>Grupo sanguíneo: <?php echo $socio->numero_ficha ?></p>
   </div>
   <!-- Table -->
     <table class="table table-striped">
       <tr>
-        <th>Cuota</th>
+        <th>Item</th>
         <th>Monto</th>
         <th>Pagado</th>
         <th>Detalle</th>
